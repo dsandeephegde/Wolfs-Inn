@@ -85,6 +85,28 @@ public class MainClass {
 					mc.updateCustomer(scan);
 					mc.showCustomers();
 					break;
+				
+				case 13://Show All Services
+					mc.showServices();
+					break;
+				
+				case 14://Add new Service
+					mc.addService(scan);
+					mc.showServices();
+					break;
+					
+				case 15://Delete Service
+					mc.showServices();
+					mc.deleteServiceById(scan);
+					mc.showServices();
+					break;
+				
+				case 16://Update Service
+					mc.showServices();
+					mc.updateService(scan);
+					mc.showServices();
+					break;
+						
 					
 				default:
 					System.out.println("case default");
@@ -119,6 +141,10 @@ public class MainClass {
 		System.out.println("10. Add new Customer");
 		System.out.println("11. Delete existing Customer");
 		System.out.println("12. Update existing Customer");
+		System.out.println("13. List All Services");
+		System.out.println("14. Add new Service");
+		System.out.println("15. Delete existing Service");
+		System.out.println("16. Update existing Service");
 		System.out.println("------------------------------");
 	}
 	
@@ -158,7 +184,7 @@ public class MainClass {
 	
 	private void showHotels() throws SQLException {
 		
-		String query = "select * from hotels";
+		String query = "select * from " + NS.HOTELS_TABLE;
 		
 		ResultSet result = getResult(query);
 		
@@ -199,7 +225,7 @@ public class MainClass {
 		String phNum = scan.nextLine();
 		
 		
-		String query = "Insert into hotels(" + NS.HOTELS_NAME + "," + NS.HOTELS_ADDRESS + "," + NS.HOTELS_CITY + ","
+		String query = "Insert into " + NS.HOTELS_TABLE + "(" + NS.HOTELS_NAME + "," + NS.HOTELS_ADDRESS + "," + NS.HOTELS_CITY + ","
 				+ NS.HOTELS_STATE + "," + NS.HOTELS_COUNTRY + "," + NS.HOTELS_PH_NUMBER + ") values('" + name + "','"
 				+ address + "','" + city + "','" + state + "','" + country + "'," + phNum + ")";
 		getResult(query);
@@ -211,7 +237,7 @@ public class MainClass {
 		System.out.println("Enter hotel ID : ");
 		String hotelId = scan.nextLine();
 		
-		String query = "Delete from hotels where " + NS.HOTELS_ID +" = " + hotelId;
+		String query = "Delete from " +  NS.HOTELS_TABLE + " where " + NS.HOTELS_ID +" = " + hotelId;
 		getResult(query);
 	}
 	
@@ -278,14 +304,14 @@ public class MainClass {
 			updateString += NS.HOTELS_MANAGER_ID + " = " +  managerId + "";
 		}
 		
-		String query = "Update hotels set " + updateString + " where " + NS.HOTELS_ID + " = " + hotelId;
+		String query = "Update " + NS.HOTELS_TABLE + " set " + updateString + " where " + NS.HOTELS_ID + " = " + hotelId;
 		getResult(query);
 		
 	}
 
 	private void showStaffs() throws SQLException {
 		
-		String query = "select * from staffs";
+		String query = "select * from " + NS.STAFFS_TABLE;
 		
 		ResultSet result = getResult(query);
 		
@@ -318,7 +344,7 @@ public class MainClass {
 		System.out.println("Enter staff ID : ");
 		String staffId = scan.nextLine();
 		
-		String query = "Delete from staffs where " + NS.STAFFS_ID +" = " + staffId;
+		String query = "Delete from " + NS.STAFFS_TABLE  + " where " + NS.STAFFS_ID +" = " + staffId;
 		getResult(query);
 	}
 	
@@ -345,7 +371,7 @@ public class MainClass {
 		String hotelId = scan.nextLine();
 		
 		
-		String query = "Insert into staffs(" + NS.STAFFS_NAME + "," + NS.STAFFS_AGE + "," + NS.STAFFS_JOB_TITLE + ","
+		String query = "Insert into " + NS.STAFFS_TABLE + "(" + NS.STAFFS_NAME + "," + NS.STAFFS_AGE + "," + NS.STAFFS_JOB_TITLE + ","
 				+ NS.STAFFS_PH_NUMBER + "," + NS.STAFFS_ADDRESS + "," + NS.STAFFS_CITY + "," + NS.STAFFS_STATE + ","
 				+ NS.STAFFS_COUNTRY + "," + NS.STAFFS_HOTEL_ID + ") values('" + name + "'," + age + ",'" + jobTitle
 				+ "','" + phNum + "','" + address + "','" + city + "','" + state + "','" + country + "'," + hotelId
@@ -432,14 +458,14 @@ public class MainClass {
 			updateString += NS.STAFFS_HOTEL_ID + " = " +  hotelId + "";
 		}
 		
-		String query = "Update staffs set " + updateString + " where " + NS.STAFFS_ID + " = " + staffId;
+		String query = "Update " + NS.STAFFS_TABLE + " set " + updateString + " where " + NS.STAFFS_ID + " = " + staffId;
 		getResult(query);
 		
 	}
 	
 	private void showCustomers() throws SQLException {
 		
-		String query = "select * from customers";
+		String query = "select * from " + NS.CUSTOMERS_TABLE;
 		
 		ResultSet result = getResult(query);
 		
@@ -472,7 +498,7 @@ public class MainClass {
 		System.out.println("Enter email : ");
 		String email = scan.nextLine();
 		
-		String query = "Insert into customers(" + NS.CUSTOMERS_NAME + "," + NS.CUSTOMERS_DOB + ","
+		String query = "Insert into " + NS.CUSTOMERS_TABLE + "(" + NS.CUSTOMERS_NAME + "," + NS.CUSTOMERS_DOB + ","
 				+ NS.CUSTOMERS_PH_NUMBER + "," + NS.CUSTOMERS_EMAIL + ") values('" + name + "','" + dob + "','" + phNum
 				+ "','" + email + "')";
 		getResult(query);
@@ -484,7 +510,7 @@ public class MainClass {
 		System.out.println("Enter customer ID : ");
 		String customerId = scan.nextLine();
 		
-		String query = "Delete from customers where " + NS.CUSTOMERS_ID +" = " + customerId;
+		String query = "Delete from " + NS.CUSTOMERS_TABLE + " where " + NS.CUSTOMERS_ID +" = " + customerId;
 		getResult(query);
 	}
 	
@@ -526,9 +552,80 @@ public class MainClass {
 			updateString += NS.CUSTOMERS_EMAIL + " = '" +  email + "'";
 		}
 		
-		String query = "Update customers set " + updateString + " where " + NS.CUSTOMERS_ID + " = " + customerId;
+		String query = "Update " + NS.CUSTOMERS_TABLE + " set " + updateString + " where " + NS.CUSTOMERS_ID + " = " + customerId;
 		getResult(query);
 		
 	}
 	
+	private void showServices() throws SQLException {
+		
+		String query = "select * from " + NS.SERVICES_TABLE;
+		
+		ResultSet result = getResult(query);
+		
+		if(result != null) {
+			
+			System.out.println("ServiceId" + " |"+ "name" + " |" + "basePrice");
+			System.out.println("---------------------------------------------------------------");
+			
+			while(result.next()) {
+				
+				int serviceId = result.getInt(NS.SERVICES_ID);
+				String name = result.getString(NS.SERVICES_NAME);
+                int basePrice = result.getInt(NS.SERVICES_BASE_PRICE);
+                		
+                System.out.println(serviceId + " |" + name + " |" + basePrice );
+			}
+		}
+	}
+	
+	private void addService(Scanner scan) throws SQLException {
+		
+		System.out.println("Enter Service name : ");
+		String name = scan.nextLine();
+		System.out.println("Enter base price : ");
+		String basePrice = scan.nextLine();
+	
+		String query = "Insert into " + NS.SERVICES_TABLE + "(" + NS.SERVICES_NAME + "," + NS.SERVICES_BASE_PRICE + ") values('" + name + "'," + basePrice + ")";
+		getResult(query);
+		
+	}
+	
+	
+	private void deleteServiceById(Scanner scan) throws SQLException {
+		
+		System.out.println("Enter service ID : ");
+		String serviceId = scan.nextLine();
+		
+		String query = "Delete from " + NS.SERVICES_TABLE + " where " + NS.SERVICES_ID +" = " + serviceId;
+		getResult(query);
+	}
+	
+	
+	private void updateService(Scanner scan) throws SQLException {
+		
+		System.out.println("Enter service ID to update : ");
+		String serviceId = scan.nextLine();
+		
+		String updateString = new String();
+		
+		System.out.println("Enter only update values");
+		System.out.println("Enter service name : ");
+		String name = scan.nextLine();
+		
+		if(!name.isEmpty())
+			updateString += NS.SERVICES_NAME + " = '" +  name + "'";
+		
+		System.out.println("Enter base price : ");
+		String basePrice = scan.nextLine();
+		
+		if(!basePrice.isEmpty()) {
+			updateString += (!updateString.isEmpty())? " , ":"" ; 
+			updateString += NS.SERVICES_BASE_PRICE + " = " +  basePrice ;
+		}
+		
+		String query = "Update " + NS.SERVICES_TABLE + " set " + updateString + " where " + NS.SERVICES_ID + " = " + serviceId;
+		getResult(query);
+		
+	}
 }
