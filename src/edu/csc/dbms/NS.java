@@ -44,5 +44,17 @@ public class NS {
 	static final String SERVICES_NAME = "name";
 	static final String SERVICES_BASE_PRICE = "basePrice";
 	
+	//Payment_Infos Table
+	static final String PAYMENT_INFOS_TABLE = "payment_infos";
+	
+	static final String PAYMENT_INFOS_ID = "paymentId";
+	static final String PAYMENT_INFOS_SSN = "SSN";
+	static final String PAYMENT_INFOS_BILLING_ADDRESS = "billingAddress";
+	static final String PAYMENT_INFOS_CITY = "City";
+	static final String PAYMENT_INFOS_STATE = "State";
+	static final String PAYMENT_INFOS_COUNTRY = "Country";
+	static final String PAYMENT_INFOS_PAYMENT_METHOD = "paymentMethod";
+	static final String PAYMENT_INFOS_CARD_NUM = "cardNumber";
+	static final String PAYMENT_INFOS_CUSTOMER_ID = "customerId";
 	
 }
