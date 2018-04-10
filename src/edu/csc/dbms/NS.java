@@ -24,4 +24,11 @@ public class NS {
 	static final String STAFFS_COUNTRY = "Country";
 	static final String STAFFS_HOTEL_ID = "hotelId";
 	
+	//Customer Table
+	static final String CUSTOMERS_ID = "customerId";
+	static final String CUSTOMERS_NAME = "name";
+	static final String CUSTOMERS_DOB = "dateOfBirth";
+	static final String CUSTOMERS_PH_NUMBER = "phoneNumber";
+	static final String CUSTOMERS_EMAIL = "email";
+	
 }

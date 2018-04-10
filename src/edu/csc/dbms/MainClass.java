@@ -59,11 +59,32 @@ public class MainClass {
 					mc.showStaffs();
 					break;
 				
-				case 8://Update Hotel
+				case 8://Update Staff
 					mc.showStaffs();
 					mc.updateStaff(scan);
 					mc.showStaffs();
 					break;	
+				
+				case 9://Show All Customers
+					mc.showCustomers();
+					break;
+				
+				case 10://Add new Customer
+					mc.addCustomer(scan);
+					mc.showCustomers();
+					break;
+					
+				case 11://Delete Staff
+					mc.showCustomers();
+					mc.deleteCustomerById(scan);
+					mc.showCustomers();
+					break;
+				
+				case 12://Update Hotel
+					mc.showCustomers();
+					mc.updateCustomer(scan);
+					mc.showCustomers();
+					break;
 					
 				default:
 					System.out.println("case default");
@@ -94,6 +115,10 @@ public class MainClass {
 		System.out.println("6. Add new Staff");
 		System.out.println("7. Delete existing Staff");
 		System.out.println("8. Update existing Staff");
+		System.out.println("9. List All Customers");
+		System.out.println("10. Add new Customer");
+		System.out.println("11. Delete existing Customer");
+		System.out.println("12. Update existing Customer");
 		System.out.println("------------------------------");
 	}
 	
@@ -159,7 +184,6 @@ public class MainClass {
 	}
 	
 	private void addHotel(Scanner scan) throws SQLException {
-		
 		
 		System.out.println("Enter hotel name : ");
 		String name = scan.nextLine();
@@ -241,7 +265,7 @@ public class MainClass {
 		System.out.println("Enter phone number : ");
 		String phNum = scan.nextLine();
 		
-		if(!country.isEmpty()) {
+		if(!phNum.isEmpty()) {
 			updateString += (!updateString.isEmpty())? " , ":"" ; 
 			updateString += NS.HOTELS_PH_NUMBER + " = '" +  phNum + "'";
 		}
@@ -412,4 +436,99 @@ public class MainClass {
 		getResult(query);
 		
 	}
+	
+	private void showCustomers() throws SQLException {
+		
+		String query = "select * from customers";
+		
+		ResultSet result = getResult(query);
+		
+		if(result != null) {
+			
+			System.out.println("CustomerId" + " |"+ "name" + " |" + "dateOfBirth" + " |" + "phNumber" + " |" + "email");
+			System.out.println("---------------------------------------------------------------");
+			
+			while(result.next()) {
+				
+				int customerId = result.getInt(NS.CUSTOMERS_ID);
+				String name = result.getString(NS.CUSTOMERS_NAME);
+				Date dob = result.getDate(NS.CUSTOMERS_DOB);
+                String phNumber = result.getString(NS.CUSTOMERS_PH_NUMBER);
+                String email = result.getString(NS.CUSTOMERS_EMAIL);
+                		
+                System.out.println(customerId + " |" + name + " |" + dob + " |" + phNumber + " |" + email );
+			}
+		}
+	}
+
+	private void addCustomer(Scanner scan) throws SQLException {
+		
+		System.out.println("Enter Customer name : ");
+		String name = scan.nextLine();
+		System.out.println("Enter DOB(YYYY-MM-DD) : ");
+		String dob = scan.nextLine();
+		System.out.println("Enter phone number : ");
+		String phNum = scan.nextLine();
+		System.out.println("Enter email : ");
+		String email = scan.nextLine();
+		
+		String query = "Insert into customers(" + NS.CUSTOMERS_NAME + "," + NS.CUSTOMERS_DOB + ","
+				+ NS.CUSTOMERS_PH_NUMBER + "," + NS.CUSTOMERS_EMAIL + ") values('" + name + "','" + dob + "','" + phNum
+				+ "','" + email + "')";
+		getResult(query);
+		
+	}
+	
+	private void deleteCustomerById(Scanner scan) throws SQLException {
+		
+		System.out.println("Enter customer ID : ");
+		String customerId = scan.nextLine();
+		
+		String query = "Delete from customers where " + NS.CUSTOMERS_ID +" = " + customerId;
+		getResult(query);
+	}
+	
+	private void updateCustomer(Scanner scan) throws SQLException {
+		
+		System.out.println("Enter customer ID to update : ");
+		String customerId = scan.nextLine();
+		
+		String updateString = new String();
+		
+		System.out.println("Enter only update values");
+		System.out.println("Enter customer name : ");
+		String name = scan.nextLine();
+		
+		if(!name.isEmpty())
+			updateString += NS.CUSTOMERS_NAME + " = '" +  name + "'";
+		
+		System.out.println("Enter DOB : ");
+		String dob = scan.nextLine();
+		
+		if(!dob.isEmpty()) {
+			updateString += (!updateString.isEmpty())? " , ":"" ; 
+			updateString += NS.CUSTOMERS_DOB + " = '" +  dob + "'";
+		}
+		
+		System.out.println("Enter phone number : ");
+		String phNum = scan.nextLine();
+		
+		if(!phNum.isEmpty()) {
+			updateString += (!updateString.isEmpty())? " , ":"" ; 
+			updateString += NS.CUSTOMERS_PH_NUMBER + " = '" +  phNum + "'";
+		}
+		
+		System.out.println("Enter email : ");
+		String email = scan.nextLine();
+		
+		if(!email.isEmpty()) {
+			updateString += (!updateString.isEmpty())? " , ":"" ; 
+			updateString += NS.CUSTOMERS_EMAIL + " = '" +  email + "'";
+		}
+		
+		String query = "Update customers set " + updateString + " where " + NS.CUSTOMERS_ID + " = " + customerId;
+		getResult(query);
+		
+	}
+	
 }
