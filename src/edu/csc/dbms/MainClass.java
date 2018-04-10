@@ -1,3 +1,4 @@
+package edu.csc.dbms;
 import java.sql.*;
 import java.util.Scanner;
 
@@ -111,14 +112,14 @@ public class MainClass {
 			
 			while(result.next()) {
 				
-				int hotelId = result.getInt("hotelId");
-				String name = result.getString("Name");
-                String address = result.getString("Address");
-                String city = result.getString("City");
-                String state = result.getString("State");
-                String country = result.getString("Country");
-                String phNumber = result.getString("phoneNumber");
-                int managerId = result.getInt("managerId");
+				int hotelId = result.getInt(NS.HOTELS_ID);
+				String name = result.getString(NS.HOTELS_NAME);
+                String address = result.getString(NS.HOTELS_ADDRESS);
+                String city = result.getString(NS.HOTELS_CITY);
+                String state = result.getString(NS.HOTELS_STATE);
+                String country = result.getString(NS.HOTELS_COUNTRY);
+                String phNumber = result.getString(NS.HOTELS_PH_NUMBER);
+                int managerId = result.getInt(NS.HOTELS_MANAGER_ID);
                 		
                 System.out.println(hotelId + " |" + name + " |" + address + " |" + city + " |" + state + " |" + country + " |" + phNumber + " |" + managerId);
 			}
@@ -142,7 +143,9 @@ public class MainClass {
 		String phNum = scan.nextLine();
 		
 		
-		String query = "Insert into hotels(name, address, city, state, country, phoneNumber) values('" + name + "','" + address + "','" + city + "','" + state + "','" + country + "'," + phNum + ")";
+		String query = "Insert into hotels(" + NS.HOTELS_NAME + "," + NS.HOTELS_ADDRESS + "," + NS.HOTELS_CITY + ","
+				+ NS.HOTELS_STATE + "," + NS.HOTELS_COUNTRY + "," + NS.HOTELS_PH_NUMBER + ") values('" + name + "','"
+				+ address + "','" + city + "','" + state + "','" + country + "'," + phNum + ")";
 		getResult(query);
 		
 	}
@@ -152,7 +155,7 @@ public class MainClass {
 		System.out.println("Enter hotel ID : ");
 		String hotelId = scan.nextLine();
 		
-		String query = "Delete from hotels where hotelId = " + hotelId;
+		String query = "Delete from hotels where " + NS.HOTELS_ID +" = " + hotelId;
 		getResult(query);
 	}
 	
