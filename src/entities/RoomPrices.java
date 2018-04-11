@@ -9,82 +9,82 @@ import edu.csc.dbms.NS;
 
 public class RoomPrices implements CRUD {
 
-	@Override
-	public void retrieve() throws SQLException {
-		
-		String query = "select * from "+NS.ROOM_PRICES_TABLE;
+    @Override
+    public void retrieve() throws SQLException {
 
-		ResultSet result = execute(query);
+        String query = "select * from " + NS.ROOM_PRICES_TABLE;
 
-		if(result != null) {
+        ResultSet result = execute(query);
 
-			System.out.println("category" + " |"+ "maxOccupancy" + " |" + "price");
-			System.out.println("---------------------------------------------------------------");
+        if (result != null) {
 
-			while(result.next()) {
+            System.out.println("category" + " |" + "maxOccupancy" + " |" + "price");
+            System.out.println("---------------------------------------------------------------");
 
-				String category = result.getString(NS.ROOM_PRICES_CATEGORY);
-				int maxOccupancy = result.getInt(NS.ROOM_PRICES_MAXOCCUPANCY);
-				int price = result.getInt(NS.ROOM_PRICES_PRICE);
+            while (result.next()) {
 
-				System.out.println(category + " |" + maxOccupancy + " |" + price );
-			}
-		}
+                String category = result.getString(NS.ROOM_PRICES_CATEGORY);
+                int maxOccupancy = result.getInt(NS.ROOM_PRICES_MAXOCCUPANCY);
+                int price = result.getInt(NS.ROOM_PRICES_PRICE);
 
-	}
+                System.out.println(category + " |" + maxOccupancy + " |" + price);
+            }
+        }
 
-	@Override
-	public void create(Scanner scan) throws SQLException {
-		
-		System.out.println("Enter category : ");
-		String category = scan.nextLine();
-		System.out.println("Enter maxOccupancy : ");
-		String maxOccupancy = scan.nextLine();
-		System.out.println("Enter price : ");
-		String price = scan.nextLine();
+    }
 
-		String query = "Insert into " + NS.ROOM_PRICES_TABLE + "(" + NS.ROOM_PRICES_CATEGORY + "," + NS.ROOM_PRICES_MAXOCCUPANCY + "," + NS.ROOM_PRICES_PRICE
-				+ ") values('" + category + "','"
-				+ maxOccupancy + "','" + price +"')";
-		execute(query);
+    @Override
+    public void create(Scanner scan) throws SQLException {
 
-	}
+        System.out.println("Enter category : ");
+        String category = scan.nextLine();
+        System.out.println("Enter maxOccupancy : ");
+        String maxOccupancy = scan.nextLine();
+        System.out.println("Enter price : ");
+        String price = scan.nextLine();
 
-	@Override
-	public void update(Scanner scan) throws SQLException {
-		
-		System.out.println("Enter category : ");
-		String category = scan.nextLine();
+        String query = "Insert into " + NS.ROOM_PRICES_TABLE + "(" + NS.ROOM_PRICES_CATEGORY + "," + NS.ROOM_PRICES_MAXOCCUPANCY + "," + NS.ROOM_PRICES_PRICE
+                + ") values('" + category + "','"
+                + maxOccupancy + "','" + price + "')";
+        execute(query);
 
-		System.out.println("Enter maxOccupancy : ");
-		String maxOccupancy = scan.nextLine();
+    }
 
-		String updateString = new String();
+    @Override
+    public void update(Scanner scan) throws SQLException {
 
-		System.out.println("Enter only update values");
-		System.out.println("Enter price : ");
-		String price = scan.nextLine();
+        System.out.println("Enter category : ");
+        String category = scan.nextLine();
 
-		if(!price.isEmpty())
-			updateString += NS.ROOM_PRICES_PRICE + " = " +  price;
+        System.out.println("Enter maxOccupancy : ");
+        String maxOccupancy = scan.nextLine();
 
-		String query = "Update " + NS.ROOM_PRICES_TABLE + " set " + updateString + " where " + NS.ROOM_PRICES_CATEGORY + " LIKE '" + category + "' and " + NS.ROOM_PRICES_MAXOCCUPANCY + " = '" + maxOccupancy +"'";
-		execute(query);
+        String updateString = new String();
 
-	}
+        System.out.println("Enter only update values");
+        System.out.println("Enter price : ");
+        String price = scan.nextLine();
 
-	@Override
-	public void delete(Scanner scan) throws SQLException {
-		
-		System.out.println("Enter category : ");
-		String category = scan.nextLine();
+        if (!price.isEmpty())
+            updateString += NS.ROOM_PRICES_PRICE + " = " + price;
 
-		System.out.println("Enter maxOccupancy : ");
-		String maxOccupancy = scan.nextLine();
+        String query = "Update " + NS.ROOM_PRICES_TABLE + " set " + updateString + " where " + NS.ROOM_PRICES_CATEGORY + " LIKE '" + category + "' and " + NS.ROOM_PRICES_MAXOCCUPANCY + " = '" + maxOccupancy + "'";
+        execute(query);
 
-		String query = "Delete from " + NS.ROOM_PRICES_TABLE + " where " + NS.ROOM_PRICES_CATEGORY + " = '" + category + "' AND " + NS.ROOM_PRICES_MAXOCCUPANCY + " = '" + maxOccupancy +"'";
-		execute(query);
+    }
 
-	}
+    @Override
+    public void delete(Scanner scan) throws SQLException {
+
+        System.out.println("Enter category : ");
+        String category = scan.nextLine();
+
+        System.out.println("Enter maxOccupancy : ");
+        String maxOccupancy = scan.nextLine();
+
+        String query = "Delete from " + NS.ROOM_PRICES_TABLE + " where " + NS.ROOM_PRICES_CATEGORY + " = '" + category + "' AND " + NS.ROOM_PRICES_MAXOCCUPANCY + " = '" + maxOccupancy + "'";
+        execute(query);
+
+    }
 
 }
