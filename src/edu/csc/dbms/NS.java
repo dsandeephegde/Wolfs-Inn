@@ -76,7 +76,7 @@ public class NS {
 	//CheckIns Table
 	static final String CHECK_INS_TABLE = "checkins";
 
-	static final String CHECK_INS_CHECKINID = "checkinId"
+	static final String CHECK_INS_CHECKINID = "checkinId";
 	static final String CHECK_INS_STARTDATE = "startDate";
 	static final String CHECK_INS_ENDDATE = "endDate";
 	static final String CHECK_INS_CHECKINTIME = "checkinTime";

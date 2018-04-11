@@ -239,6 +239,10 @@ public class MainClass {
 		System.out.println("26. Add new RoomPrice");
 		System.out.println("27. Delete existing RoomPrice");
 		System.out.println("28. Update existing RoomPrice");
+		System.out.println("29. List All Checkins");
+		System.out.println("30. Add new Checkin");
+		System.out.println("31. Delete existing Checkin");
+		System.out.println("32. Update existing Checkin");
 		System.out.println("------------------------------");
 	}
 	
@@ -1044,20 +1048,20 @@ public class MainClass {
 
 		if(result != null) {
 
-			System.out.println("checkinId" +"startDate" + " |"+ "endDate" + " |" + "checkinTime" + " |" + "checkoutTIme" + " |" + "numberOfGuests" + " |" + "total" + " |" + "customerId" + " |" + "hotelId" + " |" + "roomNumber" + " |" + "paymentId");
+			System.out.println("checkinId" +" |"+"startDate" + " |"+ "endDate" + " |" + "checkinTime" + " |" + "checkoutTIme" + " |" + "numberOfGuests" + " |" + "total" + " |" + "customerId" + " |" + "hotelId" + " |" + "roomNumber" + " |" + "paymentId");
 			System.out.println("---------------------------------------------------------------");
 
 			while(result.next()) {
 
 				int checkinId = result.getInt(NS.CHECK_INS_CHECKINID);
-				String startDate = result.getInt(NS.CHECK_INS_STARTDATE);
+				String startDate = result.getString(NS.CHECK_INS_STARTDATE);
 				String endDate = result.getString(NS.CHECK_INS_ENDDATE);
 				String checkinTime = result.getString(NS.CHECK_INS_CHECKINTIME);
 				String checkoutTime = result.getString(NS.CHECK_INS_CHECKOUTTIME);
 				int numberOfGuests = result.getInt(NS.CHECK_INS_NUMBEROFGUESTS);
 				int total = result.getInt(NS.CHECK_INS_TOTAL);
 				int customerId = result.getInt(NS.CHECK_INS_CUSTOMERID);
-				int hotelId = result.getString(NS.CHECK_INS_HOTELID);
+				int hotelId = result.getInt(NS.CHECK_INS_HOTELID);
 				int roomNumber = result.getInt(NS.CHECK_INS_ROOMNUMBER);
 				int paymentId = result.getInt(NS.CHECK_INS_PAYMENTID);
 
@@ -1095,7 +1099,7 @@ public class MainClass {
 				+ NS.CHECK_INS_ENDDATE + "," + NS.CHECK_INS_CHECKINTIME + "," + NS.CHECK_INS_CHECKOUTTIME + ","
 				+ NS.CHECK_INS_NUMBEROFGUESTS + "," + NS.CHECK_INS_TOTAL + "," + NS.CHECK_INS_CUSTOMERID
 				+ "," + NS.CHECK_INS_HOTELID + "," + NS.CHECK_INS_ROOMNUMBER + "," + NS.CHECK_INS_PAYMENTID +") values('" + startDate + "','" + endDate + "','" + checkinTime + "','"
-				+ checkoutTime + "','" + numberOfGuests + "','" + total + "','" + customerId + "'," + hotelId + "','" + roomNumber + "'," + paymentId + ")";
+				+ checkoutTime + "','" + numberOfGuests + "','" + total + "','" + customerId + "','" + hotelId + "','" + roomNumber + "','" + paymentId + "')";
 		getResult(query);
 
 	}
