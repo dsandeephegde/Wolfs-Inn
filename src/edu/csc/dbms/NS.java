@@ -65,4 +65,12 @@ public class NS {
 	static final String ROOMS_CATEGORY = "category";
 	static final String ROOMS_MAXOCCUPANCY = "maxOccupancy";
 	static final String ROOMS_AVAILABILITY = "availability";
+	
+	//Room Prices Table
+	static final String ROOM_PRICES_TABLE = "room_prices";
+
+	static final String ROOM_PRICES_CATEGORY = "category";
+	static final String ROOM_PRICES_MAXOCCUPANCY = "maxOccupancy";
+	static final String ROOM_PRICES_PRICE = "price";
+
 }

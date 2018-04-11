@@ -144,9 +144,29 @@ public class MainClass {
 					break;
 
 				case 24://Update Room
-					mc.showRooms();
-					mc.updateRoom(scan);
-					mc.showRooms();
+					mc.showRoomPrices();
+					mc.updateRoomPrices(scan);
+					mc.showRoomPrices();
+					break;
+				case 25:
+					mc.showRoomPrices();
+					break;
+
+				case 26:
+					mc.addRoomPrices(scan);
+					mc.showRoomPrices();
+					break;
+
+				case 27:
+					mc.showRoomPrices();
+					mc.deleteRoomPrices(scan);
+					mc.showRoomPrices();
+					break;
+
+				case 28://Update Room
+					mc.showRoomPrices();
+					mc.updateRoomPrices(scan);
+					mc.showRoomPrices();
 					break;
 
 				default:
@@ -194,6 +214,10 @@ public class MainClass {
 		System.out.println("22. Add new Room");
 		System.out.println("23. Delete existing Room");
 		System.out.println("24. Update existing Room");
+		System.out.println("25. List All RoomPrices");
+		System.out.println("26. Add new RoomPrice");
+		System.out.println("27. Delete existing RoomPrice");
+		System.out.println("28. Update existing RoomPrice");
 		System.out.println("------------------------------");
 	}
 	
@@ -918,5 +942,78 @@ public class MainClass {
 		getResult(query);
 
 	}
+	private void showRoomPrices() throws SQLException {
+
+		String query = "select * from "+NS.ROOM_PRICES_TABLE;
+
+		ResultSet result = getResult(query);
+
+		if(result != null) {
+
+			System.out.println("category" + " |"+ "maxOccupancy" + " |" + "price");
+			System.out.println("---------------------------------------------------------------");
+
+			while(result.next()) {
+
+				String category = result.getString(NS.ROOM_PRICES_CATEGORY);
+				int maxOccupancy = result.getInt(NS.ROOM_PRICES_MAXOCCUPANCY);
+				int price = result.getInt(NS.ROOM_PRICES_PRICE);
+
+				System.out.println(category + " |" + maxOccupancy + " |" + price );
+			}
+		}
+	}
+
+	private void addRoomPrices(Scanner scan) {
+
+
+		System.out.println("Enter category : ");
+		String category = scan.nextLine();
+		System.out.println("Enter maxOccupancy : ");
+		String maxOccupancy = scan.nextLine();
+		System.out.println("Enter price : ");
+		String price = scan.nextLine();
+
+		String query = "Insert into " + NS.ROOM_PRICES_TABLE + "(" + NS.ROOM_PRICES_CATEGORY + "," + NS.ROOM_PRICES_MAXOCCUPANCY + "," + NS.ROOM_PRICES_PRICE
+				+ ") values('" + category + "','"
+				+ maxOccupancy + "','" + price +"')";
+		getResult(query);
+
+	}
+
+	private void deleteRoomPrices(Scanner scan) {
+
+		System.out.println("Enter category : ");
+		String category = scan.nextLine();
+
+		System.out.println("Enter maxOccupancy : ");
+		String maxOccupancy = scan.nextLine();
+
+		String query = "Delete from " + NS.ROOM_PRICES_TABLE + " where " + NS.ROOM_PRICES_CATEGORY + " = '" + category + "' AND " + NS.ROOM_PRICES_MAXOCCUPANCY + " = '" + maxOccupancy +"'";
+		getResult(query);
+	}
+
+	private void updateRoomPrices(Scanner scan) throws SQLException {
+
+		System.out.println("Enter category : ");
+		String category = scan.nextLine();
+
+		System.out.println("Enter maxOccupancy : ");
+		String maxOccupancy = scan.nextLine();
+
+		String updateString = new String();
+
+		System.out.println("Enter only update values");
+		System.out.println("Enter price : ");
+		String price = scan.nextLine();
+
+		if(!price.isEmpty())
+			updateString += NS.ROOM_PRICES_PRICE + " = " +  price;
+
+		String query = "Update " + NS.ROOM_PRICES_TABLE + " set " + updateString + " where " + NS.ROOM_PRICES_CATEGORY + " LIKE '" + category + "' and " + NS.ROOM_PRICES_MAXOCCUPANCY + " = '" + maxOccupancy +"'";
+		getResult(query);
+
+	}
+
 
 }
