@@ -209,6 +209,20 @@ public class MainClass {
 					mc.updateBuys(scan);
 					mc.showBuys();
 					break;
+				case 37://Show Serves
+					mc.showServes();
+					break;
+
+				case 38://Add Serves
+					mc.addServes(scan);
+					mc.showServes();
+					break;
+
+				case 39:// Delete Serves
+					mc.showServes();
+					mc.deleteServes(scan);
+					mc.showServes();
+					break;
 
 				default:
 					System.out.println("case default");
@@ -267,6 +281,10 @@ public class MainClass {
 		System.out.println("34. Add new Buys");
 		System.out.println("35. Delete existing Buys");
 		System.out.println("36. Update existing Buys");
+		System.out.println("37. List All Serves");
+		System.out.println("38. Add new Serves");
+		System.out.println("39. Delete existing Serves");
+		//System.out.println("40. Update existing Serves");
 		System.out.println("------------------------------");
 	}
 	
@@ -1294,8 +1312,51 @@ private void showBuys() throws SQLException {
 			updateString += NS.BUYS_PRICE + " = '" +  price + "'";
 		
 		String query = "Update " + NS.BUYS_TABLE + " set " + updateString + " where " + NS.BUYS_SERVICEID +" = " + serviceId + " and " + NS.BUYS_CHECKINID +" = " + checkinId;
+		getResult(query);	
+	}
+private void showServes() throws SQLException {
+		
+		String query = "select * from " + NS.SERVES_TABLE;
+		
+		ResultSet result = getResult(query);
+		
+		if(result != null) {
+			
+			System.out.println("staffId" + " |"+ "checkinId");
+			System.out.println("---------------------------------------------------------------");
+			
+			while(result.next()) {
+				
+				int staffId = result.getInt(NS.SERVES_STAFFID);
+				int checkinId = result.getInt(NS.SERVES_CHECKINID);
+                		
+                System.out.println(staffId + " |" + checkinId );
+			}
+		}
+	}
+
+	private void addServes(Scanner scan) throws SQLException {
+		
+		System.out.println("Enter staffId: ");
+		String staffId = scan.nextLine();
+		System.out.println("Enter checkinId: ");
+		String checkinId = scan.nextLine();
+	
+		String query = "Insert into " + NS.SERVES_TABLE + "(" + NS.SERVES_STAFFID + "," + NS.SERVES_CHECKINID +
+				") values('" + staffId + "','" + checkinId + "')";
 		getResult(query);
 		
+	}
+	
+	private void deleteServes(Scanner scan) throws SQLException {
+		
+		System.out.println("Enter staffId : ");
+		String staffId = scan.nextLine();
+		System.out.println("Enter checkinId : ");
+		String checkinId = scan.nextLine();
+		
+		String query = "Delete from " + NS.SERVES_TABLE + " where " + NS.SERVES_STAFFID +" = " + staffId + " and " + NS.SERVES_CHECKINID +" = " + checkinId;
+		getResult(query);
 	}
 	
 }

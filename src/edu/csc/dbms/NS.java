@@ -98,7 +98,7 @@ public class NS {
 	//Serves Table
 	static final String SERVES_TABLE = "serves";
 	
-	static final String SERVES_SERVICEID = "staffId";
+	static final String SERVES_STAFFID = "staffId";
 	static final String SERVES_CHECKINID = "checkinId";
 
 }
