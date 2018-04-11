@@ -189,6 +189,26 @@ public class MainClass {
 					mc.updateCheckIn(scan);
 					mc.showCheckIns();
 					break;
+				case 33://Show Buys
+					mc.showBuys();
+					break;
+
+				case 34://Add Buys
+					mc.addBuys(scan);
+					mc.showBuys();
+					break;
+
+				case 35:// Delete Buys
+					mc.showBuys();
+					mc.deleteBuys(scan);
+					mc.showBuys();
+					break;
+
+				case 36://Update Buys
+					mc.showBuys();
+					mc.updateBuys(scan);
+					mc.showBuys();
+					break;
 
 				default:
 					System.out.println("case default");
@@ -243,6 +263,10 @@ public class MainClass {
 		System.out.println("30. Add new Checkin");
 		System.out.println("31. Delete existing Checkin");
 		System.out.println("32. Update existing Checkin");
+		System.out.println("33. List All Buys");
+		System.out.println("34. Add new Buys");
+		System.out.println("35. Delete existing Buys");
+		System.out.println("36. Update existing Buys");
 		System.out.println("------------------------------");
 	}
 	
@@ -1205,4 +1229,73 @@ public class MainClass {
 		getResult(query);
 
 	}
+private void showBuys() throws SQLException {
+		
+		String query = "select * from " + NS.BUYS_TABLE;
+		
+		ResultSet result = getResult(query);
+		
+		if(result != null) {
+			
+			System.out.println("serviceId" + " |"+ "checkinId" + " |" + "price");
+			System.out.println("---------------------------------------------------------------");
+			
+			while(result.next()) {
+				
+				int serviceId = result.getInt(NS.BUYS_SERVICEID);
+				int checkinId = result.getInt(NS.BUYS_CHECKINID);
+				int price = result.getInt(NS.BUYS_PRICE);
+                		
+                System.out.println(serviceId + " |" + checkinId + " |" + price );
+			}
+		}
+	}
+
+	private void addBuys(Scanner scan) throws SQLException {
+		
+		System.out.println("Enter serviceId: ");
+		String serviceId = scan.nextLine();
+		System.out.println("Enter checkinId: ");
+		String checkinId = scan.nextLine();
+		System.out.println("Enter price : ");
+		String price = scan.nextLine();
+		
+		String query = "Insert into " + NS.BUYS_TABLE + "(" + NS.BUYS_SERVICEID + "," + NS.BUYS_CHECKINID + ","
+				+ NS.BUYS_PRICE + ") values('" + serviceId + "','" + checkinId + "','" + price + "')";
+		getResult(query);
+		
+	}
+	
+	private void deleteBuys(Scanner scan) throws SQLException {
+		
+		System.out.println("Enter serviceId : ");
+		String serviceId = scan.nextLine();
+		System.out.println("Enter checkinId : ");
+		String checkinId = scan.nextLine();
+		
+		String query = "Delete from " + NS.BUYS_TABLE + " where " + NS.BUYS_SERVICEID +" = " + serviceId + " and " + NS.BUYS_CHECKINID +" = " + checkinId;
+		getResult(query);
+	}
+	
+	private void updateBuys(Scanner scan) throws SQLException {
+		
+		System.out.println("Enter serviceId to update : ");
+		String serviceId = scan.nextLine();
+		System.out.println("Enter checkinId : ");
+		String checkinId = scan.nextLine();
+		
+		String updateString = new String();
+		
+		System.out.println("Enter only update values");
+		System.out.println("Enter price: ");
+		String price = scan.nextLine();
+		
+		if(!price.isEmpty())
+			updateString += NS.BUYS_PRICE + " = '" +  price + "'";
+		
+		String query = "Update " + NS.BUYS_TABLE + " set " + updateString + " where " + NS.BUYS_SERVICEID +" = " + serviceId + " and " + NS.BUYS_CHECKINID +" = " + checkinId;
+		getResult(query);
+		
+	}
+	
 }

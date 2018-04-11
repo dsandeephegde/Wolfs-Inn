@@ -87,6 +87,19 @@ public class NS {
 	static final String CHECK_INS_HOTELID = "hotelId";
 	static final String CHECK_INS_ROOMNUMBER = "roomNumber";
 	static final String CHECK_INS_PAYMENTID = "paymentId";
+	
+	//Buys Table
+	static final String BUYS_TABLE = "buys";
+
+	static final String BUYS_SERVICEID = "serviceId";
+	static final String BUYS_CHECKINID = "checkinId";
+	static final String BUYS_PRICE = "price";
+	
+	//Serves Table
+	static final String SERVES_TABLE = "serves";
+	
+	static final String SERVES_SERVICEID = "staffId";
+	static final String SERVES_CHECKINID = "checkinId";
 
 }
-//(startDate, endDate, checkinTime, checkoutTime, numberOfGuests, total, customerId, hotelId, roomNumber, paymentId)
+
