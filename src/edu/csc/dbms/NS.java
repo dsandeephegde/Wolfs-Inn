@@ -56,5 +56,13 @@ public class NS {
 	static final String PAYMENT_INFOS_PAYMENT_METHOD = "paymentMethod";
 	static final String PAYMENT_INFOS_CARD_NUM = "cardNumber";
 	static final String PAYMENT_INFOS_CUSTOMER_ID = "customerId";
-	
+
+	//Room Table
+	static final String ROOMS_TABLE = "rooms";
+
+	static final String ROOMS_ROOMNUMBER = "roomNumber";
+	static final String ROOMS_HOTELID = "hotelId";
+	static final String ROOMS_CATEGORY = "category";
+	static final String ROOMS_MAXOCCUPANCY = "maxOccupancy";
+	static final String ROOMS_AVAILABILITY = "availability";
 }
