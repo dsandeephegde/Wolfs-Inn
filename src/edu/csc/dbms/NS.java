@@ -1,5 +1,10 @@
 package edu.csc.dbms;
 
+import java.sql.SQLException;
+import java.util.Scanner;
+
+import entities.*;
+
 public class NS {
 
 	//Hotel Table
@@ -101,52 +106,52 @@ public class NS {
 	public static final String SERVES_STAFFID = "staffId";
 	public static final String SERVES_CHECKINID = "checkinId";
 
-	
-	public static void listTasks() {
+	public static void listEntities(Scanner scan) throws SQLException {
 		
-		System.out.println("------------------------------");
-		System.out.println("1. List all Hotels");
-		System.out.println("2. Add new Hotel");
-		System.out.println("3. Delete existing Hotel");
-		System.out.println("4. Update existing Hotel");
-		System.out.println("5. List All Staff");
-		System.out.println("6. Add new Staff");
-		System.out.println("7. Delete existing Staff");
-		System.out.println("8. Update existing Staff");
-		System.out.println("9. List All Customers");
-		System.out.println("10. Add new Customer");
-		System.out.println("11. Delete existing Customer");
-		System.out.println("12. Update existing Customer");
-		System.out.println("13. List All Services");
-		System.out.println("14. Add new Service");
-		System.out.println("15. Delete existing Service");
-		System.out.println("16. Update existing Service");
-		System.out.println("17. List All PaymentInfos");
-		System.out.println("18. Add new PaymentInfo");
-		System.out.println("19. Delete existing PaymentInfo");
-		System.out.println("20. Update existing PaymentInfo");
-		System.out.println("21. List All Rooms");
-		System.out.println("22. Add new Room");
-		System.out.println("23. Delete existing Room");
-		System.out.println("24. Update existing Room");
-		System.out.println("25. List All RoomPrices");
-		System.out.println("26. Add new RoomPrice");
-		System.out.println("27. Delete existing RoomPrice");
-		System.out.println("28. Update existing RoomPrice");
-		System.out.println("29. List All Checkins");
-		System.out.println("30. Add new Checkin");
-		System.out.println("31. Delete existing Checkin");
-		System.out.println("32. Update existing Checkin");
-		System.out.println("33. List All Buys");
-		System.out.println("34. Add new Buys");
-		System.out.println("35. Delete existing Buys");
-		System.out.println("36. Update existing Buys");
-		System.out.println("37. List All Serves");
-		System.out.println("38. Add new Serves");
-		System.out.println("39. Delete existing Serves");
-		//System.out.println("40. Update existing Serves");
-		System.out.println("------------------------------");
-	}
-	
+		System.out.println("1. Hotels");
+		System.out.println("2. Staffs");
+		System.out.println("3. Customers");
+		System.out.println("4. CheckIns");
+		System.out.println("5. PaymentInfos");
+		System.out.println("6. Rooms");
+		System.out.println("7. RooomPrices");
+		System.out.println("8. Services");
+		System.out.println("9. Buys");
+		System.out.println("10. Serves");
+		
+		System.out.println();
+		System.out.print("Select the table :");
+		System.out.println();
+		
+		int option = Integer.parseInt(scan.nextLine());
+		CRUD entityObject = null;
+		
+		switch(option) {
+		
+		case 1: entityObject = new Hotels();
+				break;
+		case 2: entityObject = new Staffs();
+				break;
+		case 3: entityObject = new Customers();
+				break;
+		case 4: entityObject = new CheckIns();
+				break;
+		case 5: entityObject = new PaymentInfos();
+				break;
+		case 6: entityObject = new Rooms();
+				break;
+		case 7: entityObject = new RoomPrices();
+				break;
+		case 8: entityObject = new Services();
+				break;
+		case 9: entityObject = new Buys();
+				break;
+		case 10: entityObject = new Serves();
+		break;
+		}		
+		
+		CRUD.select(entityObject, scan);
+		
+	}	
 }
 
