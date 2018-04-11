@@ -73,4 +73,20 @@ public class NS {
 	static final String ROOM_PRICES_MAXOCCUPANCY = "maxOccupancy";
 	static final String ROOM_PRICES_PRICE = "price";
 
+	//CheckIns Table
+	static final String CHECK_INS_TABLE = "checkins";
+
+	static final String CHECK_INS_CHECKINID = "checkinId"
+	static final String CHECK_INS_STARTDATE = "startDate";
+	static final String CHECK_INS_ENDDATE = "endDate";
+	static final String CHECK_INS_CHECKINTIME = "checkinTime";
+	static final String CHECK_INS_CHECKOUTTIME = "checkoutTIme";
+	static final String CHECK_INS_NUMBEROFGUESTS = "numberOfGuests";
+	static final String CHECK_INS_TOTAL = "total";
+	static final String CHECK_INS_CUSTOMERID = "customerId";
+	static final String CHECK_INS_HOTELID = "hotelId";
+	static final String CHECK_INS_ROOMNUMBER = "roomNumber";
+	static final String CHECK_INS_PAYMENTID = "paymentId";
+
 }
+//(startDate, endDate, checkinTime, checkoutTime, numberOfGuests, total, customerId, hotelId, roomNumber, paymentId)
