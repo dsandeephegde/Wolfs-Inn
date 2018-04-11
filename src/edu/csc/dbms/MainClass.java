@@ -144,9 +144,9 @@ public class MainClass {
 					break;
 
 				case 24://Update Room
-					mc.showPaymentInfos();
+					mc.showRooms();
 					mc.updateRoom(scan);
-					mc.showPaymentInfos();
+					mc.showRooms();
 					break;
 
 				default:
@@ -190,6 +190,10 @@ public class MainClass {
 		System.out.println("18. Add new PaymentInfo");
 		System.out.println("19. Delete existing PaymentInfo");
 		System.out.println("20. Update existing PaymentInfo");
+		System.out.println("21. List All Rooms");
+		System.out.println("22. Add new Room");
+		System.out.println("23. Delete existing Room");
+		System.out.println("24. Update existing Room");
 		System.out.println("------------------------------");
 	}
 	
@@ -821,7 +825,7 @@ public class MainClass {
 
 	private void showRooms() throws SQLException {
 
-		String query = "select * from rooms";
+		String query = "select * from "+NS.ROOMS_TABLE;
 
 		ResultSet result = getResult(query);
 
@@ -857,9 +861,9 @@ public class MainClass {
 		System.out.println("Enter availability : ");
 		String availability = scan.nextLine();
 
-		String query = "Insert into hotels(" + NS.ROOMS_ROOMNUMBER + "," + NS.ROOMS_HOTELID + "," + NS.ROOMS_CATEGORY + ","
+		String query = "Insert into " + NS.ROOMS_TABLE + "(" + NS.ROOMS_ROOMNUMBER + "," + NS.ROOMS_HOTELID + "," + NS.ROOMS_CATEGORY + ","
 				+ NS.ROOMS_MAXOCCUPANCY + "," + NS.ROOMS_AVAILABILITY + ") values('" + roomNumber + "','"
-				+ hotelId + "','" + category + "','" + maxOccupancy + "','" + availability +")";
+				+ hotelId + "','" + category + "','" + maxOccupancy + "','" + availability +"')";
 		getResult(query);
 
 	}
@@ -872,7 +876,7 @@ public class MainClass {
 		System.out.println("Enter hotel ID : ");
 		String hotelId = scan.nextLine();
 
-		String query = "Delete from hotels where " + NS.ROOMS_ROOMNUMBER + " = " + roomNumber + "AND" + NS.ROOMS_HOTELID + " = " + hotelId;
+		String query = "Delete from " + NS.ROOMS_TABLE + " where " + NS.ROOMS_ROOMNUMBER + " = " + roomNumber + " AND " + NS.ROOMS_HOTELID + " = " + hotelId;
 		getResult(query);
 	}
 
@@ -910,7 +914,7 @@ public class MainClass {
 			updateString += NS.ROOMS_AVAILABILITY + " = '" +  availability + "'";
 		}
 
-		String query = "Update " + NS.ROOMS_TABLE + " set " + updateString + " where " + NS.ROOMS_ROOMNUMBER + " = " + roomNumber + "and" + NS.ROOMS_HOTELID + " = " + hotelId;
+		String query = "Update " + NS.ROOMS_TABLE + " set " + updateString + " where " + NS.ROOMS_ROOMNUMBER + " = " + roomNumber + " and " + NS.ROOMS_HOTELID + " = " + hotelId;
 		getResult(query);
 
 	}
