@@ -17,7 +17,7 @@ public class Main {
                 //NS.listTasks();
 
                 System.out.println("1. CRUD operations");
-                System.out.println("2. Task and Operations");
+                System.out.println("2. Task1 - Information Processing");
 
                 System.out.println();
                 System.out.print("Select the task :");
@@ -33,7 +33,12 @@ public class Main {
                         break;
 
                     case 2: //task
-
+                    	Info_Processing ip =new Info_Processing();
+                    	ip.info_processing();
+                    	break;
+                    	
+                    	default:
+                    		System.out.println("Please Enter a valid option");
                 }
 
                 System.out.println();
@@ -49,5 +54,6 @@ public class Main {
 
         System.out.println("Thank you for using Wolfs Inn");
     }
+    
 
 }
