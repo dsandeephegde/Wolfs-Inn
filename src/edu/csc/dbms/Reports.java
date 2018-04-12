@@ -16,6 +16,8 @@ public class Reports {
         System.out.println("6. Occupancy by hotel");
         System.out.println("7. Occupancy by city");
         System.out.println("8. Occupancy by category");
+        System.out.println("9. Occupancy for a Date Range");
+        System.out.println("10. Get Occupancy");
 
         System.out.println();
         System.out.print("Select the Report to be generated :");
@@ -46,6 +48,12 @@ public class Reports {
                 break;
             case 8:
                 getOccupancyBy("Category");
+                break;
+            case 9:
+                getOccupancyByDateRange();
+                break;
+            case 10:
+                getOccupancies();
                 break;
             default:
                 System.out.println("Please Enter a valid option ....");
@@ -184,6 +192,86 @@ public class Reports {
                 float totalOccupancy = result.getFloat("TotalOccupancy");
 
                 System.out.println(name + " |" + occupancyPercentage + " |" + totalOccupancy);
+            }
+        }
+    }
+
+    private void getOccupancyByDateRange() throws SQLException {
+        System.out.println("Enter startDate : ");
+        String startDate = scan.nextLine();
+        System.out.println("Enter endDate : ");
+        String endDate = scan.nextLine();
+
+        String query = "SELECT (occupied.counter/room.counter)*100 as OccupancyPercentage, occupied.counter as TotalOccupancy FROM " +
+                "(SELECT count(*) as counter FROM Rooms r, Hotels h, Checkins c " +
+                "WHERE h.hotelId=r.hotelId and r.roomNumber = c.roomNumber and r.hotelId = c.hotelId and " +
+                "((endDate BETWEEN '"+startDate+"' AND '"+endDate+"') or " +
+                "(startDate BETWEEN '"+startDate+"' AND '"+endDate+"') or " +
+                "(endDate > '"+endDate+"' AND startDate < '"+startDate+"'))) occupied, " +
+                "(SELECT count(*) as counter FROM Rooms) room";
+
+        ResultSet result = DBUtil.executeQuery(query);
+        if (result != null) {
+            System.out.println("Occupancy Percentage" + " |" + "Total Occupancy");
+            System.out.println("---------------------------------------------------------------");
+
+            while (result.next()) {
+                float occupancyPercentage = result.getFloat("OccupancyPercentage");
+                float totalOccupancy = result.getFloat("TotalOccupancy");
+
+                System.out.println(occupancyPercentage + " |" + totalOccupancy);
+            }
+        }
+    }
+
+    private void getOccupancies() throws SQLException {
+        String query;
+        query = "SELECT Name AS Hotel_Name, (COUNT(CASE WHEN availability = false THEN 1 ELSE null END)/COUNT(*))*100 OccupancyPercentage, COUNT(CASE WHEN availability = false THEN 1 ELSE null END) AS TotalOccupancy FROM Rooms NATURAL JOIN Hotels";
+        String whereClause = "";
+        String message = "Occupancy for ";
+
+        System.out.println("Enter hotel ID: ");
+        String hotelId = scan.nextLine();
+        if (!hotelId.isEmpty()) {
+            whereClause += (!whereClause.isEmpty()) ? " AND " : " WHERE ";
+            whereClause += Constants.HOTELS_ID + " = " + hotelId;
+            message += Constants.HOTELS_ID + " " + hotelId + " ";
+        }
+
+        System.out.println("Enter City : ");
+        String city = scan.nextLine();
+
+        if (!city.isEmpty()) {
+            whereClause += (!whereClause.isEmpty()) ? " AND " : " WHERE ";
+            whereClause += Constants.HOTELS_CITY + " = '" + city + "'";
+            message += Constants.HOTELS_CITY + " " + city + " ";
+        }
+
+        System.out.println("Enter Category : ");
+        String category = scan.nextLine();
+
+        if (!category.isEmpty()) {
+            whereClause += (!whereClause.isEmpty()) ? " AND " : " WHERE ";
+            whereClause += Constants.ROOMS_CATEGORY + " = '" + category + "'";
+            message += Constants.ROOMS_CATEGORY + " " + category + " ";
+        }
+        query += whereClause;
+
+        ResultSet result = DBUtil.executeQuery(query);
+        if (result != null) {
+            if(!message.equals("Occupancy for ")) {
+                System.out.println(message);
+            } else {
+                System.out.println("Occupancy for all the hotels");
+            }
+            System.out.println();
+            System.out.println("Occupancy Percentage" + " |" + "Total Occupancy");
+            System.out.println("---------------------------------------------------------------");
+
+            while (result.next()) {
+                float occupancyPercentage = result.getFloat("OccupancyPercentage");
+                float totalOccupancy = result.getFloat("TotalOccupancy");
+                System.out.println(occupancyPercentage + " |" + totalOccupancy);
             }
         }
     }
