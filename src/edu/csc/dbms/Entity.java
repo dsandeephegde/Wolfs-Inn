@@ -3,17 +3,17 @@ package edu.csc.dbms;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public interface CRUD {
+public interface Entity {
 
-    public void retrieve() throws SQLException;
+    void retrieve() throws SQLException;
 
-    public void create(Scanner scan) throws SQLException;
+    void create(Scanner scan) throws SQLException;
 
-    public void update(Scanner scan) throws SQLException;
+    void update(Scanner scan) throws SQLException;
 
-    public void delete(Scanner scan) throws SQLException;
+    void delete(Scanner scan) throws SQLException;
 
-    static void select(CRUD entityObject, Scanner scan) throws SQLException {
+    default void crudOperations(Scanner scan) throws SQLException {
 
         System.out.println("1. Show all entries");
         System.out.println("2. Create new entry");
@@ -30,24 +30,24 @@ public interface CRUD {
         switch (selected) {
 
             case 1:
-                entityObject.retrieve();
+                retrieve();
                 break;
 
             case 2:
-                entityObject.create(scan);
-                entityObject.retrieve();
+                create(scan);
+                retrieve();
                 break;
 
             case 3:
-                entityObject.retrieve();
-                entityObject.update(scan);
-                entityObject.retrieve();
+                retrieve();
+                update(scan);
+                retrieve();
                 break;
 
             case 4:
-                entityObject.retrieve();
-                entityObject.delete(scan);
-                entityObject.retrieve();
+                retrieve();
+                delete(scan);
+                retrieve();
                 break;
         }
 

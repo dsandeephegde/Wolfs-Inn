@@ -4,11 +4,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import edu.csc.dbms.CRUD;
+import edu.csc.dbms.Entity;
 import edu.csc.dbms.Constants;
 import edu.csc.dbms.DBUtil;
 
-public class Hotels implements CRUD {
+public class Hotels implements Entity {
 
     @Override
     public void retrieve() throws SQLException {
@@ -140,5 +140,4 @@ public class Hotels implements CRUD {
         DBUtil.executeQuery(query);
 
     }
-
 }

@@ -4,11 +4,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import edu.csc.dbms.CRUD;
+import edu.csc.dbms.Entity;
 import edu.csc.dbms.Constants;
 import edu.csc.dbms.DBUtil;
 
-public class Buys implements CRUD {
+public class Buys implements Entity {
 
     @Override
     public void retrieve() throws SQLException {

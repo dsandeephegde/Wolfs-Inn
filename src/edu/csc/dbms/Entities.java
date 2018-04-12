@@ -7,7 +7,7 @@ import entities.*;
 
 public class Entities {
 
-    public static void list(Scanner scan) throws SQLException {
+    public static void crudOperations(Scanner scan) throws SQLException {
 
         System.out.println("1. Hotels");
         System.out.println("2. Staffs");
@@ -25,43 +25,44 @@ public class Entities {
         System.out.println();
 
         int option = Integer.parseInt(scan.nextLine());
-        CRUD entityObject = null;
+        Entity entity;
 
         switch (option) {
 
             case 1:
-                entityObject = new Hotels();
+                entity = new Hotels();
                 break;
             case 2:
-                entityObject = new Staffs();
+                entity = new Staffs();
                 break;
             case 3:
-                entityObject = new Customers();
+                entity = new Customers();
                 break;
             case 4:
-                entityObject = new CheckIns();
+                entity = new CheckIns();
                 break;
             case 5:
-                entityObject = new PaymentInfos();
+                entity = new PaymentInfos();
                 break;
             case 6:
-                entityObject = new Rooms();
+                entity = new Rooms();
                 break;
             case 7:
-                entityObject = new RoomPrices();
+                entity = new RoomPrices();
                 break;
             case 8:
-                entityObject = new Services();
+                entity = new Services();
                 break;
             case 9:
-                entityObject = new Buys();
+                entity = new Buys();
                 break;
             case 10:
-                entityObject = new Serves();
+                entity = new Serves();
                 break;
+            default:
+                return;
         }
-
-        CRUD.select(entityObject, scan);
+        entity.crudOperations(scan);
 
     }
 }

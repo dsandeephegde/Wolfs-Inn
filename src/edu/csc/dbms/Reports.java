@@ -5,8 +5,8 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Reports {
-    public void operations(Scanner scan) throws SQLException
-    {
+
+    public void operations(Scanner scan) throws SQLException {
         System.out.println("1. Revenue earned by all hotels");
         System.out.println("2. Revenue earned by a hotel");
 
@@ -15,12 +15,14 @@ public class Reports {
         System.out.println();
 
         int option = Integer.parseInt(scan.nextLine());
-        switch (option)
-        {
+        switch (option) {
             case 1:
-
+                getRevenue(scan);
                 break;
-            default :
+            case 2:
+                getRevenueByHotel(scan);
+                break;
+            default:
                 System.out.println("Please Enter a valid option ....");
         }
     }
@@ -31,7 +33,7 @@ public class Reports {
         System.out.println("Enter endDate : ");
         String endDate = scan.nextLine();
 
-        String query = "SELECT hotelId, name, sum(total) AS Revenue FROM Checkins NATURAL JOIN Hotels WHERE endDate > '"+ startDate + "' AND endDate < '"+ endDate +"' GROUP BY hotelId";
+        String query = "SELECT hotelId, name, sum(total) AS Revenue FROM checkins NATURAL JOIN hotels WHERE endDate > '" + startDate + "' AND endDate < '" + endDate + "' GROUP BY hotelId";
         ResultSet result = DBUtil.executeQuery(query);
         if (result != null) {
             System.out.println("HotelId" + " |" + "name" + " |" + "Revenue");
@@ -55,7 +57,7 @@ public class Reports {
         System.out.println("Enter endDate : ");
         String endDate = scan.nextLine();
 
-        String query = "SELECT hotelId, name, sum(total) AS Revenue FROM Checkins NATURAL JOIN Hotels WHERE endDate > '"+ startDate + "' AND endDate < '"+ endDate +"' AND hotelId="+ hotelId;
+        String query = "SELECT hotelId, name, sum(total) AS Revenue FROM checkins NATURAL JOIN hotels WHERE endDate > '" + startDate + "' AND endDate < '" + endDate + "' AND hotelId=" + hotelId;
         ResultSet result = DBUtil.executeQuery(query);
         if (result != null) {
             System.out.println("name" + " |" + "Revenue");

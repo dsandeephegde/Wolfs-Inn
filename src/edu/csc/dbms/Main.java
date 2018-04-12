@@ -14,8 +14,6 @@ public class Main {
         try {
             while (option != 100) {
 
-                //NS.listTasks();
-
                 System.out.println("1. CRUD operations");
                 System.out.println("2. Task1 - Information Processing");
                 System.out.println("5. Task4 - Reports");
@@ -29,11 +27,11 @@ public class Main {
 
                 switch (option) {
 
-                    case 1: //CRUD operations
-                        Entities.list(scan);
+                    case 1:
+                        Entities.crudOperations(scan);
                         break;
 
-                    case 2: //task
+                    case 2:
                     	Info_Processing ip =new Info_Processing();
                     	ip.info_processing();
                     	break;
