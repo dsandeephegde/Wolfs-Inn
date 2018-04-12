@@ -7,8 +7,9 @@ import entities.*;
 
 public class Entities {
 
-    public static void crudOperations(Scanner scan) throws SQLException {
+    public static void crudOperations() throws SQLException {
 
+        Scanner scan = new Scanner(System.in);
         System.out.println("1. Hotels");
         System.out.println("2. Staffs");
         System.out.println("3. Customers");
@@ -62,7 +63,7 @@ public class Entities {
             default:
                 return;
         }
-        entity.crudOperations(scan);
+        entity.crudOperations();
 
     }
 }

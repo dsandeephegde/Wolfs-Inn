@@ -28,7 +28,7 @@ public class Main {
                 switch (option) {
 
                     case 1:
-                        Entities.crudOperations(scan);
+                        Entities.crudOperations();
                         break;
 
                     case 2:
@@ -38,7 +38,7 @@ public class Main {
 
                     case 5:
                     	Reports reports = new Reports();
-                    	reports.operations(scan);
+                    	reports.operations();
                     	break;
 
                     default:

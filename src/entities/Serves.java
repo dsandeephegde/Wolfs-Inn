@@ -9,6 +9,7 @@ import edu.csc.dbms.Constants;
 import edu.csc.dbms.DBUtil;
 
 public class Serves implements Entity {
+    private static Scanner scan = new Scanner(System.in);
 
     @Override
     public void retrieve() throws SQLException {
@@ -34,7 +35,7 @@ public class Serves implements Entity {
     }
 
     @Override
-    public void create(Scanner scan) throws SQLException {
+    public void create() throws SQLException {
 
         System.out.println("Enter staffId: ");
         String staffId = scan.nextLine();
@@ -48,13 +49,13 @@ public class Serves implements Entity {
     }
 
     @Override
-    public void update(Scanner scan) throws SQLException {
+    public void update() throws SQLException {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void delete(Scanner scan) throws SQLException {
+    public void delete() throws SQLException {
 
         System.out.println("Enter staffId : ");
         String staffId = scan.nextLine();

@@ -9,6 +9,7 @@ import edu.csc.dbms.Constants;
 import edu.csc.dbms.DBUtil;
 
 public class CheckIns implements Entity {
+    private static Scanner scan = new Scanner(System.in);
 
     @Override
     public void retrieve() throws SQLException {
@@ -43,7 +44,7 @@ public class CheckIns implements Entity {
     }
 
     @Override
-    public void create(Scanner scan) throws SQLException {
+    public void create() throws SQLException {
 
         System.out.println("Enter startDate : ");
         String startDate = scan.nextLine();
@@ -77,7 +78,7 @@ public class CheckIns implements Entity {
     }
 
     @Override
-    public void update(Scanner scan) throws SQLException {
+    public void update() throws SQLException {
 
         System.out.println("Enter checkin ID to update : ");
         String checkinId = scan.nextLine();
@@ -170,7 +171,7 @@ public class CheckIns implements Entity {
     }
 
     @Override
-    public void delete(Scanner scan) throws SQLException {
+    public void delete() throws SQLException {
 
         System.out.println("Enter checkin Id : ");
         String checkinId = scan.nextLine();

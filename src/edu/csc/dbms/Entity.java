@@ -7,14 +7,15 @@ public interface Entity {
 
     void retrieve() throws SQLException;
 
-    void create(Scanner scan) throws SQLException;
+    void create() throws SQLException;
 
-    void update(Scanner scan) throws SQLException;
+    void update() throws SQLException;
 
-    void delete(Scanner scan) throws SQLException;
+    void delete() throws SQLException;
 
-    default void crudOperations(Scanner scan) throws SQLException {
+    default void crudOperations() throws SQLException {
 
+        Scanner scan = new Scanner(System.in);
         System.out.println("1. Show all entries");
         System.out.println("2. Create new entry");
         System.out.println("3. Update existing entry");
@@ -34,19 +35,19 @@ public interface Entity {
                 break;
 
             case 2:
-                create(scan);
+                create();
                 retrieve();
                 break;
 
             case 3:
                 retrieve();
-                update(scan);
+                update();
                 retrieve();
                 break;
 
             case 4:
                 retrieve();
-                delete(scan);
+                delete();
                 retrieve();
                 break;
         }
