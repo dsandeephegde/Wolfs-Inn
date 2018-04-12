@@ -16,7 +16,7 @@ public class Main {
 
                 System.out.println("1. CRUD operations");
                 System.out.println("2. Task1 - Information Processing");
-                System.out.println("2. Task2 - Maintaining Service Records");
+                System.out.println("3. Task2 - Maintaining Service Records");
                 System.out.println("4. Task3 - Maintaining Billing Accounts");
                 System.out.println("5. Task4 - Reports");
 
@@ -34,9 +34,9 @@ public class Main {
                         break;
 
                     case 2:
-                    	Info_Processing ip =new Info_Processing();
-                    	ip.info_processing();
-                    	break;
+                    		Info_Processing ip =new Info_Processing();
+                    		ip.info_processing();
+                    		break;
 
                     case 3:
                         Maintaining_Service_Records maintaining_service_records =new Maintaining_Service_Records();
@@ -44,14 +44,14 @@ public class Main {
                         break;
 
                     case 4:
-                    	Maintaining_Billing_Accounts billing = new Maintaining_Billing_Accounts();
-                    	billing.operations();
-                    	break;	
+                    		Maintaining_Billing_Accounts billing = new Maintaining_Billing_Accounts();
+                    		billing.operations();
+                    		break;	
                     	
                     case 5:
-                    	Reports reports = new Reports();
-                    	reports.operations();
-                    	break;
+                    		Reports reports = new Reports();
+                    		reports.operations();
+                    		break;
 
                     default:
                         System.out.println("Please Enter a valid option");
