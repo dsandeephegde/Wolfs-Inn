@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import edu.csc.dbms.CRUD;
 import edu.csc.dbms.Constants;
+import edu.csc.dbms.DBUtil;
 
 public class Customers implements CRUD {
 
@@ -15,7 +16,7 @@ public class Customers implements CRUD {
 
         String query = "select * from " + Constants.CUSTOMERS_TABLE;
 
-        ResultSet result = execute(query);
+        ResultSet result = DBUtil.executeQuery(query);
 
         if (result != null) {
 
@@ -51,7 +52,7 @@ public class Customers implements CRUD {
         String query = "Insert into " + Constants.CUSTOMERS_TABLE + "(" + Constants.CUSTOMERS_NAME + "," + Constants.CUSTOMERS_DOB + ","
                 + Constants.CUSTOMERS_PH_NUMBER + "," + Constants.CUSTOMERS_EMAIL + ") values('" + name + "','" + dob + "','" + phNum
                 + "','" + email + "')";
-        execute(query);
+        DBUtil.executeQuery(query);
 
     }
 
@@ -95,7 +96,7 @@ public class Customers implements CRUD {
         }
 
         String query = "Update " + Constants.CUSTOMERS_TABLE + " set " + updateString + " where " + Constants.CUSTOMERS_ID + " = " + customerId;
-        execute(query);
+        DBUtil.executeQuery(query);
 
     }
 
@@ -106,7 +107,7 @@ public class Customers implements CRUD {
         String customerId = scan.nextLine();
 
         String query = "Delete from " + Constants.CUSTOMERS_TABLE + " where " + Constants.CUSTOMERS_ID + " = " + customerId;
-        execute(query);
+        DBUtil.executeQuery(query);
 
     }
 

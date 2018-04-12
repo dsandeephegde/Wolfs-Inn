@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import edu.csc.dbms.CRUD;
 import edu.csc.dbms.Constants;
+import edu.csc.dbms.DBUtil;
 
 public class Services implements CRUD {
 
@@ -14,7 +15,7 @@ public class Services implements CRUD {
 
         String query = "select * from " + Constants.SERVICES_TABLE;
 
-        ResultSet result = execute(query);
+        ResultSet result = DBUtil.executeQuery(query);
 
         if (result != null) {
 
@@ -42,7 +43,7 @@ public class Services implements CRUD {
         String basePrice = scan.nextLine();
 
         String query = "Insert into " + Constants.SERVICES_TABLE + "(" + Constants.SERVICES_NAME + "," + Constants.SERVICES_BASE_PRICE + ") values('" + name + "'," + basePrice + ")";
-        execute(query);
+        DBUtil.executeQuery(query);
 
     }
 
@@ -70,7 +71,7 @@ public class Services implements CRUD {
         }
 
         String query = "Update " + Constants.SERVICES_TABLE + " set " + updateString + " where " + Constants.SERVICES_ID + " = " + serviceId;
-        execute(query);
+        DBUtil.executeQuery(query);
 
     }
 
@@ -81,7 +82,7 @@ public class Services implements CRUD {
         String serviceId = scan.nextLine();
 
         String query = "Delete from " + Constants.SERVICES_TABLE + " where " + Constants.SERVICES_ID + " = " + serviceId;
-        execute(query);
+        DBUtil.executeQuery(query);
 
     }
 

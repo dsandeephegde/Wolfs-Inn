@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import edu.csc.dbms.CRUD;
 import edu.csc.dbms.Constants;
+import edu.csc.dbms.DBUtil;
 
 public class Buys implements CRUD {
 
@@ -14,7 +15,7 @@ public class Buys implements CRUD {
 
         String query = "select * from " + Constants.BUYS_TABLE;
 
-        ResultSet result = execute(query);
+        ResultSet result = DBUtil.executeQuery(query);
 
         if (result != null) {
 
@@ -45,7 +46,7 @@ public class Buys implements CRUD {
 
         String query = "Insert into " + Constants.BUYS_TABLE + "(" + Constants.BUYS_SERVICEID + "," + Constants.BUYS_CHECKINID + ","
                 + Constants.BUYS_PRICE + ") values('" + serviceId + "','" + checkinId + "','" + price + "')";
-        execute(query);
+        DBUtil.executeQuery(query);
 
     }
 
@@ -67,7 +68,7 @@ public class Buys implements CRUD {
             updateString += Constants.BUYS_PRICE + " = '" + price + "'";
 
         String query = "Update " + Constants.BUYS_TABLE + " set " + updateString + " where " + Constants.BUYS_SERVICEID + " = " + serviceId + " and " + Constants.BUYS_CHECKINID + " = " + checkinId;
-        execute(query);
+        DBUtil.executeQuery(query);
 
     }
 
@@ -80,7 +81,7 @@ public class Buys implements CRUD {
         String checkinId = scan.nextLine();
 
         String query = "Delete from " + Constants.BUYS_TABLE + " where " + Constants.BUYS_SERVICEID + " = " + serviceId + " and " + Constants.BUYS_CHECKINID + " = " + checkinId;
-        execute(query);
+        DBUtil.executeQuery(query);
 
     }
 

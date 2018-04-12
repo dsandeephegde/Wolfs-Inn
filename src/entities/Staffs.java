@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import edu.csc.dbms.CRUD;
 import edu.csc.dbms.Constants;
+import edu.csc.dbms.DBUtil;
 
 public class Staffs implements CRUD {
 
@@ -13,7 +14,7 @@ public class Staffs implements CRUD {
     public void retrieve() throws SQLException {
         String query = "select * from " + Constants.STAFFS_TABLE;
 
-        ResultSet result = execute(query);
+        ResultSet result = DBUtil.executeQuery(query);
 
         if (result != null) {
 
@@ -68,7 +69,7 @@ public class Staffs implements CRUD {
                 + Constants.STAFFS_COUNTRY + "," + Constants.STAFFS_HOTEL_ID + ") values('" + name + "'," + age + ",'" + jobTitle
                 + "','" + phNum + "','" + address + "','" + city + "','" + state + "','" + country + "'," + hotelId
                 + ")";
-        execute(query);
+        DBUtil.executeQuery(query);
 
     }
 
@@ -152,7 +153,7 @@ public class Staffs implements CRUD {
         }
 
         String query = "Update " + Constants.STAFFS_TABLE + " set " + updateString + " where " + Constants.STAFFS_ID + " = " + staffId;
-        execute(query);
+        DBUtil.executeQuery(query);
 
     }
 
@@ -163,7 +164,7 @@ public class Staffs implements CRUD {
         String staffId = scan.nextLine();
 
         String query = "Delete from " + Constants.STAFFS_TABLE + " where " + Constants.STAFFS_ID + " = " + staffId;
-        execute(query);
+        DBUtil.executeQuery(query);
 
     }
 

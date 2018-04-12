@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import edu.csc.dbms.CRUD;
 import edu.csc.dbms.Constants;
+import edu.csc.dbms.DBUtil;
 
 public class PaymentInfos implements CRUD {
 
@@ -14,7 +15,7 @@ public class PaymentInfos implements CRUD {
 
         String query = "select * from " + Constants.PAYMENT_INFOS_TABLE;
 
-        ResultSet result = execute(query);
+        ResultSet result = DBUtil.executeQuery(query);
 
         if (result != null) {
 
@@ -65,7 +66,7 @@ public class PaymentInfos implements CRUD {
                 + Constants.PAYMENT_INFOS_COUNTRY + "," + Constants.PAYMENT_INFOS_PAYMENT_METHOD + "," + Constants.PAYMENT_INFOS_CARD_NUM
                 + "," + Constants.PAYMENT_INFOS_CUSTOMER_ID + ") values('" + ssn + "','" + address + "','" + city + "','"
                 + state + "','" + country + "','" + paymentMethod + "','" + cardNum + "'," + customerId + ")";
-        execute(query);
+        DBUtil.executeQuery(query);
 
     }
 
@@ -142,7 +143,7 @@ public class PaymentInfos implements CRUD {
         }
 
         String query = "Update " + Constants.PAYMENT_INFOS_TABLE + " set " + updateString + " where " + Constants.PAYMENT_INFOS_ID + " = " + paymentId;
-        execute(query);
+        DBUtil.executeQuery(query);
 
     }
 
@@ -153,7 +154,7 @@ public class PaymentInfos implements CRUD {
         String paymentId = scan.nextLine();
 
         String query = "Delete from " + Constants.PAYMENT_INFOS_TABLE + " where " + Constants.PAYMENT_INFOS_ID + " = " + paymentId;
-        execute(query);
+        DBUtil.executeQuery(query);
 
     }
 

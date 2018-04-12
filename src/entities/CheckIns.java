@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import edu.csc.dbms.CRUD;
 import edu.csc.dbms.Constants;
+import edu.csc.dbms.DBUtil;
 
 public class CheckIns implements CRUD {
 
@@ -14,7 +15,7 @@ public class CheckIns implements CRUD {
 
         String query = "select * from " + Constants.CHECK_INS_TABLE;
 
-        ResultSet result = execute(query);
+        ResultSet result = DBUtil.executeQuery(query);
 
         if (result != null) {
 
@@ -71,7 +72,7 @@ public class CheckIns implements CRUD {
                 + Constants.CHECK_INS_NUMBEROFGUESTS + "," + Constants.CHECK_INS_TOTAL + "," + Constants.CHECK_INS_CUSTOMERID
                 + "," + Constants.CHECK_INS_HOTELID + "," + Constants.CHECK_INS_ROOMNUMBER + "," + Constants.CHECK_INS_PAYMENTID + ") values('" + startDate + "','" + endDate + "','" + checkinTime + "','"
                 + checkoutTime + "','" + numberOfGuests + "','" + total + "','" + customerId + "','" + hotelId + "','" + roomNumber + "','" + paymentId + "')";
-        execute(query);
+        DBUtil.executeQuery(query);
 
     }
 
@@ -164,7 +165,7 @@ public class CheckIns implements CRUD {
         }
 
         String query = "Update " + Constants.CHECK_INS_TABLE + " set " + updateString + " where " + Constants.CHECK_INS_CHECKINID + " = " + checkinId;
-        execute(query);
+        DBUtil.executeQuery(query);
 
     }
 
@@ -175,7 +176,7 @@ public class CheckIns implements CRUD {
         String checkinId = scan.nextLine();
 
         String query = "Delete from " + Constants.CHECK_INS_TABLE + " where " + Constants.CHECK_INS_CHECKINID + " = " + checkinId;
-        execute(query);
+        DBUtil.executeQuery(query);
 
     }
 

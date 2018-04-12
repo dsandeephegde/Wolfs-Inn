@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import edu.csc.dbms.CRUD;
 import edu.csc.dbms.Constants;
+import edu.csc.dbms.DBUtil;
 
 public class RoomPrices implements CRUD {
 
@@ -14,7 +15,7 @@ public class RoomPrices implements CRUD {
 
         String query = "select * from " + Constants.ROOM_PRICES_TABLE;
 
-        ResultSet result = execute(query);
+        ResultSet result = DBUtil.executeQuery(query);
 
         if (result != null) {
 
@@ -46,7 +47,7 @@ public class RoomPrices implements CRUD {
         String query = "Insert into " + Constants.ROOM_PRICES_TABLE + "(" + Constants.ROOM_PRICES_CATEGORY + "," + Constants.ROOM_PRICES_MAXOCCUPANCY + "," + Constants.ROOM_PRICES_PRICE
                 + ") values('" + category + "','"
                 + maxOccupancy + "','" + price + "')";
-        execute(query);
+        DBUtil.executeQuery(query);
 
     }
 
@@ -69,7 +70,7 @@ public class RoomPrices implements CRUD {
             updateString += Constants.ROOM_PRICES_PRICE + " = " + price;
 
         String query = "Update " + Constants.ROOM_PRICES_TABLE + " set " + updateString + " where " + Constants.ROOM_PRICES_CATEGORY + " LIKE '" + category + "' and " + Constants.ROOM_PRICES_MAXOCCUPANCY + " = '" + maxOccupancy + "'";
-        execute(query);
+        DBUtil.executeQuery(query);
 
     }
 
@@ -83,7 +84,7 @@ public class RoomPrices implements CRUD {
         String maxOccupancy = scan.nextLine();
 
         String query = "Delete from " + Constants.ROOM_PRICES_TABLE + " where " + Constants.ROOM_PRICES_CATEGORY + " = '" + category + "' AND " + Constants.ROOM_PRICES_MAXOCCUPANCY + " = '" + maxOccupancy + "'";
-        execute(query);
+        DBUtil.executeQuery(query);
 
     }
 

@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import edu.csc.dbms.CRUD;
 import edu.csc.dbms.Constants;
+import edu.csc.dbms.DBUtil;
 
 public class Rooms implements CRUD {
 
@@ -14,7 +15,7 @@ public class Rooms implements CRUD {
 
         String query = "select * from " + Constants.ROOMS_TABLE;
 
-        ResultSet result = execute(query);
+        ResultSet result = DBUtil.executeQuery(query);
 
         if (result != null) {
 
@@ -52,7 +53,7 @@ public class Rooms implements CRUD {
         String query = "Insert into " + Constants.ROOMS_TABLE + "(" + Constants.ROOMS_ROOMNUMBER + "," + Constants.ROOMS_HOTELID + "," + Constants.ROOMS_CATEGORY + ","
                 + Constants.ROOMS_MAXOCCUPANCY + "," + Constants.ROOMS_AVAILABILITY + ") values('" + roomNumber + "','"
                 + hotelId + "','" + category + "','" + maxOccupancy + "','" + availability + "')";
-        execute(query);
+        DBUtil.executeQuery(query);
 
     }
 
@@ -92,7 +93,7 @@ public class Rooms implements CRUD {
         }
 
         String query = "Update " + Constants.ROOMS_TABLE + " set " + updateString + " where " + Constants.ROOMS_ROOMNUMBER + " = " + roomNumber + " and " + Constants.ROOMS_HOTELID + " = " + hotelId;
-        execute(query);
+        DBUtil.executeQuery(query);
 
     }
 
@@ -106,7 +107,7 @@ public class Rooms implements CRUD {
         String hotelId = scan.nextLine();
 
         String query = "Delete from " + Constants.ROOMS_TABLE + " where " + Constants.ROOMS_ROOMNUMBER + " = " + roomNumber + " AND " + Constants.ROOMS_HOTELID + " = " + hotelId;
-        execute(query);
+        DBUtil.executeQuery(query);
 
     }
 

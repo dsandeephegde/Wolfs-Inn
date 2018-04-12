@@ -18,6 +18,7 @@ public class Main {
 
                 System.out.println("1. CRUD operations");
                 System.out.println("2. Task1 - Information Processing");
+                System.out.println("5. Task4 - Reports");
 
                 System.out.println();
                 System.out.print("Select the task :");
@@ -36,9 +37,14 @@ public class Main {
                     	Info_Processing ip =new Info_Processing();
                     	ip.info_processing();
                     	break;
-                    	
-                    	default:
-                    		System.out.println("Please Enter a valid option");
+
+                    case 5:
+                    	Reports reports = new Reports();
+                    	reports.operations(scan);
+                    	break;
+
+                    default:
+                        System.out.println("Please Enter a valid option");
                 }
 
                 System.out.println();
