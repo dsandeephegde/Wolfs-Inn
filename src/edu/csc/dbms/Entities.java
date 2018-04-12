@@ -1,9 +1,9 @@
 package edu.csc.dbms;
 
+import entities.*;
+
 import java.sql.SQLException;
 import java.util.Scanner;
-
-import entities.*;
 
 public class Entities {
 

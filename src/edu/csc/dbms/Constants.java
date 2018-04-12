@@ -100,10 +100,10 @@ public class Constants {
 
     public static final String SERVES_STAFFID = "staffId";
     public static final String SERVES_CHECKINID = "checkinId";
-    
+
     //Other Constants
     public static final String PAY_METHOD_HOTEL_CARD = "Hotel Card";
-    
+
     //Task3 - Maintaince and Billing Accounts  
     public static final String TOTAL_PRICE = "totalPrice";
     public static final String BASE_PRICE = "basePrice";
@@ -111,5 +111,5 @@ public class Constants {
     public static final String DESCRIPTION = "description";
     public static final String DESCRIPTION_VALUE = "Room rent";
     public static final String NUMBER = "number";
-    
+
 }

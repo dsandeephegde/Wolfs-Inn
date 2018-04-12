@@ -1,13 +1,13 @@
 package entities;
 
+import edu.csc.dbms.Constants;
+import edu.csc.dbms.DBUtil;
+import edu.csc.dbms.Entity;
+
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
-
-import edu.csc.dbms.Entity;
-import edu.csc.dbms.Constants;
-import edu.csc.dbms.DBUtil;
 
 public class Customers implements Entity {
     private static Scanner scan = new Scanner(System.in);

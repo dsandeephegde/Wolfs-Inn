@@ -34,24 +34,24 @@ public class Main {
                         break;
 
                     case 2:
-                    		Info_Processing ip =new Info_Processing();
-                    		ip.info_processing();
-                    		break;
+                        Info_Processing ip = new Info_Processing();
+                        ip.info_processing();
+                        break;
 
                     case 3:
-                        Maintaining_Service_Records maintaining_service_records =new Maintaining_Service_Records();
+                        Maintaining_Service_Records maintaining_service_records = new Maintaining_Service_Records();
                         maintaining_service_records.operations();
                         break;
 
                     case 4:
-                    		Maintaining_Billing_Accounts billing = new Maintaining_Billing_Accounts();
-                    		billing.operations();
-                    		break;	
-                    	
+                        Maintaining_Billing_Accounts billing = new Maintaining_Billing_Accounts();
+                        billing.operations();
+                        break;
+
                     case 5:
-                    		Reports reports = new Reports();
-                    		reports.operations();
-                    		break;
+                        Reports reports = new Reports();
+                        reports.operations();
+                        break;
 
                     default:
                         System.out.println("Please Enter a valid option");
@@ -70,6 +70,6 @@ public class Main {
 
         System.out.println("Thank you for using Wolfs Inn");
     }
-    
+
 
 }

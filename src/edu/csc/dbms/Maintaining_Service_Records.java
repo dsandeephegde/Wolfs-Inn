@@ -1,15 +1,15 @@
 package edu.csc.dbms;
 
+import entities.Buys;
+
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import entities.Buys;
-
-public class Maintaining_Service_Records{
+public class Maintaining_Service_Records {
     protected Scanner scan = new Scanner(System.in);
     protected Buys buys = new Buys();
 
-    public void operations() throws SQLException{
+    public void operations() throws SQLException {
         System.out.println("1. Add a service availed by the customer.");
         System.out.println("2. Update prices of services");
         System.out.println("3. Delete a service not availed by customer");
@@ -32,6 +32,6 @@ public class Maintaining_Service_Records{
             default:
                 System.out.println("Please Enter a valid option!");
 
-		}
-	}
+        }
+    }
 }
