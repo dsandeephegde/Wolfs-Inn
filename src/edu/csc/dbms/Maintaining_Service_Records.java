@@ -1,6 +1,5 @@
 package edu.csc.dbms;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -31,7 +30,8 @@ public class Maintaining_Service_Records{
                 buys.retrieve();
                 break;
             default:
-                System.out.println("Please Enter a valid option!")
+                System.out.println("Please Enter a valid option!");
 
-    }
+		}
+	}
 }

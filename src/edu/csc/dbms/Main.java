@@ -38,9 +38,9 @@ public class Main {
                     	ip.info_processing();
                     	break;
 
-                    case 2:
-                        Maintaining_Service_Accounts maintaining_service_accounts =new Maintaining_Service_Accounts();
-                        maintaining_service_accounts.operations();
+                    case 3:
+                        Maintaining_Service_Records maintaining_service_records =new Maintaining_Service_Records();
+                        maintaining_service_records.operations();
                         break;
 
                     case 4:
