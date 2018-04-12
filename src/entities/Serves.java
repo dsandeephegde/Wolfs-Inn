@@ -5,14 +5,14 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import edu.csc.dbms.CRUD;
-import edu.csc.dbms.NS;
+import edu.csc.dbms.Constants;
 
 public class Serves implements CRUD {
 
     @Override
     public void retrieve() throws SQLException {
 
-        String query = "select * from " + NS.SERVES_TABLE;
+        String query = "select * from " + Constants.SERVES_TABLE;
 
         ResultSet result = execute(query);
 
@@ -23,8 +23,8 @@ public class Serves implements CRUD {
 
             while (result.next()) {
 
-                int staffId = result.getInt(NS.SERVES_STAFFID);
-                int checkinId = result.getInt(NS.SERVES_CHECKINID);
+                int staffId = result.getInt(Constants.SERVES_STAFFID);
+                int checkinId = result.getInt(Constants.SERVES_CHECKINID);
 
                 System.out.println(staffId + " |" + checkinId);
             }
@@ -40,7 +40,7 @@ public class Serves implements CRUD {
         System.out.println("Enter checkinId: ");
         String checkinId = scan.nextLine();
 
-        String query = "Insert into " + NS.SERVES_TABLE + "(" + NS.SERVES_STAFFID + "," + NS.SERVES_CHECKINID +
+        String query = "Insert into " + Constants.SERVES_TABLE + "(" + Constants.SERVES_STAFFID + "," + Constants.SERVES_CHECKINID +
                 ") values('" + staffId + "','" + checkinId + "')";
         execute(query);
 
@@ -60,7 +60,7 @@ public class Serves implements CRUD {
         System.out.println("Enter checkinId : ");
         String checkinId = scan.nextLine();
 
-        String query = "Delete from " + NS.SERVES_TABLE + " where " + NS.SERVES_STAFFID + " = " + staffId + " and " + NS.SERVES_CHECKINID + " = " + checkinId;
+        String query = "Delete from " + Constants.SERVES_TABLE + " where " + Constants.SERVES_STAFFID + " = " + staffId + " and " + Constants.SERVES_CHECKINID + " = " + checkinId;
         execute(query);
 
     }

@@ -5,14 +5,14 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import edu.csc.dbms.CRUD;
-import edu.csc.dbms.NS;
+import edu.csc.dbms.Constants;
 
 public class Buys implements CRUD {
 
     @Override
     public void retrieve() throws SQLException {
 
-        String query = "select * from " + NS.BUYS_TABLE;
+        String query = "select * from " + Constants.BUYS_TABLE;
 
         ResultSet result = execute(query);
 
@@ -23,9 +23,9 @@ public class Buys implements CRUD {
 
             while (result.next()) {
 
-                int serviceId = result.getInt(NS.BUYS_SERVICEID);
-                int checkinId = result.getInt(NS.BUYS_CHECKINID);
-                int price = result.getInt(NS.BUYS_PRICE);
+                int serviceId = result.getInt(Constants.BUYS_SERVICEID);
+                int checkinId = result.getInt(Constants.BUYS_CHECKINID);
+                int price = result.getInt(Constants.BUYS_PRICE);
 
                 System.out.println(serviceId + " |" + checkinId + " |" + price);
             }
@@ -43,8 +43,8 @@ public class Buys implements CRUD {
         System.out.println("Enter price : ");
         String price = scan.nextLine();
 
-        String query = "Insert into " + NS.BUYS_TABLE + "(" + NS.BUYS_SERVICEID + "," + NS.BUYS_CHECKINID + ","
-                + NS.BUYS_PRICE + ") values('" + serviceId + "','" + checkinId + "','" + price + "')";
+        String query = "Insert into " + Constants.BUYS_TABLE + "(" + Constants.BUYS_SERVICEID + "," + Constants.BUYS_CHECKINID + ","
+                + Constants.BUYS_PRICE + ") values('" + serviceId + "','" + checkinId + "','" + price + "')";
         execute(query);
 
     }
@@ -57,16 +57,16 @@ public class Buys implements CRUD {
         System.out.println("Enter checkinId : ");
         String checkinId = scan.nextLine();
 
-        String updateString = new String();
+        String updateString = "";
 
         System.out.println("Enter only update values");
         System.out.println("Enter price: ");
         String price = scan.nextLine();
 
         if (!price.isEmpty())
-            updateString += NS.BUYS_PRICE + " = '" + price + "'";
+            updateString += Constants.BUYS_PRICE + " = '" + price + "'";
 
-        String query = "Update " + NS.BUYS_TABLE + " set " + updateString + " where " + NS.BUYS_SERVICEID + " = " + serviceId + " and " + NS.BUYS_CHECKINID + " = " + checkinId;
+        String query = "Update " + Constants.BUYS_TABLE + " set " + updateString + " where " + Constants.BUYS_SERVICEID + " = " + serviceId + " and " + Constants.BUYS_CHECKINID + " = " + checkinId;
         execute(query);
 
     }
@@ -79,7 +79,7 @@ public class Buys implements CRUD {
         System.out.println("Enter checkinId : ");
         String checkinId = scan.nextLine();
 
-        String query = "Delete from " + NS.BUYS_TABLE + " where " + NS.BUYS_SERVICEID + " = " + serviceId + " and " + NS.BUYS_CHECKINID + " = " + checkinId;
+        String query = "Delete from " + Constants.BUYS_TABLE + " where " + Constants.BUYS_SERVICEID + " = " + serviceId + " and " + Constants.BUYS_CHECKINID + " = " + checkinId;
         execute(query);
 
     }

@@ -5,14 +5,14 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import edu.csc.dbms.CRUD;
-import edu.csc.dbms.NS;
+import edu.csc.dbms.Constants;
 
 public class CheckIns implements CRUD {
 
     @Override
     public void retrieve() throws SQLException {
 
-        String query = "select * from " + NS.CHECK_INS_TABLE;
+        String query = "select * from " + Constants.CHECK_INS_TABLE;
 
         ResultSet result = execute(query);
 
@@ -23,17 +23,17 @@ public class CheckIns implements CRUD {
 
             while (result.next()) {
 
-                int checkinId = result.getInt(NS.CHECK_INS_CHECKINID);
-                String startDate = result.getString(NS.CHECK_INS_STARTDATE);
-                String endDate = result.getString(NS.CHECK_INS_ENDDATE);
-                String checkinTime = result.getString(NS.CHECK_INS_CHECKINTIME);
-                String checkoutTime = result.getString(NS.CHECK_INS_CHECKOUTTIME);
-                int numberOfGuests = result.getInt(NS.CHECK_INS_NUMBEROFGUESTS);
-                int total = result.getInt(NS.CHECK_INS_TOTAL);
-                int customerId = result.getInt(NS.CHECK_INS_CUSTOMERID);
-                int hotelId = result.getInt(NS.CHECK_INS_HOTELID);
-                int roomNumber = result.getInt(NS.CHECK_INS_ROOMNUMBER);
-                int paymentId = result.getInt(NS.CHECK_INS_PAYMENTID);
+                int checkinId = result.getInt(Constants.CHECK_INS_CHECKINID);
+                String startDate = result.getString(Constants.CHECK_INS_STARTDATE);
+                String endDate = result.getString(Constants.CHECK_INS_ENDDATE);
+                String checkinTime = result.getString(Constants.CHECK_INS_CHECKINTIME);
+                String checkoutTime = result.getString(Constants.CHECK_INS_CHECKOUTTIME);
+                int numberOfGuests = result.getInt(Constants.CHECK_INS_NUMBEROFGUESTS);
+                int total = result.getInt(Constants.CHECK_INS_TOTAL);
+                int customerId = result.getInt(Constants.CHECK_INS_CUSTOMERID);
+                int hotelId = result.getInt(Constants.CHECK_INS_HOTELID);
+                int roomNumber = result.getInt(Constants.CHECK_INS_ROOMNUMBER);
+                int paymentId = result.getInt(Constants.CHECK_INS_PAYMENTID);
 
                 System.out.println(checkinId + " |" + startDate + " |" + endDate + " |" + checkinTime + " |" + checkoutTime + " |" + numberOfGuests + " |" + total + " |" + customerId + " |" + hotelId + " |" + roomNumber + " |" + paymentId);
             }
@@ -66,10 +66,10 @@ public class CheckIns implements CRUD {
         String paymentId = scan.nextLine();
 
 
-        String query = "Insert into " + NS.CHECK_INS_TABLE + "(" + NS.CHECK_INS_STARTDATE + ","
-                + NS.CHECK_INS_ENDDATE + "," + NS.CHECK_INS_CHECKINTIME + "," + NS.CHECK_INS_CHECKOUTTIME + ","
-                + NS.CHECK_INS_NUMBEROFGUESTS + "," + NS.CHECK_INS_TOTAL + "," + NS.CHECK_INS_CUSTOMERID
-                + "," + NS.CHECK_INS_HOTELID + "," + NS.CHECK_INS_ROOMNUMBER + "," + NS.CHECK_INS_PAYMENTID + ") values('" + startDate + "','" + endDate + "','" + checkinTime + "','"
+        String query = "Insert into " + Constants.CHECK_INS_TABLE + "(" + Constants.CHECK_INS_STARTDATE + ","
+                + Constants.CHECK_INS_ENDDATE + "," + Constants.CHECK_INS_CHECKINTIME + "," + Constants.CHECK_INS_CHECKOUTTIME + ","
+                + Constants.CHECK_INS_NUMBEROFGUESTS + "," + Constants.CHECK_INS_TOTAL + "," + Constants.CHECK_INS_CUSTOMERID
+                + "," + Constants.CHECK_INS_HOTELID + "," + Constants.CHECK_INS_ROOMNUMBER + "," + Constants.CHECK_INS_PAYMENTID + ") values('" + startDate + "','" + endDate + "','" + checkinTime + "','"
                 + checkoutTime + "','" + numberOfGuests + "','" + total + "','" + customerId + "','" + hotelId + "','" + roomNumber + "','" + paymentId + "')";
         execute(query);
 
@@ -81,21 +81,21 @@ public class CheckIns implements CRUD {
         System.out.println("Enter checkin ID to update : ");
         String checkinId = scan.nextLine();
 
-        String updateString = new String();
+        String updateString = "";
 
         System.out.println("Enter only update values");
         System.out.println("Enter startDate : ");
         String startDate = scan.nextLine();
 
         if (!startDate.isEmpty())
-            updateString += NS.CHECK_INS_STARTDATE + " = '" + startDate + "'";
+            updateString += Constants.CHECK_INS_STARTDATE + " = '" + startDate + "'";
 
         System.out.println("Enter endDate : ");
         String endDate = scan.nextLine();
 
         if (!endDate.isEmpty()) {
             updateString += (!updateString.isEmpty()) ? " , " : "";
-            updateString += NS.CHECK_INS_ENDDATE + " = '" + endDate + "'";
+            updateString += Constants.CHECK_INS_ENDDATE + " = '" + endDate + "'";
         }
 
 
@@ -104,7 +104,7 @@ public class CheckIns implements CRUD {
 
         if (!checkinTime.isEmpty()) {
             updateString += (!updateString.isEmpty()) ? " , " : "";
-            updateString += NS.CHECK_INS_CHECKINTIME + " = '" + checkinTime + "'";
+            updateString += Constants.CHECK_INS_CHECKINTIME + " = '" + checkinTime + "'";
         }
 
         System.out.println("Enter checkoutTime : ");
@@ -112,7 +112,7 @@ public class CheckIns implements CRUD {
 
         if (!checkoutTime.isEmpty()) {
             updateString += (!updateString.isEmpty()) ? " , " : "";
-            updateString += NS.CHECK_INS_CHECKOUTTIME + " = '" + checkoutTime + "'";
+            updateString += Constants.CHECK_INS_CHECKOUTTIME + " = '" + checkoutTime + "'";
         }
 
         System.out.println("Enter numberOfGuests : ");
@@ -120,7 +120,7 @@ public class CheckIns implements CRUD {
 
         if (!numberOfGuests.isEmpty()) {
             updateString += (!updateString.isEmpty()) ? " , " : "";
-            updateString += NS.CHECK_INS_NUMBEROFGUESTS + " = '" + numberOfGuests + "'";
+            updateString += Constants.CHECK_INS_NUMBEROFGUESTS + " = '" + numberOfGuests + "'";
         }
 
         System.out.println("Enter total : ");
@@ -128,7 +128,7 @@ public class CheckIns implements CRUD {
 
         if (!total.isEmpty()) {
             updateString += (!updateString.isEmpty()) ? " , " : "";
-            updateString += NS.CHECK_INS_TOTAL + " = '" + total + "'";
+            updateString += Constants.CHECK_INS_TOTAL + " = '" + total + "'";
         }
 
         System.out.println("Enter customerId : ");
@@ -136,7 +136,7 @@ public class CheckIns implements CRUD {
 
         if (!customerId.isEmpty()) {
             updateString += (!updateString.isEmpty()) ? " , " : "";
-            updateString += NS.CHECK_INS_CUSTOMERID + " = '" + customerId + "'";
+            updateString += Constants.CHECK_INS_CUSTOMERID + " = '" + customerId + "'";
         }
 
         System.out.println("Enter hotelId : ");
@@ -144,7 +144,7 @@ public class CheckIns implements CRUD {
 
         if (!hotelId.isEmpty()) {
             updateString += (!updateString.isEmpty()) ? " , " : "";
-            updateString += NS.CHECK_INS_HOTELID + " = " + hotelId + "";
+            updateString += Constants.CHECK_INS_HOTELID + " = " + hotelId + "";
         }
 
         System.out.println("Enter roomNumber : ");
@@ -152,7 +152,7 @@ public class CheckIns implements CRUD {
 
         if (!roomNumber.isEmpty()) {
             updateString += (!updateString.isEmpty()) ? " , " : "";
-            updateString += NS.CHECK_INS_ROOMNUMBER + " = '" + roomNumber + "'";
+            updateString += Constants.CHECK_INS_ROOMNUMBER + " = '" + roomNumber + "'";
         }
 
         System.out.println("Enter paymentId : ");
@@ -160,10 +160,10 @@ public class CheckIns implements CRUD {
 
         if (!paymentId.isEmpty()) {
             updateString += (!updateString.isEmpty()) ? " , " : "";
-            updateString += NS.CHECK_INS_PAYMENTID + " = " + paymentId + "";
+            updateString += Constants.CHECK_INS_PAYMENTID + " = " + paymentId + "";
         }
 
-        String query = "Update " + NS.CHECK_INS_TABLE + " set " + updateString + " where " + NS.CHECK_INS_CHECKINID + " = " + checkinId;
+        String query = "Update " + Constants.CHECK_INS_TABLE + " set " + updateString + " where " + Constants.CHECK_INS_CHECKINID + " = " + checkinId;
         execute(query);
 
     }
@@ -174,7 +174,7 @@ public class CheckIns implements CRUD {
         System.out.println("Enter checkin Id : ");
         String checkinId = scan.nextLine();
 
-        String query = "Delete from " + NS.CHECK_INS_TABLE + " where " + NS.CHECK_INS_CHECKINID + " = " + checkinId;
+        String query = "Delete from " + Constants.CHECK_INS_TABLE + " where " + Constants.CHECK_INS_CHECKINID + " = " + checkinId;
         execute(query);
 
     }

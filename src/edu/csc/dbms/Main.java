@@ -3,7 +3,7 @@ package edu.csc.dbms;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class MainClass {
+public class Main {
 
     public static void main(String[] args) {
 
@@ -29,7 +29,7 @@ public class MainClass {
                 switch (option) {
 
                     case 1: //CRUD operations
-                        NS.listEntities(scan);
+                        Entities.list(scan);
                         break;
 
                     case 2: //task

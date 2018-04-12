@@ -5,13 +5,13 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import edu.csc.dbms.CRUD;
-import edu.csc.dbms.NS;
+import edu.csc.dbms.Constants;
 
 public class Hotels implements CRUD {
 
     @Override
     public void retrieve() throws SQLException {
-        String query = "select * from " + NS.HOTELS_TABLE;
+        String query = "select * from " + Constants.HOTELS_TABLE;
 
         ResultSet result = execute(query);
 
@@ -22,14 +22,14 @@ public class Hotels implements CRUD {
 
             while (result.next()) {
 
-                int hotelId = result.getInt(NS.HOTELS_ID);
-                String name = result.getString(NS.HOTELS_NAME);
-                String address = result.getString(NS.HOTELS_ADDRESS);
-                String city = result.getString(NS.HOTELS_CITY);
-                String state = result.getString(NS.HOTELS_STATE);
-                String country = result.getString(NS.HOTELS_COUNTRY);
-                String phNumber = result.getString(NS.HOTELS_PH_NUMBER);
-                int managerId = result.getInt(NS.HOTELS_MANAGER_ID);
+                int hotelId = result.getInt(Constants.HOTELS_ID);
+                String name = result.getString(Constants.HOTELS_NAME);
+                String address = result.getString(Constants.HOTELS_ADDRESS);
+                String city = result.getString(Constants.HOTELS_CITY);
+                String state = result.getString(Constants.HOTELS_STATE);
+                String country = result.getString(Constants.HOTELS_COUNTRY);
+                String phNumber = result.getString(Constants.HOTELS_PH_NUMBER);
+                int managerId = result.getInt(Constants.HOTELS_MANAGER_ID);
 
                 System.out.println(hotelId + " |" + name + " |" + address + " |" + city + " |" + state + " |" + country + " |" + phNumber + " |" + managerId);
             }
@@ -54,8 +54,8 @@ public class Hotels implements CRUD {
         String phNum = scan.nextLine();
 
 
-        String query = "Insert into " + NS.HOTELS_TABLE + "(" + NS.HOTELS_NAME + "," + NS.HOTELS_ADDRESS + "," + NS.HOTELS_CITY + ","
-                + NS.HOTELS_STATE + "," + NS.HOTELS_COUNTRY + "," + NS.HOTELS_PH_NUMBER + ") values('" + name + "','"
+        String query = "Insert into " + Constants.HOTELS_TABLE + "(" + Constants.HOTELS_NAME + "," + Constants.HOTELS_ADDRESS + "," + Constants.HOTELS_CITY + ","
+                + Constants.HOTELS_STATE + "," + Constants.HOTELS_COUNTRY + "," + Constants.HOTELS_PH_NUMBER + ") values('" + name + "','"
                 + address + "','" + city + "','" + state + "','" + country + "'," + phNum + ")";
         execute(query);
 
@@ -67,21 +67,21 @@ public class Hotels implements CRUD {
         System.out.println("Enter hotel ID to update : ");
         String hotelId = scan.nextLine();
 
-        String updateString = new String();
+        String updateString = "";
 
         System.out.println("Enter only update values");
         System.out.println("Enter hotel name : ");
         String name = scan.nextLine();
 
         if (!name.isEmpty())
-            updateString += NS.HOTELS_NAME + " = '" + name + "'";
+            updateString += Constants.HOTELS_NAME + " = '" + name + "'";
 
         System.out.println("Enter line 1 address : ");
         String address = scan.nextLine();
 
         if (!address.isEmpty()) {
             updateString += (!updateString.isEmpty()) ? " , " : "";
-            updateString += NS.HOTELS_ADDRESS + " = '" + address + "'";
+            updateString += Constants.HOTELS_ADDRESS + " = '" + address + "'";
         }
 
         System.out.println("Enter City : ");
@@ -89,7 +89,7 @@ public class Hotels implements CRUD {
 
         if (!city.isEmpty()) {
             updateString += (!updateString.isEmpty()) ? " , " : "";
-            updateString += NS.HOTELS_CITY + " = '" + city + "'";
+            updateString += Constants.HOTELS_CITY + " = '" + city + "'";
         }
 
         System.out.println("Enter State : ");
@@ -97,7 +97,7 @@ public class Hotels implements CRUD {
 
         if (!state.isEmpty()) {
             updateString += (!updateString.isEmpty()) ? " , " : "";
-            updateString += NS.HOTELS_STATE + " = '" + state + "'";
+            updateString += Constants.HOTELS_STATE + " = '" + state + "'";
         }
 
         System.out.println("Enter Country : ");
@@ -105,7 +105,7 @@ public class Hotels implements CRUD {
 
         if (!country.isEmpty()) {
             updateString += (!updateString.isEmpty()) ? " , " : "";
-            updateString += NS.HOTELS_COUNTRY + " = '" + country + "'";
+            updateString += Constants.HOTELS_COUNTRY + " = '" + country + "'";
         }
 
         System.out.println("Enter phone number : ");
@@ -113,7 +113,7 @@ public class Hotels implements CRUD {
 
         if (!phNum.isEmpty()) {
             updateString += (!updateString.isEmpty()) ? " , " : "";
-            updateString += NS.HOTELS_PH_NUMBER + " = '" + phNum + "'";
+            updateString += Constants.HOTELS_PH_NUMBER + " = '" + phNum + "'";
         }
 
         System.out.println("Enter Manager ID : ");
@@ -121,10 +121,10 @@ public class Hotels implements CRUD {
 
         if (!country.isEmpty()) {
             updateString += (!updateString.isEmpty()) ? " , " : "";
-            updateString += NS.HOTELS_MANAGER_ID + " = " + managerId + "";
+            updateString += Constants.HOTELS_MANAGER_ID + " = " + managerId + "";
         }
 
-        String query = "Update " + NS.HOTELS_TABLE + " set " + updateString + " where " + NS.HOTELS_ID + " = " + hotelId;
+        String query = "Update " + Constants.HOTELS_TABLE + " set " + updateString + " where " + Constants.HOTELS_ID + " = " + hotelId;
         execute(query);
 
     }
@@ -135,7 +135,7 @@ public class Hotels implements CRUD {
         System.out.println("Enter hotel ID : ");
         String hotelId = scan.nextLine();
 
-        String query = "Delete from " + NS.HOTELS_TABLE + " where " + NS.HOTELS_ID + " = " + hotelId;
+        String query = "Delete from " + Constants.HOTELS_TABLE + " where " + Constants.HOTELS_ID + " = " + hotelId;
         execute(query);
 
     }

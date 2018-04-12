@@ -5,13 +5,13 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import edu.csc.dbms.CRUD;
-import edu.csc.dbms.NS;
+import edu.csc.dbms.Constants;
 
 public class Staffs implements CRUD {
 
     @Override
     public void retrieve() throws SQLException {
-        String query = "select * from " + NS.STAFFS_TABLE;
+        String query = "select * from " + Constants.STAFFS_TABLE;
 
         ResultSet result = execute(query);
 
@@ -23,16 +23,16 @@ public class Staffs implements CRUD {
 
             while (result.next()) {
 
-                int staffId = result.getInt(NS.STAFFS_ID);
-                String name = result.getString(NS.STAFFS_NAME);
-                int age = result.getInt(NS.STAFFS_AGE);
-                String jobTitle = result.getString(NS.STAFFS_JOB_TITLE);
-                String phNumber = result.getString(NS.STAFFS_PH_NUMBER);
-                String address = result.getString(NS.STAFFS_ADDRESS);
-                String city = result.getString(NS.STAFFS_CITY);
-                String state = result.getString(NS.STAFFS_STATE);
-                String country = result.getString(NS.STAFFS_COUNTRY);
-                int hotelId = result.getInt(NS.STAFFS_HOTEL_ID);
+                int staffId = result.getInt(Constants.STAFFS_ID);
+                String name = result.getString(Constants.STAFFS_NAME);
+                int age = result.getInt(Constants.STAFFS_AGE);
+                String jobTitle = result.getString(Constants.STAFFS_JOB_TITLE);
+                String phNumber = result.getString(Constants.STAFFS_PH_NUMBER);
+                String address = result.getString(Constants.STAFFS_ADDRESS);
+                String city = result.getString(Constants.STAFFS_CITY);
+                String state = result.getString(Constants.STAFFS_STATE);
+                String country = result.getString(Constants.STAFFS_COUNTRY);
+                int hotelId = result.getInt(Constants.STAFFS_HOTEL_ID);
 
                 System.out.println(staffId + " |" + name + " |" + age + " |" + jobTitle + " |" + phNumber + " |" + address + " |" + city + " |" + state + " |" + country + " |" + hotelId);
             }
@@ -63,9 +63,9 @@ public class Staffs implements CRUD {
         String hotelId = scan.nextLine();
 
 
-        String query = "Insert into " + NS.STAFFS_TABLE + "(" + NS.STAFFS_NAME + "," + NS.STAFFS_AGE + "," + NS.STAFFS_JOB_TITLE + ","
-                + NS.STAFFS_PH_NUMBER + "," + NS.STAFFS_ADDRESS + "," + NS.STAFFS_CITY + "," + NS.STAFFS_STATE + ","
-                + NS.STAFFS_COUNTRY + "," + NS.STAFFS_HOTEL_ID + ") values('" + name + "'," + age + ",'" + jobTitle
+        String query = "Insert into " + Constants.STAFFS_TABLE + "(" + Constants.STAFFS_NAME + "," + Constants.STAFFS_AGE + "," + Constants.STAFFS_JOB_TITLE + ","
+                + Constants.STAFFS_PH_NUMBER + "," + Constants.STAFFS_ADDRESS + "," + Constants.STAFFS_CITY + "," + Constants.STAFFS_STATE + ","
+                + Constants.STAFFS_COUNTRY + "," + Constants.STAFFS_HOTEL_ID + ") values('" + name + "'," + age + ",'" + jobTitle
                 + "','" + phNum + "','" + address + "','" + city + "','" + state + "','" + country + "'," + hotelId
                 + ")";
         execute(query);
@@ -78,21 +78,21 @@ public class Staffs implements CRUD {
         System.out.println("Enter Staff ID to update : ");
         String staffId = scan.nextLine();
 
-        String updateString = new String();
+        String updateString = "";
 
         System.out.println("Enter only update values");
         System.out.println("Enter staff name : ");
         String name = scan.nextLine();
 
         if (!name.isEmpty())
-            updateString += NS.STAFFS_NAME + " = '" + name + "'";
+            updateString += Constants.STAFFS_NAME + " = '" + name + "'";
 
         System.out.println("Enter age : ");
         String age = scan.nextLine();
 
         if (!age.isEmpty()) {
             updateString += (!updateString.isEmpty()) ? " , " : "";
-            updateString += NS.STAFFS_AGE + " = " + age;
+            updateString += Constants.STAFFS_AGE + " = " + age;
         }
 
         System.out.println("Enter Job Title : ");
@@ -100,7 +100,7 @@ public class Staffs implements CRUD {
 
         if (!jobTitle.isEmpty()) {
             updateString += (!updateString.isEmpty()) ? " , " : "";
-            updateString += NS.STAFFS_JOB_TITLE + " = '" + jobTitle + "'";
+            updateString += Constants.STAFFS_JOB_TITLE + " = '" + jobTitle + "'";
         }
 
         System.out.println("Enter phone number : ");
@@ -108,7 +108,7 @@ public class Staffs implements CRUD {
 
         if (!phNum.isEmpty()) {
             updateString += (!updateString.isEmpty()) ? " , " : "";
-            updateString += NS.STAFFS_PH_NUMBER + " = '" + phNum + "'";
+            updateString += Constants.STAFFS_PH_NUMBER + " = '" + phNum + "'";
         }
 
         System.out.println("Enter line 1 address : ");
@@ -116,7 +116,7 @@ public class Staffs implements CRUD {
 
         if (!address.isEmpty()) {
             updateString += (!updateString.isEmpty()) ? " , " : "";
-            updateString += NS.STAFFS_ADDRESS + " = '" + address + "'";
+            updateString += Constants.STAFFS_ADDRESS + " = '" + address + "'";
         }
 
         System.out.println("Enter City : ");
@@ -124,7 +124,7 @@ public class Staffs implements CRUD {
 
         if (!city.isEmpty()) {
             updateString += (!updateString.isEmpty()) ? " , " : "";
-            updateString += NS.STAFFS_CITY + " = '" + city + "'";
+            updateString += Constants.STAFFS_CITY + " = '" + city + "'";
         }
 
         System.out.println("Enter State : ");
@@ -132,7 +132,7 @@ public class Staffs implements CRUD {
 
         if (!state.isEmpty()) {
             updateString += (!updateString.isEmpty()) ? " , " : "";
-            updateString += NS.STAFFS_STATE + " = '" + state + "'";
+            updateString += Constants.STAFFS_STATE + " = '" + state + "'";
         }
 
         System.out.println("Enter Country : ");
@@ -140,7 +140,7 @@ public class Staffs implements CRUD {
 
         if (!country.isEmpty()) {
             updateString += (!updateString.isEmpty()) ? " , " : "";
-            updateString += NS.STAFFS_COUNTRY + " = '" + country + "'";
+            updateString += Constants.STAFFS_COUNTRY + " = '" + country + "'";
         }
 
         System.out.println("Enter Hotel ID : ");
@@ -148,10 +148,10 @@ public class Staffs implements CRUD {
 
         if (!hotelId.isEmpty()) {
             updateString += (!updateString.isEmpty()) ? " , " : "";
-            updateString += NS.STAFFS_HOTEL_ID + " = " + hotelId + "";
+            updateString += Constants.STAFFS_HOTEL_ID + " = " + hotelId + "";
         }
 
-        String query = "Update " + NS.STAFFS_TABLE + " set " + updateString + " where " + NS.STAFFS_ID + " = " + staffId;
+        String query = "Update " + Constants.STAFFS_TABLE + " set " + updateString + " where " + Constants.STAFFS_ID + " = " + staffId;
         execute(query);
 
     }
@@ -162,7 +162,7 @@ public class Staffs implements CRUD {
         System.out.println("Enter staff ID : ");
         String staffId = scan.nextLine();
 
-        String query = "Delete from " + NS.STAFFS_TABLE + " where " + NS.STAFFS_ID + " = " + staffId;
+        String query = "Delete from " + Constants.STAFFS_TABLE + " where " + Constants.STAFFS_ID + " = " + staffId;
         execute(query);
 
     }

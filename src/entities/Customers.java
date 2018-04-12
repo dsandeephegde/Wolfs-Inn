@@ -6,14 +6,14 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import edu.csc.dbms.CRUD;
-import edu.csc.dbms.NS;
+import edu.csc.dbms.Constants;
 
 public class Customers implements CRUD {
 
     @Override
     public void retrieve() throws SQLException {
 
-        String query = "select * from " + NS.CUSTOMERS_TABLE;
+        String query = "select * from " + Constants.CUSTOMERS_TABLE;
 
         ResultSet result = execute(query);
 
@@ -24,11 +24,11 @@ public class Customers implements CRUD {
 
             while (result.next()) {
 
-                int customerId = result.getInt(NS.CUSTOMERS_ID);
-                String name = result.getString(NS.CUSTOMERS_NAME);
-                Date dob = result.getDate(NS.CUSTOMERS_DOB);
-                String phNumber = result.getString(NS.CUSTOMERS_PH_NUMBER);
-                String email = result.getString(NS.CUSTOMERS_EMAIL);
+                int customerId = result.getInt(Constants.CUSTOMERS_ID);
+                String name = result.getString(Constants.CUSTOMERS_NAME);
+                Date dob = result.getDate(Constants.CUSTOMERS_DOB);
+                String phNumber = result.getString(Constants.CUSTOMERS_PH_NUMBER);
+                String email = result.getString(Constants.CUSTOMERS_EMAIL);
 
                 System.out.println(customerId + " |" + name + " |" + dob + " |" + phNumber + " |" + email);
             }
@@ -48,8 +48,8 @@ public class Customers implements CRUD {
         System.out.println("Enter email : ");
         String email = scan.nextLine();
 
-        String query = "Insert into " + NS.CUSTOMERS_TABLE + "(" + NS.CUSTOMERS_NAME + "," + NS.CUSTOMERS_DOB + ","
-                + NS.CUSTOMERS_PH_NUMBER + "," + NS.CUSTOMERS_EMAIL + ") values('" + name + "','" + dob + "','" + phNum
+        String query = "Insert into " + Constants.CUSTOMERS_TABLE + "(" + Constants.CUSTOMERS_NAME + "," + Constants.CUSTOMERS_DOB + ","
+                + Constants.CUSTOMERS_PH_NUMBER + "," + Constants.CUSTOMERS_EMAIL + ") values('" + name + "','" + dob + "','" + phNum
                 + "','" + email + "')";
         execute(query);
 
@@ -61,21 +61,21 @@ public class Customers implements CRUD {
         System.out.println("Enter customer ID to update : ");
         String customerId = scan.nextLine();
 
-        String updateString = new String();
+        String updateString = "";
 
         System.out.println("Enter only update values");
         System.out.println("Enter customer name : ");
         String name = scan.nextLine();
 
         if (!name.isEmpty())
-            updateString += NS.CUSTOMERS_NAME + " = '" + name + "'";
+            updateString += Constants.CUSTOMERS_NAME + " = '" + name + "'";
 
         System.out.println("Enter DOB : ");
         String dob = scan.nextLine();
 
         if (!dob.isEmpty()) {
             updateString += (!updateString.isEmpty()) ? " , " : "";
-            updateString += NS.CUSTOMERS_DOB + " = '" + dob + "'";
+            updateString += Constants.CUSTOMERS_DOB + " = '" + dob + "'";
         }
 
         System.out.println("Enter phone number : ");
@@ -83,7 +83,7 @@ public class Customers implements CRUD {
 
         if (!phNum.isEmpty()) {
             updateString += (!updateString.isEmpty()) ? " , " : "";
-            updateString += NS.CUSTOMERS_PH_NUMBER + " = '" + phNum + "'";
+            updateString += Constants.CUSTOMERS_PH_NUMBER + " = '" + phNum + "'";
         }
 
         System.out.println("Enter email : ");
@@ -91,10 +91,10 @@ public class Customers implements CRUD {
 
         if (!email.isEmpty()) {
             updateString += (!updateString.isEmpty()) ? " , " : "";
-            updateString += NS.CUSTOMERS_EMAIL + " = '" + email + "'";
+            updateString += Constants.CUSTOMERS_EMAIL + " = '" + email + "'";
         }
 
-        String query = "Update " + NS.CUSTOMERS_TABLE + " set " + updateString + " where " + NS.CUSTOMERS_ID + " = " + customerId;
+        String query = "Update " + Constants.CUSTOMERS_TABLE + " set " + updateString + " where " + Constants.CUSTOMERS_ID + " = " + customerId;
         execute(query);
 
     }
@@ -105,7 +105,7 @@ public class Customers implements CRUD {
         System.out.println("Enter customer ID : ");
         String customerId = scan.nextLine();
 
-        String query = "Delete from " + NS.CUSTOMERS_TABLE + " where " + NS.CUSTOMERS_ID + " = " + customerId;
+        String query = "Delete from " + Constants.CUSTOMERS_TABLE + " where " + Constants.CUSTOMERS_ID + " = " + customerId;
         execute(query);
 
     }

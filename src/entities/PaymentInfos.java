@@ -5,14 +5,14 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import edu.csc.dbms.CRUD;
-import edu.csc.dbms.NS;
+import edu.csc.dbms.Constants;
 
 public class PaymentInfos implements CRUD {
 
     @Override
     public void retrieve() throws SQLException {
 
-        String query = "select * from " + NS.PAYMENT_INFOS_TABLE;
+        String query = "select * from " + Constants.PAYMENT_INFOS_TABLE;
 
         ResultSet result = execute(query);
 
@@ -23,15 +23,15 @@ public class PaymentInfos implements CRUD {
 
             while (result.next()) {
 
-                int paymentId = result.getInt(NS.PAYMENT_INFOS_ID);
-                String ssn = result.getString(NS.PAYMENT_INFOS_SSN);
-                String address = result.getString(NS.PAYMENT_INFOS_BILLING_ADDRESS);
-                String city = result.getString(NS.PAYMENT_INFOS_CITY);
-                String state = result.getString(NS.PAYMENT_INFOS_STATE);
-                String country = result.getString(NS.PAYMENT_INFOS_COUNTRY);
-                String paymentMethod = result.getString(NS.PAYMENT_INFOS_PAYMENT_METHOD);
-                String cardNum = result.getString(NS.PAYMENT_INFOS_CARD_NUM);
-                int customerId = result.getInt(NS.PAYMENT_INFOS_CUSTOMER_ID);
+                int paymentId = result.getInt(Constants.PAYMENT_INFOS_ID);
+                String ssn = result.getString(Constants.PAYMENT_INFOS_SSN);
+                String address = result.getString(Constants.PAYMENT_INFOS_BILLING_ADDRESS);
+                String city = result.getString(Constants.PAYMENT_INFOS_CITY);
+                String state = result.getString(Constants.PAYMENT_INFOS_STATE);
+                String country = result.getString(Constants.PAYMENT_INFOS_COUNTRY);
+                String paymentMethod = result.getString(Constants.PAYMENT_INFOS_PAYMENT_METHOD);
+                String cardNum = result.getString(Constants.PAYMENT_INFOS_CARD_NUM);
+                int customerId = result.getInt(Constants.PAYMENT_INFOS_CUSTOMER_ID);
 
                 System.out.println(paymentId + " |" + ssn + " |" + address + " |" + city + " |" + state + " |" + country + " |" + paymentMethod + " |" + cardNum + " |" + customerId);
             }
@@ -60,10 +60,10 @@ public class PaymentInfos implements CRUD {
         String customerId = scan.nextLine();
 
 
-        String query = "Insert into " + NS.PAYMENT_INFOS_TABLE + "(" + NS.PAYMENT_INFOS_SSN + ","
-                + NS.PAYMENT_INFOS_BILLING_ADDRESS + "," + NS.PAYMENT_INFOS_CITY + "," + NS.PAYMENT_INFOS_STATE + ","
-                + NS.PAYMENT_INFOS_COUNTRY + "," + NS.PAYMENT_INFOS_PAYMENT_METHOD + "," + NS.PAYMENT_INFOS_CARD_NUM
-                + "," + NS.PAYMENT_INFOS_CUSTOMER_ID + ") values('" + ssn + "','" + address + "','" + city + "','"
+        String query = "Insert into " + Constants.PAYMENT_INFOS_TABLE + "(" + Constants.PAYMENT_INFOS_SSN + ","
+                + Constants.PAYMENT_INFOS_BILLING_ADDRESS + "," + Constants.PAYMENT_INFOS_CITY + "," + Constants.PAYMENT_INFOS_STATE + ","
+                + Constants.PAYMENT_INFOS_COUNTRY + "," + Constants.PAYMENT_INFOS_PAYMENT_METHOD + "," + Constants.PAYMENT_INFOS_CARD_NUM
+                + "," + Constants.PAYMENT_INFOS_CUSTOMER_ID + ") values('" + ssn + "','" + address + "','" + city + "','"
                 + state + "','" + country + "','" + paymentMethod + "','" + cardNum + "'," + customerId + ")";
         execute(query);
 
@@ -75,21 +75,21 @@ public class PaymentInfos implements CRUD {
         System.out.println("Enter payment ID to update : ");
         String paymentId = scan.nextLine();
 
-        String updateString = new String();
+        String updateString = "";
 
         System.out.println("Enter only update values");
         System.out.println("Enter payer SSN : ");
         String ssn = scan.nextLine();
 
         if (!ssn.isEmpty())
-            updateString += NS.PAYMENT_INFOS_SSN + " = '" + ssn + "'";
+            updateString += Constants.PAYMENT_INFOS_SSN + " = '" + ssn + "'";
 
         System.out.println("Enter line 1 billing address : ");
         String address = scan.nextLine();
 
         if (!address.isEmpty()) {
             updateString += (!updateString.isEmpty()) ? " , " : "";
-            updateString += NS.PAYMENT_INFOS_BILLING_ADDRESS + " = '" + address + "'";
+            updateString += Constants.PAYMENT_INFOS_BILLING_ADDRESS + " = '" + address + "'";
         }
 
 
@@ -98,7 +98,7 @@ public class PaymentInfos implements CRUD {
 
         if (!city.isEmpty()) {
             updateString += (!updateString.isEmpty()) ? " , " : "";
-            updateString += NS.PAYMENT_INFOS_CITY + " = '" + city + "'";
+            updateString += Constants.PAYMENT_INFOS_CITY + " = '" + city + "'";
         }
 
         System.out.println("Enter State : ");
@@ -106,7 +106,7 @@ public class PaymentInfos implements CRUD {
 
         if (!state.isEmpty()) {
             updateString += (!updateString.isEmpty()) ? " , " : "";
-            updateString += NS.PAYMENT_INFOS_STATE + " = '" + state + "'";
+            updateString += Constants.PAYMENT_INFOS_STATE + " = '" + state + "'";
         }
 
         System.out.println("Enter Country : ");
@@ -114,7 +114,7 @@ public class PaymentInfos implements CRUD {
 
         if (!country.isEmpty()) {
             updateString += (!updateString.isEmpty()) ? " , " : "";
-            updateString += NS.PAYMENT_INFOS_COUNTRY + " = '" + country + "'";
+            updateString += Constants.PAYMENT_INFOS_COUNTRY + " = '" + country + "'";
         }
 
         System.out.println("Enter payment method : ");
@@ -122,7 +122,7 @@ public class PaymentInfos implements CRUD {
 
         if (!paymentMethod.isEmpty()) {
             updateString += (!updateString.isEmpty()) ? " , " : "";
-            updateString += NS.PAYMENT_INFOS_PAYMENT_METHOD + " = '" + paymentMethod + "'";
+            updateString += Constants.PAYMENT_INFOS_PAYMENT_METHOD + " = '" + paymentMethod + "'";
         }
 
         System.out.println("Enter card number : ");
@@ -130,7 +130,7 @@ public class PaymentInfos implements CRUD {
 
         if (!cardNum.isEmpty()) {
             updateString += (!updateString.isEmpty()) ? " , " : "";
-            updateString += NS.PAYMENT_INFOS_CARD_NUM + " = '" + cardNum + "'";
+            updateString += Constants.PAYMENT_INFOS_CARD_NUM + " = '" + cardNum + "'";
         }
 
         System.out.println("Enter Customer ID : ");
@@ -138,10 +138,10 @@ public class PaymentInfos implements CRUD {
 
         if (!customerId.isEmpty()) {
             updateString += (!updateString.isEmpty()) ? " , " : "";
-            updateString += NS.PAYMENT_INFOS_CUSTOMER_ID + " = " + customerId + "";
+            updateString += Constants.PAYMENT_INFOS_CUSTOMER_ID + " = " + customerId + "";
         }
 
-        String query = "Update " + NS.PAYMENT_INFOS_TABLE + " set " + updateString + " where " + NS.PAYMENT_INFOS_ID + " = " + paymentId;
+        String query = "Update " + Constants.PAYMENT_INFOS_TABLE + " set " + updateString + " where " + Constants.PAYMENT_INFOS_ID + " = " + paymentId;
         execute(query);
 
     }
@@ -152,7 +152,7 @@ public class PaymentInfos implements CRUD {
         System.out.println("Enter payment ID : ");
         String paymentId = scan.nextLine();
 
-        String query = "Delete from " + NS.PAYMENT_INFOS_TABLE + " where " + NS.PAYMENT_INFOS_ID + " = " + paymentId;
+        String query = "Delete from " + Constants.PAYMENT_INFOS_TABLE + " where " + Constants.PAYMENT_INFOS_ID + " = " + paymentId;
         execute(query);
 
     }

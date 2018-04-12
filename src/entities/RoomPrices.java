@@ -5,14 +5,14 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import edu.csc.dbms.CRUD;
-import edu.csc.dbms.NS;
+import edu.csc.dbms.Constants;
 
 public class RoomPrices implements CRUD {
 
     @Override
     public void retrieve() throws SQLException {
 
-        String query = "select * from " + NS.ROOM_PRICES_TABLE;
+        String query = "select * from " + Constants.ROOM_PRICES_TABLE;
 
         ResultSet result = execute(query);
 
@@ -23,9 +23,9 @@ public class RoomPrices implements CRUD {
 
             while (result.next()) {
 
-                String category = result.getString(NS.ROOM_PRICES_CATEGORY);
-                int maxOccupancy = result.getInt(NS.ROOM_PRICES_MAXOCCUPANCY);
-                int price = result.getInt(NS.ROOM_PRICES_PRICE);
+                String category = result.getString(Constants.ROOM_PRICES_CATEGORY);
+                int maxOccupancy = result.getInt(Constants.ROOM_PRICES_MAXOCCUPANCY);
+                int price = result.getInt(Constants.ROOM_PRICES_PRICE);
 
                 System.out.println(category + " |" + maxOccupancy + " |" + price);
             }
@@ -43,7 +43,7 @@ public class RoomPrices implements CRUD {
         System.out.println("Enter price : ");
         String price = scan.nextLine();
 
-        String query = "Insert into " + NS.ROOM_PRICES_TABLE + "(" + NS.ROOM_PRICES_CATEGORY + "," + NS.ROOM_PRICES_MAXOCCUPANCY + "," + NS.ROOM_PRICES_PRICE
+        String query = "Insert into " + Constants.ROOM_PRICES_TABLE + "(" + Constants.ROOM_PRICES_CATEGORY + "," + Constants.ROOM_PRICES_MAXOCCUPANCY + "," + Constants.ROOM_PRICES_PRICE
                 + ") values('" + category + "','"
                 + maxOccupancy + "','" + price + "')";
         execute(query);
@@ -59,16 +59,16 @@ public class RoomPrices implements CRUD {
         System.out.println("Enter maxOccupancy : ");
         String maxOccupancy = scan.nextLine();
 
-        String updateString = new String();
+        String updateString = "";
 
         System.out.println("Enter only update values");
         System.out.println("Enter price : ");
         String price = scan.nextLine();
 
         if (!price.isEmpty())
-            updateString += NS.ROOM_PRICES_PRICE + " = " + price;
+            updateString += Constants.ROOM_PRICES_PRICE + " = " + price;
 
-        String query = "Update " + NS.ROOM_PRICES_TABLE + " set " + updateString + " where " + NS.ROOM_PRICES_CATEGORY + " LIKE '" + category + "' and " + NS.ROOM_PRICES_MAXOCCUPANCY + " = '" + maxOccupancy + "'";
+        String query = "Update " + Constants.ROOM_PRICES_TABLE + " set " + updateString + " where " + Constants.ROOM_PRICES_CATEGORY + " LIKE '" + category + "' and " + Constants.ROOM_PRICES_MAXOCCUPANCY + " = '" + maxOccupancy + "'";
         execute(query);
 
     }
@@ -82,7 +82,7 @@ public class RoomPrices implements CRUD {
         System.out.println("Enter maxOccupancy : ");
         String maxOccupancy = scan.nextLine();
 
-        String query = "Delete from " + NS.ROOM_PRICES_TABLE + " where " + NS.ROOM_PRICES_CATEGORY + " = '" + category + "' AND " + NS.ROOM_PRICES_MAXOCCUPANCY + " = '" + maxOccupancy + "'";
+        String query = "Delete from " + Constants.ROOM_PRICES_TABLE + " where " + Constants.ROOM_PRICES_CATEGORY + " = '" + category + "' AND " + Constants.ROOM_PRICES_MAXOCCUPANCY + " = '" + maxOccupancy + "'";
         execute(query);
 
     }
