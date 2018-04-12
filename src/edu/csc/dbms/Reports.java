@@ -13,6 +13,9 @@ public class Reports {
         System.out.println("3. Staff served during the customer’s stay");
         System.out.println("4. Revenue earned by all hotels");
         System.out.println("5. Revenue earned by a hotel");
+        System.out.println("6. Occupancy by hotel");
+        System.out.println("7. Occupancy by city");
+        System.out.println("8. Occupancy by category");
 
         System.out.println();
         System.out.print("Select the Report to be generated :");
@@ -34,6 +37,15 @@ public class Reports {
                 break;
             case 5:
                 getRevenueByHotel();
+                break;
+            case 6:
+                getOccupancyBy("Hotel");
+                break;
+            case 7:
+                getOccupancyBy("City");
+                break;
+            case 8:
+                getOccupancyBy("Category");
                 break;
             default:
                 System.out.println("Please Enter a valid option ....");
@@ -142,6 +154,36 @@ public class Reports {
                 float revenue = result.getFloat("Revenue");
 
                 System.out.println(name + " |" + revenue);
+            }
+        }
+    }
+
+    private void getOccupancyBy(String criteria) throws SQLException {
+        String query;
+        switch (criteria) {
+            case "Hotel":
+                query = "SELECT Name AS " + criteria + ",(COUNT(CASE WHEN availability = false THEN 1 ELSE null END)/COUNT(*))*100 AS OccupancyPercentage, COUNT(CASE WHEN availability = false THEN 1 ELSE null END) AS TotalOccupancy FROM " + Constants.ROOMS_TABLE + " NATURAL JOIN " + Constants.HOTELS_TABLE + " GROUP BY hotelId";
+                break;
+            case "City":
+                query = "SELECT city AS " + criteria + ",(COUNT(CASE WHEN availability = false THEN 1 ELSE null END)/COUNT(*))*100 AS OccupancyPercentage, COUNT(CASE WHEN availability = false THEN 1 ELSE null END) AS TotalOccupancy FROM " + Constants.ROOMS_TABLE + " NATURAL JOIN " + Constants.HOTELS_TABLE + " GROUP BY city";
+                break;
+            case "Category":
+                query = "SELECT category AS " + criteria + ",(COUNT(CASE WHEN availability = false THEN 1 ELSE null END)/COUNT(*))*100 AS OccupancyPercentage, COUNT(CASE WHEN availability = false THEN 1 ELSE null END) AS TotalOccupancy FROM " + Constants.ROOMS_TABLE + " NATURAL JOIN " + Constants.HOTELS_TABLE + " GROUP BY category";
+                break;
+            default:
+                return;
+        }
+        ResultSet result = DBUtil.executeQuery(query);
+        if (result != null) {
+            System.out.println(criteria + " |" + "Occupancy Percentage" + " |" + "Total Occupancy");
+            System.out.println("---------------------------------------------------------------");
+
+            while (result.next()) {
+                String name = result.getString(criteria);
+                float occupancyPercentage = result.getFloat("OccupancyPercentage");
+                float totalOccupancy = result.getFloat("TotalOccupancy");
+
+                System.out.println(name + " |" + occupancyPercentage + " |" + totalOccupancy);
             }
         }
     }
