@@ -16,6 +16,7 @@ public class Main {
 
                 System.out.println("1. CRUD operations");
                 System.out.println("2. Task1 - Information Processing");
+                System.out.println("2. Task2 - Maintaining Service Records");
                 System.out.println("4. Task3 - Maintaining Billing Accounts");
                 System.out.println("5. Task4 - Reports");
 
@@ -36,6 +37,11 @@ public class Main {
                     	Info_Processing ip =new Info_Processing();
                     	ip.info_processing();
                     	break;
+
+                    case 2:
+                        Maintaining_Service_Accounts maintaining_service_accounts =new Maintaining_Service_Accounts();
+                        maintaining_service_accounts.operations();
+                        break;
 
                     case 4:
                     	Maintaining_Billing_Accounts billing = new Maintaining_Billing_Accounts();
