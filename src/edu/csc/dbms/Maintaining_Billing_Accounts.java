@@ -11,8 +11,8 @@ public class Maintaining_Billing_Accounts {
 	public void operations() throws SQLException{
 		
 		System.out.println("1. Billing total");
-		System.out.println("2. Itemized recipt");
-        System.out.println("3. Billing total with itemized recipt");
+		System.out.println("2. Itemized reciept");
+        System.out.println("3. Billing total with itemized reciept");
 
         System.out.println();
         System.out.print("Select the type of billing to be generated :");
