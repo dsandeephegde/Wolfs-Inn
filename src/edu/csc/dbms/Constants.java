@@ -3,7 +3,7 @@ package edu.csc.dbms;
 public class Constants {
 
     //Hotel Table
-    public static final String HOTELS_TABLE = "hotels";
+    public static final String HOTELS_TABLE = "Hotels";
 
     public static final String HOTELS_ID = "hotelId";
     public static final String HOTELS_NAME = "Name";
@@ -15,7 +15,7 @@ public class Constants {
     public static final String HOTELS_MANAGER_ID = "managerId";
 
     //Staff Table
-    public static final String STAFFS_TABLE = "staffs";
+    public static final String STAFFS_TABLE = "Staff";
 
     public static final String STAFFS_ID = "staffId";
     public static final String STAFFS_NAME = "name";
@@ -29,7 +29,7 @@ public class Constants {
     public static final String STAFFS_HOTEL_ID = "hotelId";
 
     //Customer Table
-    public static final String CUSTOMERS_TABLE = "customers";
+    public static final String CUSTOMERS_TABLE = "Customers";
 
     public static final String CUSTOMERS_ID = "customerId";
     public static final String CUSTOMERS_NAME = "name";
@@ -38,14 +38,14 @@ public class Constants {
     public static final String CUSTOMERS_EMAIL = "email";
 
     //Services Table
-    public static final String SERVICES_TABLE = "services";
+    public static final String SERVICES_TABLE = "Services";
 
     public static final String SERVICES_ID = "serviceId";
     public static final String SERVICES_NAME = "name";
     public static final String SERVICES_BASE_PRICE = "basePrice";
 
     //Payment_Infos Table
-    public static final String PAYMENT_INFOS_TABLE = "payment_infos";
+    public static final String PAYMENT_INFOS_TABLE = "PaymentInfo";
 
     public static final String PAYMENT_INFOS_ID = "paymentId";
     public static final String PAYMENT_INFOS_SSN = "SSN";
@@ -58,7 +58,7 @@ public class Constants {
     public static final String PAYMENT_INFOS_CUSTOMER_ID = "customerId";
 
     //Room Table
-    public static final String ROOMS_TABLE = "rooms";
+    public static final String ROOMS_TABLE = "Rooms";
 
     public static final String ROOMS_ROOMNUMBER = "roomNumber";
     public static final String ROOMS_HOTELID = "hotelId";
@@ -67,14 +67,14 @@ public class Constants {
     public static final String ROOMS_AVAILABILITY = "availability";
 
     //Room Prices Table
-    public static final String ROOM_PRICES_TABLE = "room_prices";
+    public static final String ROOM_PRICES_TABLE = "RoomPrices";
 
     public static final String ROOM_PRICES_CATEGORY = "category";
     public static final String ROOM_PRICES_MAXOCCUPANCY = "maxOccupancy";
     public static final String ROOM_PRICES_PRICE = "price";
 
     //CheckIns Table
-    public static final String CHECK_INS_TABLE = "checkins";
+    public static final String CHECK_INS_TABLE = "Checkins";
 
     public static final String CHECK_INS_CHECKINID = "checkinId";
     public static final String CHECK_INS_STARTDATE = "startDate";
@@ -89,14 +89,14 @@ public class Constants {
     public static final String CHECK_INS_PAYMENTID = "paymentId";
 
     //Buys Table
-    public static final String BUYS_TABLE = "buys";
+    public static final String BUYS_TABLE = "Buys";
 
     public static final String BUYS_SERVICEID = "serviceId";
     public static final String BUYS_CHECKINID = "checkinId";
     public static final String BUYS_PRICE = "price";
 
     //Serves Table
-    public static final String SERVES_TABLE = "serves";
+    public static final String SERVES_TABLE = "Serves";
 
     public static final String SERVES_STAFFID = "staffId";
     public static final String SERVES_CHECKINID = "checkinId";
