@@ -67,6 +67,7 @@ public class GuestCheckInCheckOut {
 			checkInDetails(conn, hotelId, roomNumber);
 			
 			conn.commit();
+			conn.close();
 			System.out.println("Successfully Checked-In");
 			
 		}catch (SQLException se) {
@@ -114,6 +115,7 @@ public class GuestCheckInCheckOut {
 	        updateTotalPrice(conn, checkinId);
 	        
 	        conn.commit();
+	        conn.close();
 			System.out.println("Successfully Checked-Out");
 			
 		}catch (SQLException se) {
