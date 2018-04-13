@@ -19,6 +19,7 @@ public class Main {
                 System.out.println("3. Task2 - Maintaining Service Records");
                 System.out.println("4. Task3 - Maintaining Billing Accounts");
                 System.out.println("5. Task4 - Reports");
+                System.out.println("6. Check In and Check Out");
 
                 System.out.println();
                 System.out.print("Select the task :");
@@ -52,7 +53,12 @@ public class Main {
                         Reports reports = new Reports();
                         reports.operations();
                         break;
-
+                    
+                    case 6:
+                    	GuestCheckInCheckOut guestCheckInCheckOut = new GuestCheckInCheckOut();
+                    	guestCheckInCheckOut.operations();
+                    	break;
+                        
                     default:
                         System.out.println("Please Enter a valid option");
                 }
