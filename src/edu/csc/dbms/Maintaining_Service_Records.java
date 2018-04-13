@@ -53,8 +53,8 @@ public class Maintaining_Service_Records {
 
         if (old_price != 0) {
             new_price = old_price + price;
-            String query = "Update " + Constants.BUYS_TABLE + " set " + Constants.BUYS_PRICE + " = '" + new_price + "'" + " where " + Constants.BUYS_SERVICEID
-                    + " = " + serviceId + " and " + Constants.BUYS_CHECKINID + " = " + checkinId;
+            String query = "Update " + Constants.BUYS_TABLE + " set " + Constants.BUYS_PRICE + " = '" + new_price + "'" + " where "
+                    + Constants.BUYS_SERVICEID + " = " + serviceId + " and " + Constants.BUYS_CHECKINID + " = " + checkinId;
             DBUtil.executeQuery(query);
         }
         else{
@@ -78,13 +78,14 @@ public class Maintaining_Service_Records {
 
 
         if (old_price - price == 0) {
-            String query = "Delete from " + Constants.BUYS_TABLE + " where " + Constants.BUYS_SERVICEID + " = " + serviceId + " and " + Constants.BUYS_CHECKINID + " = " + checkinId;
+            String query = "Delete from " + Constants.BUYS_TABLE + " where " + Constants.BUYS_SERVICEID + " = "
+                    + serviceId + " and " + Constants.BUYS_CHECKINID + " = " + checkinId;
             DBUtil.executeQuery(query);
         }
         else if (old_price - price > 0){
             new_price = old_price - price;
-            String query = "Update " + Constants.BUYS_TABLE + " set " + Constants.BUYS_PRICE + " = '" + new_price + "'" + " where " + Constants.BUYS_SERVICEID
-                    + " = " + serviceId + " and " + Constants.BUYS_CHECKINID + " = " + checkinId;
+            String query = "Update " + Constants.BUYS_TABLE + " set " + Constants.BUYS_PRICE + " = '" + new_price + "'" + " where "
+                    + Constants.BUYS_SERVICEID + " = " + serviceId + " and " + Constants.BUYS_CHECKINID + " = " + checkinId;
             DBUtil.executeQuery(query);
         }
     }
