@@ -48,7 +48,7 @@ public class Rooms implements Entity {
         String category = scan.nextLine();
         System.out.println("Enter max occupancy : ");
         String maxOccupancy = scan.nextLine();
-        System.out.println("Enter availability : ");
+        System.out.println("Enter availability (0 - unavailable / 1 - available): ");
         String availability = scan.nextLine();
 
         String query = "Insert into " + Constants.ROOMS_TABLE + "(" + Constants.ROOMS_ROOMNUMBER + "," + Constants.ROOMS_HOTELID + "," + Constants.ROOMS_CATEGORY + ","

@@ -46,18 +46,14 @@ public class CheckIns implements Entity {
     @Override
     public void create() throws SQLException {
 
-        System.out.println("Enter startDate : ");
+        System.out.println("Enter startDate (YYYY-MM-DD) : ");
         String startDate = scan.nextLine();
-        System.out.println("Enter endDate : ");
+        System.out.println("Enter endDate (YYYY-MM-DD) : ");
         String endDate = scan.nextLine();
-        System.out.println("Enter checkinTime : ");
+        System.out.println("Enter checkinTime (HH:MM) : ");
         String checkinTime = scan.nextLine();
-        System.out.println("Enter checkoutTime : ");
-        String checkoutTime = scan.nextLine();
         System.out.println("Enter numberOfGuests : ");
         String numberOfGuests = scan.nextLine();
-        System.out.println("Enter total : ");
-        String total = scan.nextLine();
         System.out.println("Enter customerId : ");
         String customerId = scan.nextLine();
         System.out.println("Enter hotelId : ");
@@ -69,10 +65,10 @@ public class CheckIns implements Entity {
 
 
         String query = "Insert into " + Constants.CHECK_INS_TABLE + "(" + Constants.CHECK_INS_STARTDATE + ","
-                + Constants.CHECK_INS_ENDDATE + "," + Constants.CHECK_INS_CHECKINTIME + "," + Constants.CHECK_INS_CHECKOUTTIME + ","
-                + Constants.CHECK_INS_NUMBEROFGUESTS + "," + Constants.CHECK_INS_TOTAL + "," + Constants.CHECK_INS_CUSTOMERID
-                + "," + Constants.CHECK_INS_HOTELID + "," + Constants.CHECK_INS_ROOMNUMBER + "," + Constants.CHECK_INS_PAYMENTID + ") values('" + startDate + "','" + endDate + "','" + checkinTime + "','"
-                + checkoutTime + "','" + numberOfGuests + "','" + total + "','" + customerId + "','" + hotelId + "','" + roomNumber + "','" + paymentId + "')";
+                + Constants.CHECK_INS_ENDDATE + "," + Constants.CHECK_INS_CHECKINTIME + "," + Constants.CHECK_INS_NUMBEROFGUESTS
+                + "," + Constants.CHECK_INS_CUSTOMERID + "," + Constants.CHECK_INS_HOTELID + "," + Constants.CHECK_INS_ROOMNUMBER +
+                "," + Constants.CHECK_INS_PAYMENTID + ") values('" + startDate + "','" + endDate + "','" + checkinTime + "',"
+                + numberOfGuests + ",'" + customerId + "','" + hotelId + "','" + roomNumber + "','" + paymentId + "')";
         DBUtil.executeQuery(query);
 
     }
@@ -86,13 +82,13 @@ public class CheckIns implements Entity {
         String updateString = "";
 
         System.out.println("Enter only update values");
-        System.out.println("Enter startDate : ");
+        System.out.println("Enter endDate (YYYY-MM-DD) : ");
         String startDate = scan.nextLine();
 
         if (!startDate.isEmpty())
             updateString += Constants.CHECK_INS_STARTDATE + " = '" + startDate + "'";
 
-        System.out.println("Enter endDate : ");
+        System.out.println("Enter endDate (YYYY-MM-DD) : ");
         String endDate = scan.nextLine();
 
         if (!endDate.isEmpty()) {
@@ -101,7 +97,7 @@ public class CheckIns implements Entity {
         }
 
 
-        System.out.println("Enter checkinTime : ");
+        System.out.println("Enter checkinTime (HH:MM): ");
         String checkinTime = scan.nextLine();
 
         if (!checkinTime.isEmpty()) {

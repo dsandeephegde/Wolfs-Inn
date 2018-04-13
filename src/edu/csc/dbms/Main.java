@@ -14,51 +14,51 @@ public class Main {
         try {
             while (option != 100) {
 
-                System.out.println("1. CRUD operations");
-                System.out.println("2. Task1 - Information Processing");
-                System.out.println("3. Task2 - Maintaining Service Records");
-                System.out.println("4. Task3 - Maintaining Billing Accounts");
-                System.out.println("5. Task4 - Reports");
-                System.out.println("6. Check In and Check Out");
+                System.out.println("1. Task1 - Information Processing");
+                System.out.println("2. Task2 - Maintaining Service Records");
+                System.out.println("3. Task3 - Maintaining Billing Accounts");
+                System.out.println("4. Task4 - Reports");
+                System.out.println("5. Check In and Check Out");
+                System.out.println("6. CRUD operations");
 
                 System.out.println();
                 System.out.print("Select the task :");
 
-                option = Integer.parseInt(scan.nextLine());
+                option = getOption(option, scan);
 
                 System.out.println();
 
                 switch (option) {
 
                     case 1:
-                        Entities.crudOperations();
-                        break;
-
-                    case 2:
                         Info_Processing ip = new Info_Processing();
                         ip.info_processing();
                         break;
 
-                    case 3:
+                    case 2:
                         Maintaining_Service_Records maintaining_service_records = new Maintaining_Service_Records();
                         maintaining_service_records.operations();
                         break;
 
-                    case 4:
+                    case 3:
                         Maintaining_Billing_Accounts billing = new Maintaining_Billing_Accounts();
                         billing.operations();
                         break;
 
-                    case 5:
+                    case 4:
                         Reports reports = new Reports();
                         reports.operations();
                         break;
-                    
+
+                    case 5:
+                        GuestCheckInCheckOut guestCheckInCheckOut = new GuestCheckInCheckOut();
+                        guestCheckInCheckOut.operations();
+                        break;
+
                     case 6:
-                    	GuestCheckInCheckOut guestCheckInCheckOut = new GuestCheckInCheckOut();
-                    	guestCheckInCheckOut.operations();
-                    	break;
-                        
+                        Entities.crudOperations();
+                        break;
+
                     default:
                         System.out.println("Please Enter a valid option");
                 }
@@ -75,6 +75,16 @@ public class Main {
 
 
         System.out.println("Thank you for using Wolfs Inn");
+    }
+
+    private static int getOption(int option, Scanner scan) {
+        try {
+            option = Integer.parseInt(scan.nextLine());
+        } catch (Exception e) {
+            System.out.println("Exception " + e.getLocalizedMessage());
+            e.printStackTrace();
+        }
+        return option;
     }
 
 

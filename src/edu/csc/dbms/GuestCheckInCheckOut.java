@@ -166,11 +166,11 @@ public class GuestCheckInCheckOut {
 		
 		System.out.println("Enter Check-In Details : ");
 		
-		System.out.println("Enter startDate : ");
+		System.out.println("Enter startDate (YYYY-MM-DD) : ");
         String startDate = scan.nextLine();
-        System.out.println("Enter endDate : ");
+        System.out.println("Enter endDate (YYYY-MM-DD) :  ");
         String endDate = scan.nextLine();
-        System.out.println("Enter checkinTime : ");
+        System.out.println("Enter checkinTime (HH:MM): ");
         String checkinTime = scan.nextLine();
         System.out.println("Enter checkoutTime : ");
         String checkoutTime = scan.nextLine();

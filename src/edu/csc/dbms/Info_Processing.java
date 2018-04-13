@@ -1,5 +1,8 @@
 package edu.csc.dbms;
 
+import entities.CheckIns;
+import entities.Rooms;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
@@ -18,6 +21,9 @@ public class Info_Processing {
         System.out.print("Select the information to be processed :");
         System.out.println();
 
+        Rooms rooms = new Rooms();
+        CheckIns checkIns = new CheckIns();
+
         int option = Integer.parseInt(scan.nextLine());
         switch (option) {
             case 1:
@@ -28,12 +34,17 @@ public class Info_Processing {
                 break;
             case 3:
                 assign_rooms_by_type();
+                checkIns.retrieve();
+                rooms.retrieve();
                 break;
             case 4:
                 assign_rooms_by_roomnumber();
+                checkIns.retrieve();
+                rooms.retrieve();
                 break;
             case 5:
                 release_room();
+                rooms.retrieve();
                 break;
             default:
                 System.out.println("Please Enter a valid option ....");
@@ -80,7 +91,6 @@ public class Info_Processing {
                 System.out.println(roomNumber + " |" + hotelId + " |" + category + " |" + maxOccupancy + " |" + availability);
             }
         }
-
     }
 
     public void assign_rooms_by_type() throws SQLException {
@@ -107,80 +117,33 @@ public class Info_Processing {
                 System.out.println(roomNumber + " |" + hotelId + " |" + maxOccupancy + " |" + availability);
             }
         }
-        System.out.println("Enter startDate : ");
+        createCheckin(roomNumber_assign, hotelId);
+
+        query = "Update " + Constants.ROOMS_TABLE + " set " + Constants.ROOMS_AVAILABILITY + " =  0 " + " where " + Constants.ROOMS_ROOMNUMBER + " = " + roomNumber_assign + " and " + Constants.ROOMS_HOTELID + " = " + hotelId;
+        DBUtil.executeQuery(query);
+    }
+
+    private void createCheckin(String roomNumber, String hotelId) {
+        String query;
+        System.out.println("Enter startDate (YYYY-MM-DD)  : ");
         String startDate = scan.nextLine();
-        System.out.println("Enter endDate : ");
+        System.out.println("Enter endDate (YYYY-MM-DD) :  ");
         String endDate = scan.nextLine();
-        System.out.println("Enter checkinTime : ");
+        System.out.println("Enter checkinTime (HH:MM): ");
         String checkinTime = scan.nextLine();
-        System.out.println("Enter checkoutTime : ");
-        String checkoutTime = scan.nextLine();
         System.out.println("Enter numberOfGuests : ");
         String numberOfGuests = scan.nextLine();
-        System.out.println("Enter total : ");
-        String total = scan.nextLine();
         System.out.println("Enter customerId : ");
         String customerId = scan.nextLine();
         System.out.println("Enter paymentId : ");
         String paymentId = scan.nextLine();
 
-        query = "Insert into " + Constants.CHECK_INS_TABLE + "(" + Constants.CHECK_INS_STARTDATE + ","
-                + Constants.CHECK_INS_ENDDATE + "," + Constants.CHECK_INS_CHECKINTIME + "," + Constants.CHECK_INS_CHECKOUTTIME + ","
-                + Constants.CHECK_INS_NUMBEROFGUESTS + "," + Constants.CHECK_INS_TOTAL + "," + Constants.CHECK_INS_CUSTOMERID
-                + "," + Constants.CHECK_INS_HOTELID + "," + Constants.CHECK_INS_ROOMNUMBER + "," + Constants.CHECK_INS_PAYMENTID + ") values('" + startDate + "','" + endDate + "','" + checkinTime + "','"
-                + checkoutTime + "','" + numberOfGuests + "','" + total + "','" + customerId + "','" + hotelId + "','" + roomNumber_assign + "','" + paymentId + "')";
+        query = "Insert into " + Constants.CHECK_INS_TABLE + "(" + Constants.CHECK_INS_STARTDATE + "," + Constants.CHECK_INS_ENDDATE + ","
+                + Constants.CHECK_INS_CHECKINTIME + "," + Constants.CHECK_INS_NUMBEROFGUESTS + "," + Constants.CHECK_INS_CUSTOMERID
+                + "," + Constants.CHECK_INS_HOTELID + "," + Constants.CHECK_INS_ROOMNUMBER + "," + Constants.CHECK_INS_PAYMENTID + ") "
+                + "values('" + startDate + "','" + endDate + "','" + checkinTime + "'," + numberOfGuests + "," + customerId + ","
+                + hotelId + "," + roomNumber + "," + paymentId + ")";
         DBUtil.executeQuery(query);
-        query = "select * from " + Constants.CHECK_INS_TABLE;
-
-        result = DBUtil.executeQuery(query);
-
-        if (result != null) {
-
-            System.out.println("checkinId" + " |" + "startDate" + " |" + "endDate" + " |" + "checkinTime" + " |" + "checkoutTIme" + " |" + "numberOfGuests" + " |" + "total" + " |" + "customerId" + " |" + "hotelId" + " |" + "roomNumber" + " |" + "paymentId");
-            System.out.println("---------------------------------------------------------------");
-
-            while (result.next()) {
-
-                int checkinId = result.getInt(Constants.CHECK_INS_CHECKINID);
-                startDate = result.getString(Constants.CHECK_INS_STARTDATE);
-                endDate = result.getString(Constants.CHECK_INS_ENDDATE);
-                checkinTime = result.getString(Constants.CHECK_INS_CHECKINTIME);
-                checkoutTime = result.getString(Constants.CHECK_INS_CHECKOUTTIME);
-                numberOfGuests = result.getString(Constants.CHECK_INS_NUMBEROFGUESTS);
-                String totals = result.getString(Constants.CHECK_INS_TOTAL);
-                customerId = result.getString(Constants.CHECK_INS_CUSTOMERID);
-                hotelId = result.getString(Constants.CHECK_INS_HOTELID);
-                String roomNumber = result.getString(Constants.CHECK_INS_ROOMNUMBER);
-                paymentId = result.getString(Constants.CHECK_INS_PAYMENTID);
-
-                System.out.println(checkinId + " |" + startDate + " |" + endDate + " |" + checkinTime + " |" + checkoutTime + " |" + numberOfGuests + " |" + totals + " |" + customerId + " |" + hotelId + " |" + roomNumber + " |" + paymentId);
-            }
-        }
-
-        query = "Update " + Constants.ROOMS_TABLE + " set " + Constants.ROOMS_AVAILABILITY + " =  0 " + " where " + Constants.ROOMS_ROOMNUMBER + " = " + roomNumber_assign + " and " + Constants.ROOMS_HOTELID + " = " + hotelId;
-        DBUtil.executeQuery(query);
-
-        query = "select * from " + Constants.ROOMS_TABLE;
-
-        result = DBUtil.executeQuery(query);
-
-        if (result != null) {
-
-            System.out.println("roomNumber" + " |" + "hotelId" + " |" + "category" + " |" + "maxOccupancy" + " |" + "availability");
-            System.out.println("---------------------------------------------------------------");
-
-            while (result.next()) {
-
-                String roomNumber = result.getString(Constants.ROOMS_ROOMNUMBER);
-                hotelId = result.getString(Constants.ROOMS_HOTELID);
-                category = result.getString(Constants.ROOMS_CATEGORY);
-                int maxOccupancy = result.getInt(Constants.ROOMS_MAXOCCUPANCY);
-                boolean availability = result.getBoolean(Constants.ROOMS_AVAILABILITY);
-
-                System.out.println(roomNumber + " |" + hotelId + " |" + category + " |" + maxOccupancy + " |" + availability);
-            }
-        }
-
     }
 
     public void assign_rooms_by_roomnumber() throws SQLException {
@@ -205,78 +168,10 @@ public class Info_Processing {
                 System.out.println(category + " |" + hotelId + " |" + maxOccupancy + " |" + availability);
             }
         }
-        System.out.println("Enter startDate : ");
-        String startDate = scan.nextLine();
-        System.out.println("Enter endDate : ");
-        String endDate = scan.nextLine();
-        System.out.println("Enter checkinTime : ");
-        String checkinTime = scan.nextLine();
-        System.out.println("Enter checkoutTime : ");
-        String checkoutTime = scan.nextLine();
-        System.out.println("Enter numberOfGuests : ");
-        String numberOfGuests = scan.nextLine();
-        System.out.println("Enter total : ");
-        String total = scan.nextLine();
-        System.out.println("Enter customerId : ");
-        String customerId = scan.nextLine();
-        System.out.println("Enter paymentId : ");
-        String paymentId = scan.nextLine();
+        createCheckin(roomNumber, hotelId);
 
-        query = "Insert into " + Constants.CHECK_INS_TABLE + "(" + Constants.CHECK_INS_STARTDATE + ","
-                + Constants.CHECK_INS_ENDDATE + "," + Constants.CHECK_INS_CHECKINTIME + "," + Constants.CHECK_INS_CHECKOUTTIME + ","
-                + Constants.CHECK_INS_NUMBEROFGUESTS + "," + Constants.CHECK_INS_TOTAL + "," + Constants.CHECK_INS_CUSTOMERID
-                + "," + Constants.CHECK_INS_HOTELID + "," + Constants.CHECK_INS_ROOMNUMBER + "," + Constants.CHECK_INS_PAYMENTID + ") values('" + startDate + "','" + endDate + "','" + checkinTime + "','"
-                + checkoutTime + "','" + numberOfGuests + "','" + total + "','" + customerId + "','" + hotelId + "','" + roomNumber + "','" + paymentId + "')";
-        DBUtil.executeQuery(query);
-        query = "select * from " + Constants.CHECK_INS_TABLE;
-
-        result = DBUtil.executeQuery(query);
-
-        if (result != null) {
-
-            System.out.println("checkinId" + " |" + "startDate" + " |" + "endDate" + " |" + "checkinTime" + " |" + "checkoutTIme" + " |" + "numberOfGuests" + " |" + "total" + " |" + "customerId" + " |" + "hotelId" + " |" + "roomNumber" + " |" + "paymentId");
-            System.out.println("---------------------------------------------------------------");
-
-            while (result.next()) {
-
-                int checkinId = result.getInt(Constants.CHECK_INS_CHECKINID);
-                startDate = result.getString(Constants.CHECK_INS_STARTDATE);
-                endDate = result.getString(Constants.CHECK_INS_ENDDATE);
-                checkinTime = result.getString(Constants.CHECK_INS_CHECKINTIME);
-                checkoutTime = result.getString(Constants.CHECK_INS_CHECKOUTTIME);
-                numberOfGuests = result.getString(Constants.CHECK_INS_NUMBEROFGUESTS);
-                String totals = result.getString(Constants.CHECK_INS_TOTAL);
-                customerId = result.getString(Constants.CHECK_INS_CUSTOMERID);
-                hotelId = result.getString(Constants.CHECK_INS_HOTELID);
-                roomNumber = result.getString(Constants.CHECK_INS_ROOMNUMBER);
-                paymentId = result.getString(Constants.CHECK_INS_PAYMENTID);
-
-                System.out.println(checkinId + " |" + startDate + " |" + endDate + " |" + checkinTime + " |" + checkoutTime + " |" + numberOfGuests + " |" + totals + " |" + customerId + " |" + hotelId + " |" + roomNumber + " |" + paymentId);
-            }
-        }
         query = "Update " + Constants.ROOMS_TABLE + " set " + Constants.ROOMS_AVAILABILITY + " =  0 " + " where " + Constants.ROOMS_ROOMNUMBER + " = " + roomNumber + " and " + Constants.ROOMS_HOTELID + " = " + hotelId;
         DBUtil.executeQuery(query);
-
-        query = "select * from " + Constants.ROOMS_TABLE;
-
-        result = DBUtil.executeQuery(query);
-
-        if (result != null) {
-
-            System.out.println("roomNumber" + " |" + "hotelId" + " |" + "category" + " |" + "maxOccupancy" + " |" + "availability");
-            System.out.println("---------------------------------------------------------------");
-
-            while (result.next()) {
-
-                roomNumber = result.getString(Constants.ROOMS_ROOMNUMBER);
-                hotelId = result.getString(Constants.ROOMS_HOTELID);
-                String category = result.getString(Constants.ROOMS_CATEGORY);
-                int maxOccupancy = result.getInt(Constants.ROOMS_MAXOCCUPANCY);
-                boolean availability = result.getBoolean(Constants.ROOMS_AVAILABILITY);
-
-                System.out.println(roomNumber + " |" + hotelId + " |" + category + " |" + maxOccupancy + " |" + availability);
-            }
-        }
     }
 
     public void release_room() throws SQLException {
@@ -288,27 +183,5 @@ public class Info_Processing {
 
         String query = "Update " + Constants.ROOMS_TABLE + " set " + Constants.ROOMS_AVAILABILITY + " = 1  where " + Constants.ROOMS_ROOMNUMBER + " = " + roomNumber + " AND " + Constants.ROOMS_HOTELID + " = " + hotelId;
         DBUtil.executeQuery(query);
-        query = "select * from " + Constants.ROOMS_TABLE;
-
-        ResultSet result = DBUtil.executeQuery(query);
-
-        if (result != null) {
-
-            System.out.println("roomNumber" + " |" + "hotelId" + " |" + "category" + " |" + "maxOccupancy" + " |" + "availability");
-            System.out.println("---------------------------------------------------------------");
-
-            while (result.next()) {
-
-                roomNumber = result.getString(Constants.ROOMS_ROOMNUMBER);
-                hotelId = result.getString(Constants.ROOMS_HOTELID);
-                String category = result.getString(Constants.ROOMS_CATEGORY);
-                int maxOccupancy = result.getInt(Constants.ROOMS_MAXOCCUPANCY);
-                boolean availability = result.getBoolean(Constants.ROOMS_AVAILABILITY);
-
-                System.out.println(roomNumber + " |" + hotelId + " |" + category + " |" + maxOccupancy + " |" + availability);
-            }
-        }
     }
-
-
 }

@@ -19,7 +19,7 @@ public class Hotels implements Entity {
 
         if (result != null) {
 
-            System.out.println("HotelId" + " |" + "name" + " |" + "address" + " |" + "city" + " |" + "state" + " |" + "country" + " |" + "phNumber");
+            System.out.println("HotelId" + " |" + "name" + " |" + "address" + " |" + "city" + " |" + "state" + " |" + "country" + " |" + "phNumber" + " |" + "managerId");
             System.out.println("---------------------------------------------------------------");
 
             while (result.next()) {

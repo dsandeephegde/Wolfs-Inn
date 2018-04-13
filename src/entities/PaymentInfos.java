@@ -54,7 +54,7 @@ public class PaymentInfos implements Entity {
         String state = scan.nextLine();
         System.out.println("Enter Country : ");
         String country = scan.nextLine();
-        System.out.println("Enter payment method : ");
+        System.out.println("Enter payment method (credit/ hotel credit/ cash): ");
         String paymentMethod = scan.nextLine();
         System.out.println("Enter card number : ");
         String cardNum = scan.nextLine();
@@ -119,7 +119,7 @@ public class PaymentInfos implements Entity {
             updateString += Constants.PAYMENT_INFOS_COUNTRY + " = '" + country + "'";
         }
 
-        System.out.println("Enter payment method : ");
+        System.out.println("Enter payment method (credit/ hotel credit/ cash) : ");
         String paymentMethod = scan.nextLine();
 
         if (!paymentMethod.isEmpty()) {

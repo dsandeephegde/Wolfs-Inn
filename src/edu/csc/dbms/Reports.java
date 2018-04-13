@@ -122,9 +122,9 @@ public class Reports {
     }
 
     private void getRevenue() throws SQLException {
-        System.out.println("Enter startDate : ");
+        System.out.println("Enter startDate (YYYY-MM-DD)  : ");
         String startDate = scan.nextLine();
-        System.out.println("Enter endDate : ");
+        System.out.println("Enter endDate (YYYY-MM-DD) :  ");
         String endDate = scan.nextLine();
 
         String query = "SELECT hotelId, name, sum(total) AS Revenue FROM " + Constants.CHECK_INS_TABLE + " NATURAL JOIN " + Constants.HOTELS_TABLE + " WHERE endDate > '" + startDate + "' AND endDate < '" + endDate + "' GROUP BY hotelId";
@@ -146,9 +146,9 @@ public class Reports {
     private void getRevenueByHotel() throws SQLException {
         System.out.println("Enter hotel ID : ");
         String hotelId = scan.nextLine();
-        System.out.println("Enter startDate : ");
+        System.out.println("Enter startDate (YYYY-MM-DD) : ");
         String startDate = scan.nextLine();
-        System.out.println("Enter endDate : ");
+        System.out.println("Enter endDate (YYYY-MM-DD) :  ");
         String endDate = scan.nextLine();
 
         String query = "SELECT hotelId, name, sum(total) AS Revenue FROM " + Constants.CHECK_INS_TABLE + " NATURAL JOIN " + Constants.HOTELS_TABLE + " WHERE endDate > '" + startDate + "' AND endDate < '" + endDate + "' AND hotelId=" + hotelId;
@@ -197,9 +197,9 @@ public class Reports {
     }
 
     private void getOccupancyByDateRange() throws SQLException {
-        System.out.println("Enter startDate : ");
+        System.out.println("Enter startDate (YYYY-MM-DD)  : ");
         String startDate = scan.nextLine();
-        System.out.println("Enter endDate : ");
+        System.out.println("Enter endDate (YYYY-MM-DD) : ");
         String endDate = scan.nextLine();
 
         String query = "SELECT (occupied.counter/room.counter)*100 as OccupancyPercentage, occupied.counter as TotalOccupancy FROM " +

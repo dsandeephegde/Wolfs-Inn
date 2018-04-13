@@ -54,7 +54,7 @@ public class Maintaining_Billing_Accounts {
             int totalPrice = result.getInt(Constants.TOTAL_PRICE);
 
             System.out.println(Constants.TOTAL_PRICE);
-            System.out.println(totalPrice + "$");
+            System.out.println("$" + totalPrice);
         }
     }
 
