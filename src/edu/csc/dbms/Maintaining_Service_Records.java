@@ -19,7 +19,7 @@ public class Maintaining_Service_Records {
 
         switch (option) {
             case 1:
-                add_service();
+                add_update_service();
                 buys.retrieve();
                 break;
                 /*
@@ -29,7 +29,7 @@ public class Maintaining_Service_Records {
                 break;
                 */
             case 2:
-                buys.delete();
+                delete_service();
                 buys.retrieve();
                 break;
             default:
@@ -38,16 +38,59 @@ public class Maintaining_Service_Records {
         }
     }
 
-    public void add_service() throws SQLException{
+    public void add_update_service() throws SQLException{
         System.out.println("Enter serviceId: ");
-        String serviceId = scan.nextLine();
+        int serviceId = Integer.parseInt(scan.nextLine());
         System.out.println("Enter checkinId: ");
-        String checkinId = scan.nextLine();
+        int checkinId = Integer.parseInt(scan.nextLine());
 
-        int price = 0;
-        int old_price = 0;
         int new_price;
 
+        int price = get_service_price(serviceId);
+
+        int old_price = get_price(serviceId,checkinId);
+
+
+        if (old_price != 0) {
+            new_price = old_price + price;
+            String query = "Update " + Constants.BUYS_TABLE + " set " + Constants.BUYS_PRICE + " = '" + new_price + "'" + " where " + Constants.BUYS_SERVICEID
+                    + " = " + serviceId + " and " + Constants.BUYS_CHECKINID + " = " + checkinId;
+            DBUtil.executeQuery(query);
+        }
+        else{
+            String query = "Insert into " + Constants.BUYS_TABLE + "(" + Constants.BUYS_SERVICEID + "," + Constants.BUYS_CHECKINID + ","
+                    + Constants.BUYS_PRICE + ") values(" + serviceId + "," + checkinId + "," + price + ")";
+            DBUtil.executeQuery(query);
+        }
+    }
+
+    public void delete_service() throws SQLException{
+        System.out.println("Enter serviceId: ");
+        int serviceId = Integer.parseInt(scan.nextLine());
+        System.out.println("Enter checkinId: ");
+        int checkinId = Integer.parseInt(scan.nextLine());
+
+        int new_price;
+
+        int price = get_service_price(serviceId);
+
+        int old_price = get_price(serviceId,checkinId);
+
+
+        if (old_price - price == 0) {
+            String query = "Delete from " + Constants.BUYS_TABLE + " where " + Constants.BUYS_SERVICEID + " = " + serviceId + " and " + Constants.BUYS_CHECKINID + " = " + checkinId;
+            DBUtil.executeQuery(query);
+        }
+        else if (old_price - price > 0){
+            new_price = old_price - price;
+            String query = "Update " + Constants.BUYS_TABLE + " set " + Constants.BUYS_PRICE + " = '" + new_price + "'" + " where " + Constants.BUYS_SERVICEID
+                    + " = " + serviceId + " and " + Constants.BUYS_CHECKINID + " = " + checkinId;
+            DBUtil.executeQuery(query);
+        }
+    }
+
+    public int get_service_price(int serviceId) throws SQLException{
+        int price = 0;
         String query = "select * from " + Constants.SERVICES_TABLE + " where " + Constants.SERVICES_ID + " = " + serviceId;
 
         ResultSet result = DBUtil.executeQuery(query);
@@ -57,7 +100,12 @@ public class Maintaining_Service_Records {
                 price = result.getInt(Constants.SERVICES_BASE_PRICE);
             }
         }
-        query = "select * from " + Constants.BUYS_TABLE + " where " + Constants.BUYS_CHECKINID + " = " + checkinId + " and "
+        return price;
+    }
+
+    public int get_price(int serviceId, int checkinId) throws SQLException{
+        int old_price = 0;
+        String query = "select * from " + Constants.BUYS_TABLE + " where " + Constants.BUYS_CHECKINID + " = " + checkinId + " and "
                 + Constants.BUYS_SERVICEID + " = " + serviceId;
 
         ResultSet result_buys = DBUtil.executeQuery(query);
@@ -67,19 +115,7 @@ public class Maintaining_Service_Records {
                 old_price = result_buys.getInt(Constants.BUYS_PRICE);
             }
         }
-
-        if (old_price != 0) {
-            new_price = old_price + price;
-            query = "Update " + Constants.BUYS_TABLE + " set " + Constants.BUYS_PRICE + " = '" + new_price + "'" + " where " + Constants.BUYS_SERVICEID
-                    + " = " + serviceId + " and " + Constants.BUYS_CHECKINID + " = " + checkinId;
-            DBUtil.executeQuery(query);
-        }
-        else{
-            query = "Insert into " + Constants.BUYS_TABLE + "(" + Constants.BUYS_SERVICEID + "," + Constants.BUYS_CHECKINID + ","
-                    + Constants.BUYS_PRICE + ") values(" + serviceId + "," + checkinId + "," + price + ")";
-            DBUtil.executeQuery(query);
-        }
+        return old_price;
     }
-
 
 }
