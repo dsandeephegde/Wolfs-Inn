@@ -98,7 +98,8 @@ public class Reports {
                 String country = result.getString(Constants.STAFFS_COUNTRY);
                 int hotelId = result.getInt(Constants.STAFFS_HOTEL_ID);
 
-                System.out.println(staffId + " |" + name + " |" + age + " |" + jobTitle + " |" + phNumber + " |" + address + " |" + city + " |" + state + " |" + country + " |" + hotelId);
+                System.out.println(staffId + " |" + name + " |" + age + " |" + jobTitle + " |" + phNumber + " |"
+                        + address + " |" + city + " |" + state + " |" + country + " |" + hotelId);
             }
         }
     }
@@ -127,7 +128,9 @@ public class Reports {
         System.out.println("Enter endDate (YYYY-MM-DD) :  ");
         String endDate = scan.nextLine();
 
-        String query = "SELECT hotelId, name, sum(total) AS Revenue FROM " + Constants.CHECK_INS_TABLE + " NATURAL JOIN " + Constants.HOTELS_TABLE + " WHERE endDate > '" + startDate + "' AND endDate < '" + endDate + "' GROUP BY hotelId";
+        String query = "SELECT h.hotelId, h.Name, (CASE WHEN temp.hotelId=h.hotelId THEN temp.Revenue ELSE 0 END) as Revenue " +
+                "FROM " + Constants.HOTELS_TABLE + " h, (SELECT hotelId, sum(total) AS Revenue FROM " +
+                Constants.CHECK_INS_TABLE + " WHERE endDate > '" + startDate + "' AND endDate < '" + endDate + "') temp";
         ResultSet result = DBUtil.executeQuery(query);
         if (result != null) {
             System.out.println("HotelId" + " |" + "name" + " |" + "Revenue");
@@ -170,13 +173,22 @@ public class Reports {
         String query;
         switch (criteria) {
             case "Hotel":
-                query = "SELECT Name AS " + criteria + ",(COUNT(CASE WHEN availability = false THEN 1 ELSE null END)/COUNT(*))*100 AS OccupancyPercentage, COUNT(CASE WHEN availability = false THEN 1 ELSE null END) AS TotalOccupancy FROM " + Constants.ROOMS_TABLE + " NATURAL JOIN " + Constants.HOTELS_TABLE + " GROUP BY hotelId";
+                query = "SELECT Name AS " + criteria +
+                        ",(COUNT(CASE WHEN availability = false THEN 1 ELSE null END)/COUNT(*))*100 AS OccupancyPercentage, " +
+                        "COUNT(CASE WHEN availability = false THEN 1 ELSE null END) AS TotalOccupancy FROM "
+                        + Constants.ROOMS_TABLE + " NATURAL JOIN " + Constants.HOTELS_TABLE + " GROUP BY hotelId";
                 break;
             case "City":
-                query = "SELECT city AS " + criteria + ",(COUNT(CASE WHEN availability = false THEN 1 ELSE null END)/COUNT(*))*100 AS OccupancyPercentage, COUNT(CASE WHEN availability = false THEN 1 ELSE null END) AS TotalOccupancy FROM " + Constants.ROOMS_TABLE + " NATURAL JOIN " + Constants.HOTELS_TABLE + " GROUP BY city";
+                query = "SELECT city AS " + criteria +
+                        ",(COUNT(CASE WHEN availability = false THEN 1 ELSE null END)/COUNT(*))*100 AS OccupancyPercentage, " +
+                        "COUNT(CASE WHEN availability = false THEN 1 ELSE null END) AS TotalOccupancy FROM "
+                        + Constants.ROOMS_TABLE + " NATURAL JOIN " + Constants.HOTELS_TABLE + " GROUP BY city";
                 break;
             case "Category":
-                query = "SELECT category AS " + criteria + ",(COUNT(CASE WHEN availability = false THEN 1 ELSE null END)/COUNT(*))*100 AS OccupancyPercentage, COUNT(CASE WHEN availability = false THEN 1 ELSE null END) AS TotalOccupancy FROM " + Constants.ROOMS_TABLE + " NATURAL JOIN " + Constants.HOTELS_TABLE + " GROUP BY category";
+                query = "SELECT category AS " + criteria +
+                        ",(COUNT(CASE WHEN availability = false THEN 1 ELSE null END)/COUNT(*))*100 AS OccupancyPercentage, " +
+                        "COUNT(CASE WHEN availability = false THEN 1 ELSE null END) AS TotalOccupancy FROM "
+                        + Constants.ROOMS_TABLE + " NATURAL JOIN " + Constants.HOTELS_TABLE + " GROUP BY category";
                 break;
             default:
                 return;
@@ -205,9 +217,9 @@ public class Reports {
         String query = "SELECT (occupied.counter/room.counter)*100 as OccupancyPercentage, occupied.counter as TotalOccupancy FROM " +
                 "(SELECT count(*) as counter FROM Rooms r, Hotels h, Checkins c " +
                 "WHERE h.hotelId=r.hotelId and r.roomNumber = c.roomNumber and r.hotelId = c.hotelId and " +
-                "((endDate BETWEEN '"+startDate+"' AND '"+endDate+"') or " +
-                "(startDate BETWEEN '"+startDate+"' AND '"+endDate+"') or " +
-                "(endDate > '"+endDate+"' AND startDate < '"+startDate+"'))) occupied, " +
+                "((endDate BETWEEN '" + startDate + "' AND '" + endDate + "') or " +
+                "(startDate BETWEEN '" + startDate + "' AND '" + endDate + "') or " +
+                "(endDate > '" + endDate + "' AND startDate < '" + startDate + "'))) occupied, " +
                 "(SELECT count(*) as counter FROM Rooms) room";
 
         ResultSet result = DBUtil.executeQuery(query);
@@ -226,7 +238,8 @@ public class Reports {
 
     private void getOccupancies() throws SQLException {
         String query;
-        query = "SELECT Name AS Hotel_Name, (COUNT(CASE WHEN availability = false THEN 1 ELSE null END)/COUNT(*))*100 OccupancyPercentage, COUNT(CASE WHEN availability = false THEN 1 ELSE null END) AS TotalOccupancy FROM Rooms NATURAL JOIN Hotels";
+        query = "SELECT (COUNT(CASE WHEN availability = false THEN 1 ELSE null END)/COUNT(*))*100 OccupancyPercentage, " +
+                "COUNT(CASE WHEN availability = false THEN 1 ELSE null END) AS TotalOccupancy FROM Rooms NATURAL JOIN Hotels";
         String whereClause = "";
         String message = "Occupancy for ";
 
@@ -259,7 +272,7 @@ public class Reports {
 
         ResultSet result = DBUtil.executeQuery(query);
         if (result != null) {
-            if(!message.equals("Occupancy for ")) {
+            if (!message.equals("Occupancy for ")) {
                 System.out.println(message);
             } else {
                 System.out.println("Occupancy for all the hotels");
