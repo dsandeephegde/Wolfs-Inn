@@ -34,12 +34,16 @@ public class Info_Processing {
                 break;
             case 3:
                 assign_rooms_by_type();
+                System.out.println();
                 checkIns.retrieve();
+                System.out.println();
                 rooms.retrieve();
                 break;
             case 4:
                 assign_rooms_by_roomnumber();
+                System.out.println();
                 checkIns.retrieve();
+                System.out.println();
                 rooms.retrieve();
                 break;
             case 5:
@@ -52,6 +56,7 @@ public class Info_Processing {
     }
 
     public void check_available_rooms() throws SQLException {
+    	printRoomCategories();
         System.out.println("Enter the category of Room to check availability: ");
         String category = scan.nextLine();
 
@@ -70,6 +75,8 @@ public class Info_Processing {
     }
 
     public void rooms_list_by_roomtype() throws SQLException {
+    	
+    	printRoomCategories();
         System.out.println("Enter the category of Room to check availability: ");
         String category = scan.nextLine();
 
@@ -100,7 +107,8 @@ public class Info_Processing {
         Statement stm = conn.createStatement();
     	
     	try {
-    		String roomNumber_assign = "";
+    		String roomNumber_assign = null;
+    		printRoomCategories();
             System.out.println("Enter the category of Room to check availability: ");
             String category = scan.nextLine();
             System.out.println("Enter the hotelId: ");
@@ -125,7 +133,12 @@ public class Info_Processing {
                     System.out.println(roomNumber + " |" + hotelId + " |" + maxOccupancy + " |" + availability);
                 }
             }
-            createCheckin(conn, roomNumber_assign, hotelId);
+            if(roomNumber_assign != null) {
+            	createCheckin(conn, roomNumber_assign, hotelId);
+            }else {
+            	throw new SQLException("Rooms unaivailable \n");
+            }
+            
 
             query = "Update " + Constants.ROOMS_TABLE + " set " + Constants.ROOMS_AVAILABILITY + " =  0 " + " where " + Constants.ROOMS_ROOMNUMBER + " = " + roomNumber_assign + " and " + Constants.ROOMS_HOTELID + " = " + hotelId;
             
@@ -136,7 +149,7 @@ public class Info_Processing {
             
     	}catch(SQLException se) {
     		conn.rollback();
-    		throw new SQLException("Transaction Rollback - " + se.getMessage());
+    		System.out.println("Transaction Rollback - " + se.getMessage());
     	}catch(Exception e) {
     		conn.rollback();
     		System.out.println("Transaction Rollback - " + e.getMessage());
@@ -185,30 +198,39 @@ public class Info_Processing {
             String query = "Select * FROM " + Constants.ROOMS_TABLE + " where " + Constants.ROOMS_HOTELID + " = " + hotelId + " and " + Constants.ROOMS_ROOMNUMBER + " = '" + roomNumber + "' and " + Constants.ROOMS_AVAILABILITY + " = " + "1" + " LIMIT 1";
 
             ResultSet result = stm.executeQuery(query);
-            
+            boolean flag = false;
             if (result != null) {
 
                 System.out.println("category" + " |" + "hotelId" + " |" + "maxOccupancy" + " |" + "availability");
                 System.out.println("---------------------------------------------------------------");
-
+                
                 while (result.next()) {
 
                     String category = result.getString(Constants.ROOMS_CATEGORY);
                     int maxOccupancy = result.getInt(Constants.ROOMS_MAXOCCUPANCY);
                     boolean availability = result.getBoolean(Constants.ROOMS_AVAILABILITY);
+                    flag = availability;
 
                     System.out.println(category + " |" + hotelId + " |" + maxOccupancy + " |" + availability);
                 }
             }
             
-            createCheckin(conn, roomNumber, hotelId);
+            if(flag) {
+            	createCheckin(conn, roomNumber, hotelId);
+            }else {
+            	throw new SQLException("Rooms unaivailable \n");
+            }
+            
 
             query = "Update " + Constants.ROOMS_TABLE + " set " + Constants.ROOMS_AVAILABILITY + " =  0 " + " where " + Constants.ROOMS_ROOMNUMBER + " = " + roomNumber + " and " + Constants.ROOMS_HOTELID + " = " + hotelId;
             stm.executeQuery(query);
+            
+          //commit transaction
+            conn.commit();
     		
     	}catch(SQLException se) {
     		conn.rollback();
-    		throw new SQLException("Transaction Rollback - " + se.getMessage());
+    		System.out.println("Transaction Rollback - " + se.getMessage());
     	}catch(Exception e) {
     		conn.rollback();
     		System.out.println("Transaction Rollback - " + e.getMessage());
@@ -225,5 +247,21 @@ public class Info_Processing {
 
         String query = "Update " + Constants.ROOMS_TABLE + " set " + Constants.ROOMS_AVAILABILITY + " = 1  where " + Constants.ROOMS_ROOMNUMBER + " = " + roomNumber + " AND " + Constants.ROOMS_HOTELID + " = " + hotelId;
         DBUtil.executeQuery(query);
+    }
+    
+    public void printRoomCategories() throws SQLException{
+    	
+    	String query = "Select distinct " + Constants.ROOMS_CATEGORY + " from " + Constants.ROOMS_TABLE;
+    	
+    	ResultSet result = DBUtil.executeQuery(query);
+    	
+    	System.out.print("Available Categories : ");
+    	
+    	while(result.next()) {
+    		
+    		System.out.print(result.getString(Constants.ROOMS_CATEGORY) + " |");
+    		
+    	}
+    	System.out.println();
     }
 }

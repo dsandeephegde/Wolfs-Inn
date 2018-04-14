@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
+
 public class Maintaining_Billing_Accounts {
 
     private static Scanner scan = new Scanner(System.in);
@@ -42,13 +44,16 @@ public class Maintaining_Billing_Accounts {
     }
 
     private void getTotalPrice(String checkinId) throws SQLException {
-
-        String query = "SELECT (RP." + Constants.ROOM_PRICES_PRICE + "* DATEDIFF(C." + Constants.CHECK_INS_ENDDATE + " , " + Constants.CHECK_INS_STARTDATE + ") + SUM(B." + Constants.BUYS_PRICE + ")) * (CASE WHEN P." + Constants.PAYMENT_INFOS_PAYMENT_METHOD + " <> '" +
-                Constants.PAY_METHOD_HOTEL_CARD + "' THEN 1 ELSE 0.95 end) AS " + Constants.TOTAL_PRICE + " FROM " + Constants.ROOMS_TABLE + " R, " + Constants.ROOM_PRICES_TABLE + " RP, " + Constants.CHECK_INS_TABLE + " C, " + Constants.BUYS_TABLE + " B, " +
-                Constants.PAYMENT_INFOS_TABLE + " P WHERE C." + Constants.CHECK_INS_ROOMNUMBER + " = R." + Constants.ROOMS_ROOMNUMBER + " AND C." + Constants.CHECK_INS_HOTELID + " = R." + Constants.HOTELS_ID + " AND R." + Constants.ROOMS_MAXOCCUPANCY +
-                " = RP." + Constants.ROOM_PRICES_MAXOCCUPANCY + " AND R." + Constants.ROOMS_CATEGORY + " = RP." + Constants.ROOM_PRICES_CATEGORY + " AND C." + Constants.CHECK_INS_CHECKINID + " = " + checkinId + " AND B." + Constants.BUYS_CHECKINID + " = C." +
-                Constants.CHECK_INS_CHECKINID + " AND P." + Constants.PAYMENT_INFOS_ID + " = C." + Constants.CHECK_INS_PAYMENTID;
-
+        
+        String query = "SELECT SUM( temp." + Constants.PRICE + " )*( CASE WHEN P." + Constants.PAYMENT_INFOS_PAYMENT_METHOD + " <> '" + Constants.PAY_METHOD_HOTEL_CREDIT + "' THEN 1 else 0.95 end) as " + Constants.TOTAL_PRICE + " FROM (SELECT B." + Constants.BUYS_PRICE + " as " + Constants.PRICE + 
+        		" ,C." + Constants.CHECK_INS_CHECKINID + " FROM " + Constants.CHECK_INS_TABLE + " C, " + Constants.BUYS_TABLE + " B," + Constants.SERVICES_TABLE + " S WHERE C." + Constants.CHECK_INS_CHECKINID + " = B." + Constants.BUYS_CHECKINID + " AND B." + Constants.BUYS_SERVICEID + 
+        		" = S." + Constants.SERVICES_ID + " AND C." + Constants.CHECK_INS_CHECKINID + " = " + checkinId +
+        		" UNION " +
+        		"SELECT RP." + Constants.ROOM_PRICES_PRICE + "* DATEDIFF( C." + Constants.CHECK_INS_ENDDATE + " , C." +Constants.CHECK_INS_STARTDATE + " ) as " + Constants.PRICE + " , C." + Constants.CHECK_INS_CHECKINID + " FROM " + Constants.ROOMS_TABLE + " R, " + Constants.ROOM_PRICES_TABLE + " RP, " +
+        		Constants.CHECK_INS_TABLE + " C WHERE C." + Constants.CHECK_INS_ROOMNUMBER + " = R." + Constants.ROOMS_ROOMNUMBER + " AND C." + Constants.HOTELS_ID + " = R." + Constants.ROOMS_HOTELID + " AND R." + Constants.ROOMS_MAXOCCUPANCY + " = RP." + Constants.ROOMS_MAXOCCUPANCY + " AND R." + 
+        		Constants.ROOMS_CATEGORY + " = RP." + Constants.ROOM_PRICES_CATEGORY + " AND C." + Constants.CHECK_INS_CHECKINID + " = " + checkinId + " ) temp, " + Constants.CHECK_INS_TABLE + " C, " + Constants.PAYMENT_INFOS_TABLE + " P WHERE P." + Constants.PAYMENT_INFOS_ID + " = C." + Constants.CHECK_INS_PAYMENTID + 
+        		" AND C." + Constants.CHECK_INS_CHECKINID + " = temp." + Constants.CHECK_INS_CHECKINID;  
+         
         ResultSet result = DBUtil.executeQuery(query);
 
         if (result.next()) {

@@ -102,7 +102,7 @@ public class Constants {
     public static final String SERVES_CHECKINID = "checkinId";
 
     //Other Constants
-    public static final String PAY_METHOD_HOTEL_CARD = "hotel credit";
+    public static final String PAY_METHOD_HOTEL_CREDIT = "hotel credit";
 
     //Task3 - Maintaince and Billing Accounts  
     public static final String TOTAL_PRICE = "totalPrice";
