@@ -24,7 +24,7 @@ public class Main {
                 System.out.println();
                 System.out.print("Select the task :");
 
-                option = getOption(option, scan);
+                option = Util.getOption();
 
                 System.out.println();
 
@@ -76,16 +76,5 @@ public class Main {
 
         System.out.println("Thank you for using Wolfs Inn");
     }
-
-    private static int getOption(int option, Scanner scan) {
-        try {
-            option = Integer.parseInt(scan.nextLine());
-        } catch (Exception e) {
-            System.out.println("Exception " + e.getLocalizedMessage());
-            e.printStackTrace();
-        }
-        return option;
-    }
-
 
 }

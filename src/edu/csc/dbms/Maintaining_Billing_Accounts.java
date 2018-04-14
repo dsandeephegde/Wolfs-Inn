@@ -17,7 +17,8 @@ public class Maintaining_Billing_Accounts {
         System.out.println();
         System.out.print("Select the type of billing to be generated :");
 
-        int option = Integer.parseInt(scan.nextLine());
+        int option = Util.getOption();
+        // TODO CheckinId is asked even if wrong option is entered
 
         System.out.println("Enter the checkIn ID :");
         String checkinId = scan.nextLine();

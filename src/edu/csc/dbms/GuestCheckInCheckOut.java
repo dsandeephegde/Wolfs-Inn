@@ -16,7 +16,7 @@ public class GuestCheckInCheckOut {
         System.out.println();
         System.out.print("Select the operation :");
 
-        int option = Integer.parseInt(scan.nextLine());
+        int option = Util.getOption();
 
         switch (option) {
             case 1:

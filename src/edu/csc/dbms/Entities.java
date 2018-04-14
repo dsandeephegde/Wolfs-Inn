@@ -9,7 +9,6 @@ public class Entities {
 
     public static void crudOperations() throws SQLException {
 
-        Scanner scan = new Scanner(System.in);
         System.out.println("1. Hotels");
         System.out.println("2. Staffs");
         System.out.println("3. Customers");
@@ -25,7 +24,7 @@ public class Entities {
         System.out.print("Select the table :");
         System.out.println();
 
-        int option = Integer.parseInt(scan.nextLine());
+        int option = Util.getOption();
         Entity entity;
 
         switch (option) {
@@ -61,6 +60,7 @@ public class Entities {
                 entity = new Serves();
                 break;
             default:
+                System.out.println("Please Enter a valid option ....");
                 return;
         }
         entity.crudOperations();

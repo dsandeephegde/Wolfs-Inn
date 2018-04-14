@@ -23,7 +23,7 @@ public class Reports {
         System.out.print("Select the Report to be generated :");
         System.out.println();
 
-        int option = Integer.parseInt(scan.nextLine());
+        int option = Util.getOption();
         switch (option) {
             case 1:
                 staffRoles();

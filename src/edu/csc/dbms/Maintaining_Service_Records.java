@@ -8,14 +8,14 @@ import java.util.Scanner;
 
 public class Maintaining_Service_Records {
     protected Scanner scan = new Scanner(System.in);
-    protected Buys buys = new Buys();
+    private Buys buys = new Buys();
     
     public void operations() throws SQLException {
         System.out.println("1. Add/Update a service availed by the customer.");
         //System.out.println("2. Update prices of services availed");
         System.out.println("2. Delete a service not availed by customer");
 
-        int option = Integer.parseInt(scan.nextLine());
+        int option = Util.getOption();
 
         switch (option) {
             case 1:

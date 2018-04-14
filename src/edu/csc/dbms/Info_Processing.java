@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Info_Processing {
-    Scanner scan = new Scanner(System.in);
+    private Scanner scan = new Scanner(System.in);
 
     public void info_processing() throws SQLException {
         System.out.println("1. Check Number of Rooms available based on room type");
@@ -24,7 +24,7 @@ public class Info_Processing {
         Rooms rooms = new Rooms();
         CheckIns checkIns = new CheckIns();
 
-        int option = Integer.parseInt(scan.nextLine());
+        int option = Util.getOption();
         switch (option) {
             case 1:
                 check_available_rooms();

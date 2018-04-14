@@ -15,7 +15,6 @@ public interface Entity {
 
     default void crudOperations() throws SQLException {
 
-        Scanner scan = new Scanner(System.in);
         System.out.println("1. Show all entries");
         System.out.println("2. Create new entry");
         System.out.println("3. Update existing entry");
@@ -24,11 +23,11 @@ public interface Entity {
         System.out.println();
         System.out.print("Select from the following option :");
 
-        int selected = Integer.parseInt(scan.nextLine());
+        int option = Util.getOption();
 
         System.out.println();
 
-        switch (selected) {
+        switch (option) {
 
             case 1:
                 retrieve();
@@ -50,6 +49,9 @@ public interface Entity {
                 delete();
                 retrieve();
                 break;
+
+            default:
+                System.out.println("Please Enter a valid option ....");
         }
 
     }
