@@ -11,8 +11,8 @@ public class Maintaining_Billing_Accounts {
     public void operations() throws SQLException {
 
         System.out.println("1. Billing total");
-        System.out.println("2. Itemized reciept");
-        System.out.println("3. Billing total with itemized reciept");
+        System.out.println("2. Itemized receipt");
+        System.out.println("3. Billing total with itemized receipt");
 
         System.out.println();
         System.out.print("Select the type of billing to be generated :");
@@ -27,12 +27,12 @@ public class Maintaining_Billing_Accounts {
                 getTotalPrice(checkinId);
                 break;
             case 2:
-                getItemizedRecipt(checkinId);
+                getItemizedReceipt(checkinId);
                 break;
             case 3:
                 getTotalPrice(checkinId);
                 System.out.println();
-                getItemizedRecipt(checkinId);
+                getItemizedReceipt(checkinId);
                 break;
             default:
                 System.out.println("Please Enter a valid option ....");
@@ -58,7 +58,7 @@ public class Maintaining_Billing_Accounts {
         }
     }
 
-    private void getItemizedRecipt(String checkinId) throws SQLException {
+    private void getItemizedReceipt(String checkinId) throws SQLException {
 
         String query = "SELECT S." + Constants.SERVICES_NAME + " AS " + Constants.DESCRIPTION + " , S." + Constants.SERVICES_BASE_PRICE + " , cast( B." + Constants.BUYS_PRICE + " / S." + Constants.SERVICES_BASE_PRICE +
                 " AS INTEGER) AS " + Constants.NUMBER + " , B." + Constants.BUYS_PRICE + " FROM " + Constants.CHECK_INS_TABLE + " C, " + Constants.BUYS_TABLE + " B, " + Constants.SERVICES_TABLE + " S WHERE C." +

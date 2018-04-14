@@ -4,8 +4,6 @@ import java.sql.*;
 
 import java.util.Scanner;
 
-import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
-
 public class GuestCheckInCheckOut {
 
 	private static Scanner scan = new Scanner(System.in);
@@ -110,7 +108,7 @@ public class GuestCheckInCheckOut {
 	        
 	        System.out.println();
 	        
-	        getItemizedRecipt(checkinId);
+	        getItemizedReceipt(checkinId);
 	        
 	        updateTotalPrice(conn, checkinId);
 	        
@@ -279,7 +277,7 @@ public class GuestCheckInCheckOut {
 
 	private void validateCheckinID(Connection conn, String checkinId) throws SQLException {
 		
-		String query = "SELECT " + Constants.CHECK_INS_CHECKINID + " FROM " + Constants.CHECK_INS_TABLE + " WHERE " + Constants.CHECK_INS_CHECKINID + " = " + checkinId + " AND " + Constants.CHECK_INS_TOTAL + " = NULL" ;
+		String query = "SELECT " + Constants.CHECK_INS_CHECKINID + " FROM " + Constants.CHECK_INS_TABLE + " WHERE " + Constants.CHECK_INS_CHECKINID + " = " + checkinId + " AND " + Constants.CHECK_INS_TOTAL + " is NULL" ;
 		
 		Statement stm = conn.createStatement();
 		ResultSet result = stm.executeQuery(query);
@@ -320,7 +318,7 @@ public class GuestCheckInCheckOut {
         }
     }
 
-    private void getItemizedRecipt(String checkinId) throws SQLException {
+    private void getItemizedReceipt(String checkinId) throws SQLException {
 
         String query = "SELECT S." + Constants.SERVICES_NAME + " AS " + Constants.DESCRIPTION + " , S." + Constants.SERVICES_BASE_PRICE + " , cast( B." + Constants.BUYS_PRICE + " / S." + Constants.SERVICES_BASE_PRICE +
                 " AS INTEGER) AS " + Constants.NUMBER + " , B." + Constants.BUYS_PRICE + " FROM " + Constants.CHECK_INS_TABLE + " C, " + Constants.BUYS_TABLE + " B, " + Constants.SERVICES_TABLE + " S WHERE C." +
