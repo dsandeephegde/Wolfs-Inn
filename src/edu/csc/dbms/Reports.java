@@ -201,7 +201,7 @@ public class Reports {
             while (result.next()) {
                 String name = result.getString(criteria);
                 float occupancyPercentage = result.getFloat("OccupancyPercentage");
-                float totalOccupancy = result.getFloat("TotalOccupancy");
+                int totalOccupancy = result.getInt("TotalOccupancy");
 
                 System.out.println(name + " |" + occupancyPercentage + " |" + totalOccupancy);
             }
@@ -229,7 +229,7 @@ public class Reports {
 
             while (result.next()) {
                 float occupancyPercentage = result.getFloat("OccupancyPercentage");
-                float totalOccupancy = result.getFloat("TotalOccupancy");
+                int totalOccupancy = result.getInt("TotalOccupancy");
 
                 System.out.println(occupancyPercentage + " |" + totalOccupancy);
             }
@@ -283,7 +283,7 @@ public class Reports {
 
             while (result.next()) {
                 float occupancyPercentage = result.getFloat("OccupancyPercentage");
-                float totalOccupancy = result.getFloat("TotalOccupancy");
+                int totalOccupancy = result.getInt("TotalOccupancy");
                 System.out.println(occupancyPercentage + " |" + totalOccupancy);
             }
         }

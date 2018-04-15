@@ -311,7 +311,7 @@ public class GuestCheckInCheckOut {
         ResultSet result = DBUtil.executeQuery(query);
 
         if (result.next()) {
-            int totalPrice = result.getInt(Constants.TOTAL_PRICE);
+            float totalPrice = result.getFloat(Constants.TOTAL_PRICE);
 
             System.out.println(Constants.TOTAL_PRICE);
             System.out.println(totalPrice + "$");

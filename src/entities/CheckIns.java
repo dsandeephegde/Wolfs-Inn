@@ -31,7 +31,7 @@ public class CheckIns implements Entity {
                 String checkinTime = result.getString(Constants.CHECK_INS_CHECKINTIME);
                 String checkoutTime = result.getString(Constants.CHECK_INS_CHECKOUTTIME);
                 int numberOfGuests = result.getInt(Constants.CHECK_INS_NUMBEROFGUESTS);
-                int total = result.getInt(Constants.CHECK_INS_TOTAL);
+                float total = result.getFloat(Constants.CHECK_INS_TOTAL);
                 int customerId = result.getInt(Constants.CHECK_INS_CUSTOMERID);
                 int hotelId = result.getInt(Constants.CHECK_INS_HOTELID);
                 int roomNumber = result.getInt(Constants.CHECK_INS_ROOMNUMBER);

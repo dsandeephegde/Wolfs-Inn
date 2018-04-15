@@ -320,7 +320,7 @@ public class Info_Processing {
         ResultSet result = DBUtil.executeQuery(query);
 
         if (result.next()) {
-            int totalPrice = result.getInt(Constants.TOTAL_PRICE);
+            float totalPrice = result.getFloat(Constants.TOTAL_PRICE);
             
             query = "UPDATE " + Constants.CHECK_INS_TABLE + " SET " + Constants.CHECK_INS_TOTAL + " = " + totalPrice + " , " + Constants.CHECK_INS_CHECKOUTTIME + " = '" + checkoutTime + "' WHERE " + Constants.CHECK_INS_CHECKINID + " = " + checkinId; 
                 	

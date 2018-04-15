@@ -4,8 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
-
 public class Maintaining_Billing_Accounts {
 
     private static Scanner scan = new Scanner(System.in);
