@@ -15,6 +15,7 @@ public class Info_Processing {
         System.out.println("3. Assign rooms based on request and availability and type of room requested, if type of room is requested");
         System.out.println("4. Assign rooms based on request and availability and type of room requested, if the Room Number is provided");
         System.out.println("5. Release Room");
+        System.out.println("6. Check Out");
 
         System.out.println();
         System.out.print("Select the information to be processed :");
@@ -50,6 +51,9 @@ public class Info_Processing {
                 release_room();
                 rooms.retrieve();
                 break;
+            case 6:
+            	checkout();
+            	break;
             default:
                 System.out.println("Please Enter a valid option ....");
         }
@@ -239,17 +243,93 @@ public class Info_Processing {
     }
 
     public void release_room() throws SQLException {
+    	
+    	System.out.println("Enter hotel ID : ");
+        String hotelId = scan.nextLine();
+    	
         System.out.println("Enter room number : ");
         String roomNumber = scan.nextLine();
-
-        System.out.println("Enter hotel ID : ");
-        String hotelId = scan.nextLine();
 
         String query = "Update " + Constants.ROOMS_TABLE + " set " + Constants.ROOMS_AVAILABILITY + " = 1  where " + Constants.ROOMS_ROOMNUMBER + " = " + roomNumber + " AND " + Constants.ROOMS_HOTELID + " = " + hotelId;
         DBUtil.executeQuery(query);
     }
     
-    public void printRoomCategories() throws SQLException{
+    public void checkout() throws SQLException {
+    	
+    	//Connection with auto commit-false
+        Connection conn = DBUtil.getConnection();
+        Statement stm = conn.createStatement();
+    	
+        try {
+        	
+        	System.out.println("Enter checkin ID : ");
+            String checkinId = scan.nextLine();
+            
+            String query = "Select * from " + Constants.CHECK_INS_TABLE + " where " + Constants.CHECK_INS_CHECKINID + " = " + checkinId;
+            
+            ResultSet result = stm.executeQuery(query);
+            
+            String roomNumber = null;
+            int hotelId = 0;
+            
+            while(result.next()) {
+            	
+            	roomNumber = result.getString(Constants.CHECK_INS_ROOMNUMBER);
+            	hotelId = result.getInt(Constants.CHECK_INS_HOTELID);
+            	
+            }
+
+            if(roomNumber == null && hotelId == 0) {
+            	throw new SQLException("Enter a valid checkin ID \n");
+            }
+            
+            query = "Update " + Constants.ROOMS_TABLE + " set " + Constants.ROOMS_AVAILABILITY + " = 1  where " + Constants.ROOMS_ROOMNUMBER + " = " + roomNumber + " AND " + Constants.ROOMS_HOTELID + " = " + hotelId;
+        	
+            stm.executeQuery(query);
+            
+            updateCheckinsTable(conn, checkinId);
+            
+        	//commit transaction
+            conn.commit();
+            System.out.println("Guest checked out");
+    		
+    	}catch(SQLException se) {
+    		conn.rollback();
+    		System.out.println("Transaction Rollback - " + se.getMessage());
+    	}catch(Exception e) {
+    		conn.rollback();
+    		System.out.println("Transaction Rollback - " + e.getMessage());
+    	}
+        
+    }
+    
+    private void updateCheckinsTable(Connection conn, String checkinId) throws SQLException{
+		
+    	System.out.println("Enter the check out time (HH:MM): ");
+    	String checkoutTime = scan.nextLine();
+    	
+    	String query = "SELECT SUM( temp." + Constants.PRICE + " )*( CASE WHEN P." + Constants.PAYMENT_INFOS_PAYMENT_METHOD + " <> '" + Constants.PAY_METHOD_HOTEL_CREDIT + "' THEN 1 else 0.95 end) as " + Constants.TOTAL_PRICE + " FROM (SELECT B." + Constants.BUYS_PRICE + " as " + Constants.PRICE + 
+        		" ,C." + Constants.CHECK_INS_CHECKINID + " FROM " + Constants.CHECK_INS_TABLE + " C, " + Constants.BUYS_TABLE + " B," + Constants.SERVICES_TABLE + " S WHERE C." + Constants.CHECK_INS_CHECKINID + " = B." + Constants.BUYS_CHECKINID + " AND B." + Constants.BUYS_SERVICEID + 
+        		" = S." + Constants.SERVICES_ID + " AND C." + Constants.CHECK_INS_CHECKINID + " = " + checkinId +
+        		" UNION " +
+        		"SELECT RP." + Constants.ROOM_PRICES_PRICE + "* DATEDIFF( C." + Constants.CHECK_INS_ENDDATE + " , C." +Constants.CHECK_INS_STARTDATE + " ) as " + Constants.PRICE + " , C." + Constants.CHECK_INS_CHECKINID + " FROM " + Constants.ROOMS_TABLE + " R, " + Constants.ROOM_PRICES_TABLE + " RP, " +
+        		Constants.CHECK_INS_TABLE + " C WHERE C." + Constants.CHECK_INS_ROOMNUMBER + " = R." + Constants.ROOMS_ROOMNUMBER + " AND C." + Constants.HOTELS_ID + " = R." + Constants.ROOMS_HOTELID + " AND R." + Constants.ROOMS_MAXOCCUPANCY + " = RP." + Constants.ROOMS_MAXOCCUPANCY + " AND R." + 
+        		Constants.ROOMS_CATEGORY + " = RP." + Constants.ROOM_PRICES_CATEGORY + " AND C." + Constants.CHECK_INS_CHECKINID + " = " + checkinId + " ) temp, " + Constants.CHECK_INS_TABLE + " C, " + Constants.PAYMENT_INFOS_TABLE + " P WHERE P." + Constants.PAYMENT_INFOS_ID + " = C." + Constants.CHECK_INS_PAYMENTID + 
+        		" AND C." + Constants.CHECK_INS_CHECKINID + " = temp." + Constants.CHECK_INS_CHECKINID;  
+         
+        ResultSet result = DBUtil.executeQuery(query);
+
+        if (result.next()) {
+            int totalPrice = result.getInt(Constants.TOTAL_PRICE);
+            
+            query = "UPDATE " + Constants.CHECK_INS_TABLE + " SET " + Constants.CHECK_INS_TOTAL + " = " + totalPrice + " , " + Constants.CHECK_INS_CHECKOUTTIME + " = '" + checkoutTime + "' WHERE " + Constants.CHECK_INS_CHECKINID + " = " + checkinId; 
+                	
+            Statement stm = conn.createStatement();
+            stm.executeQuery(query);
+        }    
+	}
+    
+	public void printRoomCategories() throws SQLException{
     	
     	String query = "Select distinct " + Constants.ROOMS_CATEGORY + " from " + Constants.ROOMS_TABLE;
     	
