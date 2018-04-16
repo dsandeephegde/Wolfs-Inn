@@ -82,7 +82,7 @@ public class CheckIns implements Entity {
         String updateString = "";
 
         System.out.println("Enter only update values");
-        System.out.println("Enter endDate (YYYY-MM-DD) : ");
+        System.out.println("Enter startDate (YYYY-MM-DD) : ");
         String startDate = scan.nextLine();
 
         if (!startDate.isEmpty())

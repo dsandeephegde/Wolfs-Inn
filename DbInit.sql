@@ -134,6 +134,9 @@ CONSTRAINT c_serves_fk2 FOREIGN KEY(staffId) REFERENCES Staff(staffId)
 
 ALTER TABLE Hotels ADD CONSTRAINT c_hotels_fk FOREIGN KEY(managerId) REFERENCES Staff(staffId);
 
+CREATE TRIGGER makeManager AFTER INSERT ON Staff
+FOR EACH ROW update Hotels set managerId=new.staffId
+where hotelId=new.hotelId and new.jobTitle = 'Manager' and managerId is NULL;
 
 INSERT INTO Services(name, basePrice)
 Values ("phone bills", 5), ("dry cleaning", 16),("gyms", 15),("room service", 10),("special requests", 20);
@@ -142,25 +145,42 @@ INSERT INTO RoomPrices (category, maxOccupancy, price)
 Values( "Economy", 1, 100), ( "Deluxe", 2, 200), ( "Executive", 3, 1000), ( "Presidential", 4, 5000 );
 
 INSERT INTO Customers ( name, dateOfBirth, phoneNumber, email)
-Values ("David", "1980-01-30", "123", "david@gmail.com"), ("Sarah", "1971-01-30", "456", "sarah@gmail.com"), ( "Joseph", "1987-01-30", "789", "joseph@gmail.com"), ("Lucy", "1985-01-30", "213", "lucy@gmail.com");
+Values ("David", "1980-01-30", "123", "david@gmail.com"),
+("Sarah", "1971-01-30", "456", "sarah@gmail.com"),
+( "Joseph", "1987-01-30", "789", "joseph@gmail.com"),
+("Lucy", "1985-01-30", "213", "lucy@gmail.com");
 
 INSERT INTO PaymentInfo (SSN, billingAddress, city, state, country,paymentMethod, cardNumber,customerId)
-Values ("593-9846", "980 TRT St",  "Raleigh", "NC","USA","credit", "1052", 1001), ("777-8352", "7720 MHT St", "Greensboro","NC", "USA", "hotel credit", "3020", 1002), ("858-9430", "231 DRY St","Rochester","NY 78", "USA", "credit", "2497", 1003), ("440-9328", "24 BST Dr","Dallas","TX 14", "USA", "cash", NULL, 1004);
+Values ("593-9846", "980 TRT St",  "Raleigh", "NC","USA","credit", "1052", 1001),
+("777-8352", "7720 MHT St", "Greensboro","NC", "USA", "hotel credit", "3020", 1002),
+("858-9430", "231 DRY St","Rochester","NY 78", "USA", "credit", "2497", 1003),
+("440-9328", "24 BST Dr","Dallas","TX 14", "USA", "cash", NULL, 1004);
+
+INSERT INTO Hotels (name,address, City, State, Country, phoneNumber)
+Values("Hotel A", "21 ABC St","Raleigh", "NC 27","USA", "919"),
+("Hotel B", "25 XYZ St", "Rochester","NY 54","USA","718"),
+( "Hotel C", "29 PQR St", "Greensboro", "NC 27","USA", "984"),
+( "Hotel D", "28 GHW St", "Raleigh", "NC 32","USA", "920");
 
 INSERT INTO Staff(name, age, jobTitle, phoneNumber, address, City, State, Country, hotelId)
-Values( "Mary", 40, "Manager",  "654", "90 ABC St", "Raleigh", "NC 27","USA",NULL),( "John", 45, "Manager" , "564" , "798 XYZ St", " Rochester", "NY 54","USA",NULL), ( "Carol", 55, "Manager", "546", "351 MH St", "Greensboro", "NC 27","USA", NULL), ("Emma", 55, "Front Desk Staff","546","49 ABC St", "Raleigh", "NC 27","USA",NULL),("Ava", 55, "Catering Staff","777","425 RG St", "Raleigh", "NC 27","USA",NULL),("Peter", 52, "Manager","724","475 RG St", "Raleigh", "NC 27","USA",NULL), ("Olivia", 27, "Front Desk Staff","799","325 PD St", "Raleigh", "NC 27","USA",NULL) ;
-
-
-INSERT INTO Hotels (name,address, City, State, Country, phoneNumber, managerId)
-Values("Hotel A", "21 ABC St","Raleigh", "NC 27","USA", "919", 100),
-("Hotel B", "25 XYZ St", "Rochester","NY 54","USA","718", 101), ( "Hotel C", "29 PQR St", "Greensboro", "NC 27","USA", "984", 102), ( "Hotel D", "28 GHW St", "Raleigh", "NC 32","USA", "920", 105);
+Values( "Mary", 40, "Manager",  "654", "90 ABC St", "Raleigh", "NC 27","USA",1),
+( "John", 45, "Manager" , "564" , "798 XYZ St", " Rochester", "NY 54","USA",2),
+( "Carol", 55, "Manager", "546", "351 MH St", "Greensboro", "NC 27","USA", 3),
+("Emma", 55, "Front Desk Staff","546","49 ABC St", "Raleigh", "NC 27","USA",1),
+("Ava", 55, "Catering Staff","777","425 RG St", "Raleigh", "NC 27","USA",1),
+("Peter", 52, "Manager","724","475 RG St", "Raleigh", "NC 27","USA",4),
+("Olivia", 27, "Front Desk Staff","799","325 PD St", "Raleigh", "NC 27","USA",4);
 
 INSERT INTO Rooms (roomNumber, hotelId, category, maxOccupancy, availability)
-Values  (01, 0001, "Economy",1, TRUE),(02, 0001, "Deluxe",2, TRUE),(03, 0002, "Economy",1, TRUE),(02, 0003, "Executive", 3,FALSE), (01, 0004, "Presidential",4, TRUE), (05, 0001, "Deluxe", 2, TRUE);
-
+Values  (01, 0001, "Economy",1, TRUE),(02, 0001, "Deluxe",2, TRUE),
+(03, 0002, "Economy",1, TRUE),(02, 0003, "Executive", 3,FALSE),
+(01, 0004, "Presidential",4, TRUE), (05, 0001, "Deluxe", 2, TRUE);
 
 INSERT INTO Checkins (startDate, endDate, checkinTime, checkoutTime, numberOfGuests, total, customerId, hotelId, roomNumber, paymentId)
-Values ("2017-05-10", "2017-05-13", "15:17:00", "10:22:00",1,  200, 1001, 0001, 01, 3000), ( "2017-05-10", "2017-05-13", "16:11:00", "9:27:00",4,  320, 1002, 0001, 02, 3001), ("2016-05-10", "2016-05-14", "15:45:00", "11:10:00",1,  400, 1003, 0002, 03, 3002), ("2018-05-10", "2018-05-12", "14:30:00", "10:00:00",2,  400, 1004, 0003, 02, 3003);
+Values ("2017-05-10", "2017-05-13", "15:17:00", "10:22:00",1,  200, 1001, 0001, 01, 3000),
+( "2017-05-10", "2017-05-13", "16:11:00", "9:27:00",4,  320, 1002, 0001, 02, 3001),
+("2016-05-10", "2016-05-14", "15:45:00", "11:10:00",1,  400, 1003, 0002, 03, 3002),
+("2018-05-10", "2018-05-12", "14:30:00", "10:00:00",2,  400, 1004, 0003, 02, 3003);
 
 INSERT INTO Buys(serviceId, checkinId, price)
 Values (2, 4000, 16), (3, 4000,15), (3, 4001,15),(4, 4002,10),(1, 4003,5);
