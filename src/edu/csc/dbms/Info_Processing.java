@@ -68,14 +68,7 @@ public class Info_Processing {
         String hotelId = scan.nextLine();
         String query = "Select COUNT(*) as No_of_Rooms_Available FROM " + Constants.ROOMS_TABLE + " where " + Constants.ROOMS_HOTELID + " = " + hotelId + " and " + Constants.ROOMS_CATEGORY + " = '" + category + "' and " + Constants.ROOMS_AVAILABILITY + " = " + "1";
         ResultSet result = DBUtil.executeQuery(query);
-
-        if (result != null) {
-            System.out.println("No_of_Rooms_Available");
-            System.out.println("---------------------------------------------------------------");
-            while (result.next()) {
-                System.out.println(result.getInt("No_of_Rooms_Available"));
-            }
-        }
+        DBTablePrinter.printResultSet(result);
     }
 
     public void rooms_list_by_roomtype() throws SQLException {
@@ -86,6 +79,7 @@ public class Info_Processing {
 
         String query = "Select * FROM " + Constants.ROOMS_TABLE + " where " + Constants.ROOMS_CATEGORY + " = '" + category + "' and " + Constants.ROOMS_AVAILABILITY + " = " + "1";
         ResultSet result = DBUtil.executeQuery(query);
+        DBTablePrinter.printResultSet(result);
 
         if (result != null) {
 
@@ -99,7 +93,7 @@ public class Info_Processing {
                 int maxOccupancy = result.getInt(Constants.ROOMS_MAXOCCUPANCY);
                 boolean availability = result.getBoolean(Constants.ROOMS_AVAILABILITY);
 
-                System.out.println(roomNumber + " |" + hotelId + " |" + category + " |" + maxOccupancy + " |" + availability);
+                System.out.println(roomNumber + "\t\t | " + hotelId + "\t\t| " + category + "\t  | " + maxOccupancy + "\t\t  | " + availability);
             }
         }
     }
@@ -134,7 +128,7 @@ public class Info_Processing {
                     int maxOccupancy = result.getInt(Constants.ROOMS_MAXOCCUPANCY);
                     boolean availability = result.getBoolean(Constants.ROOMS_AVAILABILITY);
 
-                    System.out.println(roomNumber + " |" + hotelId + " |" + maxOccupancy + " |" + availability);
+                    System.out.println(roomNumber + "\t\t | " + hotelId + "\t  | " + maxOccupancy + "\t\t  | " + availability);
                 }
             }
             if(roomNumber_assign != null) {
@@ -207,7 +201,7 @@ public class Info_Processing {
 
                 System.out.println("category" + " |" + "hotelId" + " |" + "maxOccupancy" + " |" + "availability");
                 System.out.println("---------------------------------------------------------------");
-                
+
                 while (result.next()) {
 
                     String category = result.getString(Constants.ROOMS_CATEGORY);
@@ -215,10 +209,10 @@ public class Info_Processing {
                     boolean availability = result.getBoolean(Constants.ROOMS_AVAILABILITY);
                     flag = availability;
 
-                    System.out.println(category + " |" + hotelId + " |" + maxOccupancy + " |" + availability);
+                    System.out.println(roomNumber + "\t\t | " + hotelId + "\t  | " + maxOccupancy + "\t\t  | " + availability);
                 }
             }
-            
+
             if(flag) {
             	createCheckin(conn, roomNumber, hotelId);
             }else {

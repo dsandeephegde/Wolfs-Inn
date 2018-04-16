@@ -1,6 +1,7 @@
 package entities;
 
 import edu.csc.dbms.Constants;
+import edu.csc.dbms.DBTablePrinter;
 import edu.csc.dbms.DBUtil;
 import edu.csc.dbms.Entity;
 
@@ -18,20 +19,7 @@ public class Buys implements Entity {
 
         ResultSet result = DBUtil.executeQuery(query);
 
-        if (result != null) {
-
-            System.out.println("serviceId" + " |" + "checkinId" + " |" + "price");
-            System.out.println("---------------------------------------------------------------");
-
-            while (result.next()) {
-
-                int serviceId = result.getInt(Constants.BUYS_SERVICEID);
-                int checkinId = result.getInt(Constants.BUYS_CHECKINID);
-                int price = result.getInt(Constants.BUYS_PRICE);
-
-                System.out.println(serviceId + " |" + checkinId + " |" + price);
-            }
-        }
+        DBTablePrinter.printResultSet(result);
 
     }
 

@@ -1,6 +1,7 @@
 package entities;
 
 import edu.csc.dbms.Constants;
+import edu.csc.dbms.DBTablePrinter;
 import edu.csc.dbms.DBUtil;
 import edu.csc.dbms.Entity;
 
@@ -18,28 +19,7 @@ public class CheckIns implements Entity {
 
         ResultSet result = DBUtil.executeQuery(query);
 
-        if (result != null) {
-
-            System.out.println("checkinId" + " |" + "startDate" + " |" + "endDate" + " |" + "checkinTime" + " |" + "checkoutTIme" + " |" + "numberOfGuests" + " |" + "total" + " |" + "customerId" + " |" + "hotelId" + " |" + "roomNumber" + " |" + "paymentId");
-            System.out.println("---------------------------------------------------------------");
-
-            while (result.next()) {
-
-                int checkinId = result.getInt(Constants.CHECK_INS_CHECKINID);
-                String startDate = result.getString(Constants.CHECK_INS_STARTDATE);
-                String endDate = result.getString(Constants.CHECK_INS_ENDDATE);
-                String checkinTime = result.getString(Constants.CHECK_INS_CHECKINTIME);
-                String checkoutTime = result.getString(Constants.CHECK_INS_CHECKOUTTIME);
-                int numberOfGuests = result.getInt(Constants.CHECK_INS_NUMBEROFGUESTS);
-                float total = result.getFloat(Constants.CHECK_INS_TOTAL);
-                int customerId = result.getInt(Constants.CHECK_INS_CUSTOMERID);
-                int hotelId = result.getInt(Constants.CHECK_INS_HOTELID);
-                int roomNumber = result.getInt(Constants.CHECK_INS_ROOMNUMBER);
-                int paymentId = result.getInt(Constants.CHECK_INS_PAYMENTID);
-
-                System.out.println(checkinId + " |" + startDate + " |" + endDate + " |" + checkinTime + " |" + checkoutTime + " |" + numberOfGuests + " |" + total + " |" + customerId + " |" + hotelId + " |" + roomNumber + " |" + paymentId);
-            }
-        }
+        DBTablePrinter.printResultSet(result);
 
     }
 

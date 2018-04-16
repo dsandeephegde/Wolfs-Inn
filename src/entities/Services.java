@@ -1,6 +1,7 @@
 package entities;
 
 import edu.csc.dbms.Constants;
+import edu.csc.dbms.DBTablePrinter;
 import edu.csc.dbms.DBUtil;
 import edu.csc.dbms.Entity;
 
@@ -18,20 +19,7 @@ public class Services implements Entity {
 
         ResultSet result = DBUtil.executeQuery(query);
 
-        if (result != null) {
-
-            System.out.println("ServiceId" + " |" + "name" + " |" + "basePrice");
-            System.out.println("---------------------------------------------------------------");
-
-            while (result.next()) {
-
-                int serviceId = result.getInt(Constants.SERVICES_ID);
-                String name = result.getString(Constants.SERVICES_NAME);
-                int basePrice = result.getInt(Constants.SERVICES_BASE_PRICE);
-
-                System.out.println(serviceId + " |" + name + " |" + basePrice);
-            }
-        }
+        DBTablePrinter.printResultSet(result);
 
     }
 

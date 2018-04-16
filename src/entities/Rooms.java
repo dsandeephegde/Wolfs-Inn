@@ -1,6 +1,7 @@
 package entities;
 
 import edu.csc.dbms.Constants;
+import edu.csc.dbms.DBTablePrinter;
 import edu.csc.dbms.DBUtil;
 import edu.csc.dbms.Entity;
 
@@ -31,7 +32,7 @@ public class Rooms implements Entity {
                 int maxOccupancy = result.getInt(Constants.ROOMS_MAXOCCUPANCY);
                 boolean availability = result.getBoolean(Constants.ROOMS_AVAILABILITY);
 
-                System.out.println(roomNumber + " |" + hotelId + " |" + category + " |" + maxOccupancy + " |" + availability);
+                System.out.println(roomNumber + "\t\t | " + hotelId + "\t\t|" + category + "\t  | " + maxOccupancy + "\t\t  | " + availability);
             }
         }
 

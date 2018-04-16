@@ -1,6 +1,7 @@
 package entities;
 
 import edu.csc.dbms.Constants;
+import edu.csc.dbms.DBTablePrinter;
 import edu.csc.dbms.DBUtil;
 import edu.csc.dbms.Entity;
 
@@ -18,19 +19,7 @@ public class Serves implements Entity {
 
         ResultSet result = DBUtil.executeQuery(query);
 
-        if (result != null) {
-
-            System.out.println("staffId" + " |" + "checkinId");
-            System.out.println("---------------------------------------------------------------");
-
-            while (result.next()) {
-
-                int staffId = result.getInt(Constants.SERVES_STAFFID);
-                int checkinId = result.getInt(Constants.SERVES_CHECKINID);
-
-                System.out.println(staffId + " |" + checkinId);
-            }
-        }
+        DBTablePrinter.printResultSet(result);
 
     }
 

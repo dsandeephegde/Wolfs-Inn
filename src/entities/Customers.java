@@ -1,6 +1,7 @@
 package entities;
 
 import edu.csc.dbms.Constants;
+import edu.csc.dbms.DBTablePrinter;
 import edu.csc.dbms.DBUtil;
 import edu.csc.dbms.Entity;
 
@@ -19,22 +20,7 @@ public class Customers implements Entity {
 
         ResultSet result = DBUtil.executeQuery(query);
 
-        if (result != null) {
-
-            System.out.println("CustomerId" + " |" + "name" + " |" + "dateOfBirth" + " |" + "phNumber" + " |" + "email");
-            System.out.println("---------------------------------------------------------------");
-
-            while (result.next()) {
-
-                int customerId = result.getInt(Constants.CUSTOMERS_ID);
-                String name = result.getString(Constants.CUSTOMERS_NAME);
-                Date dob = result.getDate(Constants.CUSTOMERS_DOB);
-                String phNumber = result.getString(Constants.CUSTOMERS_PH_NUMBER);
-                String email = result.getString(Constants.CUSTOMERS_EMAIL);
-
-                System.out.println(customerId + " |" + name + " |" + dob + " |" + phNumber + " |" + email);
-            }
-        }
+        DBTablePrinter.printResultSet(result);
 
     }
 

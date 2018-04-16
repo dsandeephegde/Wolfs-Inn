@@ -1,6 +1,7 @@
 package entities;
 
 import edu.csc.dbms.Constants;
+import edu.csc.dbms.DBTablePrinter;
 import edu.csc.dbms.DBUtil;
 import edu.csc.dbms.Entity;
 
@@ -17,25 +18,7 @@ public class Hotels implements Entity {
 
         ResultSet result = DBUtil.executeQuery(query);
 
-        if (result != null) {
-
-            System.out.println("HotelId" + " |" + "name" + " |" + "address" + " |" + "city" + " |" + "state" + " |" + "country" + " |" + "phNumber" + " |" + "managerId");
-            System.out.println("---------------------------------------------------------------");
-
-            while (result.next()) {
-
-                int hotelId = result.getInt(Constants.HOTELS_ID);
-                String name = result.getString(Constants.HOTELS_NAME);
-                String address = result.getString(Constants.HOTELS_ADDRESS);
-                String city = result.getString(Constants.HOTELS_CITY);
-                String state = result.getString(Constants.HOTELS_STATE);
-                String country = result.getString(Constants.HOTELS_COUNTRY);
-                String phNumber = result.getString(Constants.HOTELS_PH_NUMBER);
-                int managerId = result.getInt(Constants.HOTELS_MANAGER_ID);
-
-                System.out.println(hotelId + " |" + name + " |" + address + " |" + city + " |" + state + " |" + country + " |" + phNumber + " |" + managerId);
-            }
-        }
+        DBTablePrinter.printResultSet(result);
 
     }
 

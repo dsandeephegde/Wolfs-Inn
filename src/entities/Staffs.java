@@ -1,6 +1,7 @@
 package entities;
 
 import edu.csc.dbms.Constants;
+import edu.csc.dbms.DBTablePrinter;
 import edu.csc.dbms.DBUtil;
 import edu.csc.dbms.Entity;
 
@@ -17,28 +18,7 @@ public class Staffs implements Entity {
 
         ResultSet result = DBUtil.executeQuery(query);
 
-        if (result != null) {
-
-            System.out.println("StaffId" + " |" + "name" + " |" + "age" + " |" + "jobTitle" + " |" + "phoneNumber"
-                    + " |" + "address" + " |" + "city" + " |" + "state" + " |" + "country" + " |" + "hotelId");
-            System.out.println("---------------------------------------------------------------");
-
-            while (result.next()) {
-
-                int staffId = result.getInt(Constants.STAFFS_ID);
-                String name = result.getString(Constants.STAFFS_NAME);
-                int age = result.getInt(Constants.STAFFS_AGE);
-                String jobTitle = result.getString(Constants.STAFFS_JOB_TITLE);
-                String phNumber = result.getString(Constants.STAFFS_PH_NUMBER);
-                String address = result.getString(Constants.STAFFS_ADDRESS);
-                String city = result.getString(Constants.STAFFS_CITY);
-                String state = result.getString(Constants.STAFFS_STATE);
-                String country = result.getString(Constants.STAFFS_COUNTRY);
-                int hotelId = result.getInt(Constants.STAFFS_HOTEL_ID);
-
-                System.out.println(staffId + " |" + name + " |" + age + " |" + jobTitle + " |" + phNumber + " |" + address + " |" + city + " |" + state + " |" + country + " |" + hotelId);
-            }
-        }
+        DBTablePrinter.printResultSet(result);
 
     }
 

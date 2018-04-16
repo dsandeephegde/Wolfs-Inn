@@ -63,45 +63,13 @@ public class Reports {
     private void staffRoles() throws SQLException {
         String query = "SELECT jobTitle AS Role, COUNT(*) AS No_of_Employees FROM " + Constants.STAFFS_TABLE + " GROUP BY jobTitle";
         ResultSet result = DBUtil.executeQuery(query);
-        if (result != null) {
-            System.out.println("Role" + " |" + "No_of_Employees");
-            System.out.println("---------------------------------------------------------------");
-
-            while (result.next()) {
-                String role = result.getString("Role");
-                String numberOfEmployees = result.getString("No_of_Employees");
-
-                System.out.println(role + " |" + numberOfEmployees);
-            }
-        }
+        DBTablePrinter.printResultSet(result);
     }
 
     private void staffs() throws SQLException {
         String query = "SELECT * FROM " + Constants.STAFFS_TABLE + " ORDER BY jobTitle";
         ResultSet result = DBUtil.executeQuery(query);
-        if (result != null) {
-
-            System.out.println("StaffId" + " |" + "name" + " |" + "age" + " |" + "jobTitle" + " |" + "phoneNumber"
-                    + " |" + "address" + " |" + "city" + " |" + "state" + " |" + "country" + " |" + "hotelId");
-            System.out.println("---------------------------------------------------------------");
-
-            while (result.next()) {
-
-                int staffId = result.getInt(Constants.STAFFS_ID);
-                String name = result.getString(Constants.STAFFS_NAME);
-                int age = result.getInt(Constants.STAFFS_AGE);
-                String jobTitle = result.getString(Constants.STAFFS_JOB_TITLE);
-                String phNumber = result.getString(Constants.STAFFS_PH_NUMBER);
-                String address = result.getString(Constants.STAFFS_ADDRESS);
-                String city = result.getString(Constants.STAFFS_CITY);
-                String state = result.getString(Constants.STAFFS_STATE);
-                String country = result.getString(Constants.STAFFS_COUNTRY);
-                int hotelId = result.getInt(Constants.STAFFS_HOTEL_ID);
-
-                System.out.println(staffId + " |" + name + " |" + age + " |" + jobTitle + " |" + phNumber + " |"
-                        + address + " |" + city + " |" + state + " |" + country + " |" + hotelId);
-            }
-        }
+        DBTablePrinter.printResultSet(result);
     }
 
     private void staffsForCustomerStay() throws SQLException {
@@ -109,17 +77,7 @@ public class Reports {
         String checkinId = scan.nextLine();
         String query = "SELECT staffId, name FROM " + Constants.SERVES_TABLE + " NATURAL JOIN " + Constants.STAFFS_TABLE + " WHERE checkinId =" + checkinId;
         ResultSet result = DBUtil.executeQuery(query);
-        if (result != null) {
-            System.out.println("staffId" + " |" + "name");
-            System.out.println("---------------------------------------------------------------");
-
-            while (result.next()) {
-                String staffId = result.getString("staffId");
-                String name = result.getString("name");
-
-                System.out.println(staffId + " |" + name);
-            }
-        }
+        DBTablePrinter.printResultSet(result);
     }
 
     private void getRevenue() throws SQLException {
@@ -132,18 +90,7 @@ public class Reports {
                 "FROM " + Constants.HOTELS_TABLE + " h, (SELECT hotelId, sum(total) AS Revenue FROM " +
                 Constants.CHECK_INS_TABLE + " WHERE endDate > '" + startDate + "' AND endDate < '" + endDate + "') temp";
         ResultSet result = DBUtil.executeQuery(query);
-        if (result != null) {
-            System.out.println("HotelId" + " |" + "name" + " |" + "Revenue");
-            System.out.println("---------------------------------------------------------------");
-
-            while (result.next()) {
-                int hotelId = result.getInt(Constants.HOTELS_ID);
-                String name = result.getString(Constants.HOTELS_NAME);
-                float revenue = result.getFloat("Revenue");
-
-                System.out.println(hotelId + " |" + name + " |" + revenue);
-            }
-        }
+        DBTablePrinter.printResultSet(result);
     }
 
     private void getRevenueByHotel() throws SQLException {
@@ -156,17 +103,7 @@ public class Reports {
 
         String query = "SELECT hotelId, name, sum(total) AS Revenue FROM " + Constants.CHECK_INS_TABLE + " NATURAL JOIN " + Constants.HOTELS_TABLE + " WHERE endDate > '" + startDate + "' AND endDate < '" + endDate + "' AND hotelId=" + hotelId;
         ResultSet result = DBUtil.executeQuery(query);
-        if (result != null) {
-            System.out.println("name" + " |" + "Revenue");
-            System.out.println("---------------------------------------------------------------");
-
-            while (result.next()) {
-                String name = result.getString(Constants.HOTELS_NAME);
-                float revenue = result.getFloat("Revenue");
-
-                System.out.println(name + " |" + revenue);
-            }
-        }
+        DBTablePrinter.printResultSet(result);
     }
 
     private void getOccupancyBy(String criteria) throws SQLException {
@@ -194,18 +131,7 @@ public class Reports {
                 return;
         }
         ResultSet result = DBUtil.executeQuery(query);
-        if (result != null) {
-            System.out.println(criteria + " |" + "Occupancy Percentage" + " |" + "Total Occupancy");
-            System.out.println("---------------------------------------------------------------");
-
-            while (result.next()) {
-                String name = result.getString(criteria);
-                float occupancyPercentage = result.getFloat("OccupancyPercentage");
-                int totalOccupancy = result.getInt("TotalOccupancy");
-
-                System.out.println(name + " |" + occupancyPercentage + " |" + totalOccupancy);
-            }
-        }
+        DBTablePrinter.printResultSet(result);
     }
 
     private void getOccupancyByDateRange() throws SQLException {
@@ -223,17 +149,7 @@ public class Reports {
                 "(SELECT count(*) as counter FROM Rooms) room";
 
         ResultSet result = DBUtil.executeQuery(query);
-        if (result != null) {
-            System.out.println("Occupancy Percentage" + " |" + "Total Occupancy");
-            System.out.println("---------------------------------------------------------------");
-
-            while (result.next()) {
-                float occupancyPercentage = result.getFloat("OccupancyPercentage");
-                int totalOccupancy = result.getInt("TotalOccupancy");
-
-                System.out.println(occupancyPercentage + " |" + totalOccupancy);
-            }
-        }
+        DBTablePrinter.printResultSet(result);
     }
 
     private void getOccupancies() throws SQLException {
@@ -270,22 +186,12 @@ public class Reports {
         }
         query += whereClause;
 
-        ResultSet result = DBUtil.executeQuery(query);
-        if (result != null) {
-            if (!message.equals("Occupancy for ")) {
-                System.out.println(message);
-            } else {
-                System.out.println("Occupancy for all the hotels");
-            }
-            System.out.println();
-            System.out.println("Occupancy Percentage" + " |" + "Total Occupancy");
-            System.out.println("---------------------------------------------------------------");
-
-            while (result.next()) {
-                float occupancyPercentage = result.getFloat("OccupancyPercentage");
-                int totalOccupancy = result.getInt("TotalOccupancy");
-                System.out.println(occupancyPercentage + " |" + totalOccupancy);
-            }
+        if (!message.equals("Occupancy for ")) {
+            System.out.println(message);
+        } else {
+            System.out.println("Occupancy for all the hotels");
         }
+        ResultSet result = DBUtil.executeQuery(query);
+        DBTablePrinter.printResultSet(result);
     }
 }

@@ -1,6 +1,7 @@
 package entities;
 
 import edu.csc.dbms.Constants;
+import edu.csc.dbms.DBTablePrinter;
 import edu.csc.dbms.DBUtil;
 import edu.csc.dbms.Entity;
 
@@ -18,20 +19,7 @@ public class RoomPrices implements Entity {
 
         ResultSet result = DBUtil.executeQuery(query);
 
-        if (result != null) {
-
-            System.out.println("category" + " |" + "maxOccupancy" + " |" + "price");
-            System.out.println("---------------------------------------------------------------");
-
-            while (result.next()) {
-
-                String category = result.getString(Constants.ROOM_PRICES_CATEGORY);
-                int maxOccupancy = result.getInt(Constants.ROOM_PRICES_MAXOCCUPANCY);
-                int price = result.getInt(Constants.ROOM_PRICES_PRICE);
-
-                System.out.println(category + " |" + maxOccupancy + " |" + price);
-            }
-        }
+        DBTablePrinter.printResultSet(result);
 
     }
 

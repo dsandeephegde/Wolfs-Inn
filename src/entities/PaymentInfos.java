@@ -1,6 +1,7 @@
 package entities;
 
 import edu.csc.dbms.Constants;
+import edu.csc.dbms.DBTablePrinter;
 import edu.csc.dbms.DBUtil;
 import edu.csc.dbms.Entity;
 
@@ -18,26 +19,7 @@ public class PaymentInfos implements Entity {
 
         ResultSet result = DBUtil.executeQuery(query);
 
-        if (result != null) {
-
-            System.out.println("PaymentId" + " |" + "SSN" + " |" + "billingAddress" + " |" + "city" + " |" + "state" + " |" + "country" + " |" + "paymentMethod" + " |" + "cardNumber" + " |" + "customerId");
-            System.out.println("---------------------------------------------------------------");
-
-            while (result.next()) {
-
-                int paymentId = result.getInt(Constants.PAYMENT_INFOS_ID);
-                String ssn = result.getString(Constants.PAYMENT_INFOS_SSN);
-                String address = result.getString(Constants.PAYMENT_INFOS_BILLING_ADDRESS);
-                String city = result.getString(Constants.PAYMENT_INFOS_CITY);
-                String state = result.getString(Constants.PAYMENT_INFOS_STATE);
-                String country = result.getString(Constants.PAYMENT_INFOS_COUNTRY);
-                String paymentMethod = result.getString(Constants.PAYMENT_INFOS_PAYMENT_METHOD);
-                String cardNum = result.getString(Constants.PAYMENT_INFOS_CARD_NUM);
-                int customerId = result.getInt(Constants.PAYMENT_INFOS_CUSTOMER_ID);
-
-                System.out.println(paymentId + " |" + ssn + " |" + address + " |" + city + " |" + state + " |" + country + " |" + paymentMethod + " |" + cardNum + " |" + customerId);
-            }
-        }
+        DBTablePrinter.printResultSet(result);
 
     }
 

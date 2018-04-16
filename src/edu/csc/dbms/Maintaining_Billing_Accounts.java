@@ -53,13 +53,7 @@ public class Maintaining_Billing_Accounts {
         		" AND C." + Constants.CHECK_INS_CHECKINID + " = temp." + Constants.CHECK_INS_CHECKINID;  
          
         ResultSet result = DBUtil.executeQuery(query);
-
-        if (result.next()) {
-            int totalPrice = result.getInt(Constants.TOTAL_PRICE);
-
-            System.out.println(Constants.TOTAL_PRICE);
-            System.out.println("$" + totalPrice);
-        }
+        DBTablePrinter.printResultSet(result);
     }
 
     private void getItemizedReceipt(String checkinId) throws SQLException {
@@ -75,20 +69,8 @@ public class Maintaining_Billing_Accounts {
                 Constants.ROOM_PRICES_CATEGORY + " AND C." + Constants.CHECK_INS_CHECKINID + " = " + checkinId;
 
         ResultSet result = DBUtil.executeQuery(query);
-
-        System.out.println("Itemized recipt");
-        System.out.println(Constants.DESCRIPTION + " |" + Constants.BASE_PRICE + " |" + Constants.NUMBER + " |" + Constants.PRICE);
-        System.out.println();
-
-        while (result.next()) {
-
-            String description = result.getString(Constants.DESCRIPTION);
-            int basePrice = result.getInt(Constants.BASE_PRICE);
-            int number = result.getInt(Constants.NUMBER);
-            int price = result.getInt(Constants.PRICE);
-
-            System.out.println(description + " |" + basePrice + " |" + number + " |" + price);
-        }
+        System.out.println("Itemized receipt");
+        DBTablePrinter.printResultSet(result);
     }
 
 

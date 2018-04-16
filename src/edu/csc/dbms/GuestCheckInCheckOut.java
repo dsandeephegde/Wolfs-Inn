@@ -130,14 +130,8 @@ public class GuestCheckInCheckOut {
         
         String query = "Select " + Constants.ROOMS_ROOMNUMBER + " FROM " + Constants.ROOMS_TABLE + " where " + Constants.ROOMS_HOTELID + " = " + hotelId + " and " + Constants.ROOMS_CATEGORY + " = '" + category + "' and " + Constants.ROOMS_AVAILABILITY + " = " + "1";
         ResultSet result = DBUtil.executeQuery(query);
-
-        if (result != null) {
-            System.out.println("Available Rooms");
-            System.out.println("---------------------------------------------------------------");
-            while (result.next()) {
-                System.out.println(result.getString(Constants.ROOMS_ROOMNUMBER));
-            }
-        }
+        System.out.println("Available Rooms");
+        DBTablePrinter.printResultSet(result);
     }
 	
 	public void assign_rooms_by_roomnumber(Connection conn, String hotelId, String roomNumber) throws SQLException {
@@ -193,29 +187,7 @@ public class GuestCheckInCheckOut {
         query = "select * from " + Constants.CHECK_INS_TABLE + " order by checkinId desc limit 1";
 
         ResultSet result = stm.executeQuery(query);
-
-        if (result != null) {
-
-            System.out.println("checkinId" + " |" + "startDate" + " |" + "endDate" + " |" + "checkinTime" + " |" + "checkoutTIme" + " |" + "numberOfGuests" + " |" + "total" + " |" + "customerId" + " |" + "hotelId" + " |" + "roomNumber" + " |" + "paymentId");
-            System.out.println("---------------------------------------------------------------");
-
-            while (result.next()) {
-
-                int checkinId = result.getInt(Constants.CHECK_INS_CHECKINID);
-                startDate = result.getString(Constants.CHECK_INS_STARTDATE);
-                endDate = result.getString(Constants.CHECK_INS_ENDDATE);
-                checkinTime = result.getString(Constants.CHECK_INS_CHECKINTIME);
-                checkoutTime = result.getString(Constants.CHECK_INS_CHECKOUTTIME);
-                numberOfGuests = result.getString(Constants.CHECK_INS_NUMBEROFGUESTS);
-                String totals = result.getString(Constants.CHECK_INS_TOTAL);
-                customerId = result.getString(Constants.CHECK_INS_CUSTOMERID);
-                hotelId = result.getString(Constants.CHECK_INS_HOTELID);
-                roomNumber = result.getString(Constants.CHECK_INS_ROOMNUMBER);
-                paymentId = result.getString(Constants.CHECK_INS_PAYMENTID);
-
-                System.out.println(checkinId + " |" + startDate + " |" + endDate + " |" + checkinTime + " |" + checkoutTime + " |" + numberOfGuests + " |" + totals + " |" + customerId + " |" + hotelId + " |" + roomNumber + " |" + paymentId);
-            }
-        }
+        DBTablePrinter.printResultSet(result);
 	}
 	
 	private void enterPaymentInfo(Connection conn) throws SQLException{
@@ -253,25 +225,7 @@ public class GuestCheckInCheckOut {
         
         stm = conn.createStatement();
         ResultSet result = stm.executeQuery(query);
-        
-        if (result != null) {
-
-            System.out.println("PaymentId" + " |" + "SSN" + " |" + "billingAddress" + " |" + "city" + " |" + "state" + " |" + "country" + " |" + "paymentMethod" + " |" + "cardNumber" + " |" + "customerId");
-            System.out.println("---------------------------------------------------------------");
-
-            while (result.next()) {
-
-				System.out.println(
-						result.getInt(Constants.PAYMENT_INFOS_ID) + " |" + result.getString(Constants.PAYMENT_INFOS_SSN)
-								+ " |" + result.getString(Constants.PAYMENT_INFOS_BILLING_ADDRESS) + " |"
-								+ result.getString(Constants.PAYMENT_INFOS_CITY) + " |"
-								+ result.getString(Constants.PAYMENT_INFOS_STATE) + " |"
-								+ result.getString(Constants.PAYMENT_INFOS_COUNTRY) + " |"
-								+ result.getString(Constants.PAYMENT_INFOS_PAYMENT_METHOD) + " |"
-								+ result.getString(Constants.PAYMENT_INFOS_CARD_NUM) + " |"
-								+ result.getInt(Constants.PAYMENT_INFOS_CUSTOMER_ID));
-			}
-		}
+        DBTablePrinter.printResultSet(result);
 
 	}
 
@@ -332,19 +286,8 @@ public class GuestCheckInCheckOut {
 
         ResultSet result = DBUtil.executeQuery(query);
 
-        System.out.println("Itemized recipt");
-        System.out.println(Constants.DESCRIPTION + " |" + Constants.BASE_PRICE + " |" + Constants.NUMBER + " |" + Constants.PRICE);
-        System.out.println();
-
-        while (result.next()) {
-
-            String description = result.getString(Constants.DESCRIPTION);
-            int basePrice = result.getInt(Constants.BASE_PRICE);
-            int number = result.getInt(Constants.NUMBER);
-            int price = result.getInt(Constants.PRICE);
-
-            System.out.println(description + " |" + basePrice + " |" + number + " |" + price);
-        }
+        System.out.println("Itemized receipt");
+        DBTablePrinter.printResultSet(result);
     }
     
     private void updateTotalPrice(Connection conn, String checkinId) throws SQLException {
