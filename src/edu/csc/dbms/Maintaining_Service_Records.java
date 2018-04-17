@@ -10,9 +10,9 @@ public class Maintaining_Service_Records {
     protected Scanner scan = new Scanner(System.in);
     private Buys buys = new Buys();
     
+    //Task 2 options
     public void operations() throws SQLException {
         System.out.println("1. Add/Update a service availed by the customer.");
-        //System.out.println("2. Update prices of services availed");
         System.out.println("2. Delete a service not availed by customer");
 
         int option = Util.getOption();
@@ -22,12 +22,6 @@ public class Maintaining_Service_Records {
                 add_update_service();
                 buys.retrieve();
                 break;
-                /*
-            case 2:
-                add_service();
-                buys.retrieve();
-                break;
-                */
             case 2:
                 delete_service();
                 buys.retrieve();
@@ -38,6 +32,8 @@ public class Maintaining_Service_Records {
         }
     }
 
+    //Add a new service if the service is not present for the checkin ID 
+    //Or update the exiting service entry with the new cost.
     public void add_update_service() throws SQLException{
         System.out.println("Enter serviceId: ");
         int serviceId = Integer.parseInt(scan.nextLine());
@@ -64,6 +60,8 @@ public class Maintaining_Service_Records {
         }
     }
 
+    //Delete a service if the service is added only once(n = 1)
+    //Else reduce the service(n > 1) until (n = 1)  
     public void delete_service() throws SQLException{
         System.out.println("Enter serviceId: ");
         int serviceId = Integer.parseInt(scan.nextLine());
@@ -90,7 +88,9 @@ public class Maintaining_Service_Records {
         }
     }
 
-    public int get_service_price(int serviceId) throws SQLException{
+    //Helper method
+    //Retrieve price of service based on the Service ID
+    private int get_service_price(int serviceId) throws SQLException{
         int price = 0;
         String query = "select * from " + Constants.SERVICES_TABLE + " where " + Constants.SERVICES_ID + " = " + serviceId;
 
@@ -104,6 +104,8 @@ public class Maintaining_Service_Records {
         return price;
     }
 
+    //Helper method
+    //Retrieve the price for the service availed for a checkin ID
     public int get_price(int serviceId, int checkinId) throws SQLException{
         int old_price = 0;
         String query = "select * from " + Constants.BUYS_TABLE + " where " + Constants.BUYS_CHECKINID + " = " + checkinId + " and "

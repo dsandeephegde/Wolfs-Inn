@@ -9,6 +9,7 @@ import java.util.Scanner;
 public class Info_Processing {
     private Scanner scan = new Scanner(System.in);
 
+    //Task 1 options
     public void info_processing() throws SQLException {
         System.out.println("1. Check Number of Rooms available based on room type");
         System.out.println("2. List all the Rooms available based on room type");
@@ -59,6 +60,7 @@ public class Info_Processing {
         }
     }
 
+    //Display available rooms based on the category and hotel ID
     public void check_available_rooms() throws SQLException {
     	printRoomCategories();
         System.out.println("Enter the category of Room to check availability: ");
@@ -71,6 +73,7 @@ public class Info_Processing {
         DBTablePrinter.printResultSet(result);
     }
 
+  //Display available rooms based on the category
     public void rooms_list_by_roomtype() throws SQLException {
     	
     	printRoomCategories();
@@ -98,6 +101,7 @@ public class Info_Processing {
         }
     }
 
+    //Assign room based on category(Transaction)
     public void assign_rooms_by_type() throws SQLException {
     	
     	//Connection with auto commit-false
@@ -146,15 +150,19 @@ public class Info_Processing {
             conn.commit();
             
     	}catch(SQLException se) {
+    		//rollback transaction
     		conn.rollback();
     		System.out.println("Transaction Rollback - " + se.getMessage());
     	}catch(Exception e) {
+    		//rollback transaction
     		conn.rollback();
     		System.out.println("Transaction Rollback - " + e.getMessage());
     	}
         
     }
 
+    //helper method
+    //Add entry into checkin table
     private void createCheckin(Connection conn, String roomNumber, String hotelId) throws SQLException {
         String query;
         System.out.println("Enter startDate (YYYY-MM-DD)  : ");
@@ -180,6 +188,7 @@ public class Info_Processing {
         stm.executeQuery(query);
     }
 
+    //Assign room to guest based on room number(Transaction)
     public void assign_rooms_by_roomnumber() throws SQLException {
     	
     	//Connection with auto commit-false
@@ -227,15 +236,18 @@ public class Info_Processing {
             conn.commit();
     		
     	}catch(SQLException se) {
+    		//rollback transaction
     		conn.rollback();
     		System.out.println("Transaction Rollback - " + se.getMessage());
     	}catch(Exception e) {
+    		//rollback transaction
     		conn.rollback();
     		System.out.println("Transaction Rollback - " + e.getMessage());
     	}
         
     }
 
+    //Release room
     public void release_room() throws SQLException {
     	
     	System.out.println("Enter hotel ID : ");
@@ -248,6 +260,7 @@ public class Info_Processing {
         DBUtil.executeQuery(query);
     }
     
+    //Checkout (Transaction)
     public void checkout() throws SQLException {
     	
     	//Connection with auto commit-false
@@ -288,15 +301,19 @@ public class Info_Processing {
             System.out.println("Guest checked out");
     		
     	}catch(SQLException se) {
+    		//rollback transaction
     		conn.rollback();
     		System.out.println("Transaction Rollback - " + se.getMessage());
     	}catch(Exception e) {
+    		//rollback transaction
     		conn.rollback();
     		System.out.println("Transaction Rollback - " + e.getMessage());
     	}
         
     }
     
+    //Helper class
+    //Updates the checkin table entry
     private void updateCheckinsTable(Connection conn, String checkinId) throws SQLException{
 		
     	System.out.println("Enter the check out time (HH:MM): ");
@@ -323,6 +340,7 @@ public class Info_Processing {
         }    
 	}
     
+    //List all room categories
 	public void printRoomCategories() throws SQLException{
     	
     	String query = "Select distinct " + Constants.ROOMS_CATEGORY + " from " + Constants.ROOMS_TABLE;

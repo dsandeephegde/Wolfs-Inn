@@ -8,10 +8,10 @@ public class GuestCheckInCheckOut {
 
 	private static Scanner scan = new Scanner(System.in);
 	
+	//Check in Check out operations
 	public void operations() throws SQLException {
 
         System.out.println("1. Check-In");
-        System.out.println("2. Check-Out");
 
         System.out.println();
         System.out.print("Select the operation :");

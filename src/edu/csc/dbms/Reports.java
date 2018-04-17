@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class Reports {
     private static Scanner scan = new Scanner(System.in);
 
+    //Task 4 options
     public void operations() throws SQLException {
         System.out.println("1. Staff grouped by their role");
         System.out.println("2. Staff ordered by their role");
@@ -60,18 +61,21 @@ public class Reports {
         }
     }
 
+    //Report staff based on role
     private void staffRoles() throws SQLException {
         String query = "SELECT jobTitle AS Role, COUNT(*) AS No_of_Employees FROM " + Constants.STAFFS_TABLE + " GROUP BY jobTitle";
         ResultSet result = DBUtil.executeQuery(query);
         DBTablePrinter.printResultSet(result);
     }
 
+    //Report staff based on jobTitle
     private void staffs() throws SQLException {
         String query = "SELECT * FROM " + Constants.STAFFS_TABLE + " ORDER BY jobTitle";
         ResultSet result = DBUtil.executeQuery(query);
         DBTablePrinter.printResultSet(result);
     }
 
+    //Report all the staff who served the customer during their stay
     private void staffsForCustomerStay() throws SQLException {
         System.out.println("Enter checkin ID: ");
         String checkinId = scan.nextLine();
@@ -80,6 +84,7 @@ public class Reports {
         DBTablePrinter.printResultSet(result);
     }
 
+    //Report revenue for the hotels for a given date range
     private void getRevenue() throws SQLException {
         System.out.println("Enter startDate (YYYY-MM-DD)  : ");
         String startDate = scan.nextLine();
@@ -93,6 +98,7 @@ public class Reports {
         DBTablePrinter.printResultSet(result);
     }
 
+  //Report revenue for the hotels for a given date range and hotel ID
     private void getRevenueByHotel() throws SQLException {
         System.out.println("Enter hotel ID : ");
         String hotelId = scan.nextLine();
@@ -106,6 +112,7 @@ public class Reports {
         DBTablePrinter.printResultSet(result);
     }
 
+  //Report hotel occupancy based on selected criteria
     private void getOccupancyBy(String criteria) throws SQLException {
         String query;
         switch (criteria) {
@@ -134,6 +141,7 @@ public class Reports {
         DBTablePrinter.printResultSet(result);
     }
 
+    //Report hotel occupancy based on date range
     private void getOccupancyByDateRange() throws SQLException {
         System.out.println("Enter startDate (YYYY-MM-DD)  : ");
         String startDate = scan.nextLine();
@@ -152,6 +160,7 @@ public class Reports {
         DBTablePrinter.printResultSet(result);
     }
 
+    //Report occupancies
     private void getOccupancies() throws SQLException {
         String query;
         query = "SELECT (COUNT(CASE WHEN availability = false THEN 1 ELSE null END)/COUNT(*))*100 OccupancyPercentage, " +
