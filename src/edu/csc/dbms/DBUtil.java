@@ -12,6 +12,7 @@ public class DBUtil {
     final static String USER = "araja2";
     final static String PASS = "200203475";
 	
+    //Method to execute query on Maria DB
     public static ResultSet executeQuery(String query) {
      
         Connection conn;
@@ -38,6 +39,8 @@ public class DBUtil {
 
     }
 
+    //Method to get connection
+    //Used in transactions
     public static Connection getConnection() {
     	
     	Connection conn;

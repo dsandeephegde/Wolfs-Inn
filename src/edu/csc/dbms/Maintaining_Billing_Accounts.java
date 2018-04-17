@@ -8,6 +8,7 @@ public class Maintaining_Billing_Accounts {
 
     private static Scanner scan = new Scanner(System.in);
 
+    //Task 3 options
     public void operations() throws SQLException {
 
         System.out.println("1. Billing total");
@@ -18,7 +19,6 @@ public class Maintaining_Billing_Accounts {
         System.out.print("Select the type of billing to be generated :");
 
         int option = Util.getOption();
-        // TODO CheckinId is asked even if wrong option is entered
 
         System.out.println("Enter the checkIn ID :");
         String checkinId = scan.nextLine();
@@ -41,6 +41,7 @@ public class Maintaining_Billing_Accounts {
 
     }
 
+    //SQL query to get total bill using checkin ID
     private void getTotalPrice(String checkinId) throws SQLException {
         
         String query = "SELECT SUM( temp." + Constants.PRICE + " )*( CASE WHEN P." + Constants.PAYMENT_INFOS_PAYMENT_METHOD + " <> '" + Constants.PAY_METHOD_HOTEL_CREDIT + "' THEN 1 else 0.95 end) as " + Constants.TOTAL_PRICE + " FROM (SELECT B." + Constants.BUYS_PRICE + " as " + Constants.PRICE + 
@@ -56,6 +57,7 @@ public class Maintaining_Billing_Accounts {
         DBTablePrinter.printResultSet(result);
     }
 
+    //SQL query to return itemized receipt from checkin ID
     private void getItemizedReceipt(String checkinId) throws SQLException {
 
         String query = "SELECT S." + Constants.SERVICES_NAME + " AS " + Constants.DESCRIPTION + " , S." + Constants.SERVICES_BASE_PRICE + " , cast( B." + Constants.BUYS_PRICE + " / S." + Constants.SERVICES_BASE_PRICE +

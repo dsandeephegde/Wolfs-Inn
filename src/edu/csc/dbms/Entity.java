@@ -1,18 +1,23 @@
 package edu.csc.dbms;
 
 import java.sql.SQLException;
-import java.util.Scanner;
 
+//Structure for all tables
 public interface Entity {
 
+	//Show all entries
     void retrieve() throws SQLException;
 
+    //Add new entry
     void create() throws SQLException;
 
+    //Update existing entry
     void update() throws SQLException;
 
+    //Delete existing entry
     void delete() throws SQLException;
 
+    //Sub menu options
     default void crudOperations() throws SQLException {
 
         System.out.println("1. Show all entries");

@@ -1,12 +1,11 @@
 package edu.csc.dbms;
 
+import java.sql.SQLException;
+
 import entities.*;
 
-import java.sql.SQLException;
-import java.util.Scanner;
-
 public class Entities {
-
+	//Menu options for CRUD operations on all entities
     public static void crudOperations() throws SQLException {
 
         System.out.println("1. Hotels");

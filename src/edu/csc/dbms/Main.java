@@ -14,6 +14,7 @@ public class Main {
         try {
             while (option != 100) {
 
+            	//Menu option
                 System.out.println("1. Task1 - Information Processing");
                 System.out.println("2. Task2 - Maintaining Service Records");
                 System.out.println("3. Task3 - Maintaining Billing Accounts");
@@ -28,6 +29,7 @@ public class Main {
 
                 System.out.println();
 
+                //Switch case for different tasks
                 switch (option) {
 
                     case 1:

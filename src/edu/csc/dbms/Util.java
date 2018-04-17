@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class Util {
 
+	//Accept user selection and validate the entered option
     public static int getOption() {
         int option;
         Scanner scan = new Scanner(System.in);
