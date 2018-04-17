@@ -12,7 +12,7 @@ public class Main {
         scan.useDelimiter("\\n");
 
         try {
-            while (option != 100) {
+            while (option != 7) {
 
             	//Menu option
                 System.out.println("1. Task1 - Information Processing");
@@ -21,6 +21,7 @@ public class Main {
                 System.out.println("4. Task4 - Reports");
                 System.out.println("5. Check In");
                 System.out.println("6. CRUD operations");
+                System.out.println("7. Exit");
 
                 System.out.println();
                 System.out.print("Select the task :");
@@ -59,6 +60,9 @@ public class Main {
 
                     case 6:
                         Entities.crudOperations();
+                        break;
+
+                    case 7:
                         break;
 
                     default:
