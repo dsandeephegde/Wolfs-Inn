@@ -39,7 +39,7 @@ public class DBUtil {
 
     }
 
-    //Method to get connection
+    //Method to get connection without autocommit
     //Used in transactions
     public static Connection getConnection() {
     	

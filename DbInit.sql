@@ -164,7 +164,7 @@ Values("Hotel A", "21 ABC St","Raleigh", "NC 27","USA", "919"),
 
 INSERT INTO Staff(name, age, jobTitle, phoneNumber, address, City, State, Country, hotelId)
 Values( "Mary", 40, "Manager",  "654", "90 ABC St", "Raleigh", "NC 27","USA",1),
-( "John", 45, "Manager" , "564" , "798 XYZ St", " Rochester", "NY 54","USA",2),
+( "John", 45, "Manager" , "564" , "798 XYZ St", "Rochester", "NY 54","USA",2),
 ( "Carol", 55, "Manager", "546", "351 MH St", "Greensboro", "NC 27","USA", 3),
 ("Emma", 55, "Front Desk Staff","546","49 ABC St", "Raleigh", "NC 27","USA",1),
 ("Ava", 55, "Catering Staff","777","425 RG St", "Raleigh", "NC 27","USA",1),

@@ -20,8 +20,11 @@ public class Maintaining_Billing_Accounts {
 
         int option = Util.getOption();
 
-        System.out.println("Enter the checkIn ID :");
-        String checkinId = scan.nextLine();
+        String checkinId = null;
+        if(option != -1){
+            System.out.println("Enter the checkIn ID :");
+            checkinId = scan.nextLine();
+        }
 
         switch (option) {
             case 1:
