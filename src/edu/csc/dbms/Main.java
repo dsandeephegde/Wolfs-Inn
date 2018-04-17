@@ -19,7 +19,7 @@ public class Main {
                 System.out.println("2. Task2 - Maintaining Service Records");
                 System.out.println("3. Task3 - Maintaining Billing Accounts");
                 System.out.println("4. Task4 - Reports");
-                System.out.println("5. Check In and Check Out");
+                System.out.println("5. Check In");
                 System.out.println("6. CRUD operations");
 
                 System.out.println();
