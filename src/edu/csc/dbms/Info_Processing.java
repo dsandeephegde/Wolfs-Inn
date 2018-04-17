@@ -84,9 +84,12 @@ public class Info_Processing {
         ResultSet result = DBUtil.executeQuery(query);
         DBTablePrinter.printResultSet(result);
 
+        query = "Select * FROM " + Constants.ROOMS_TABLE + " where " + Constants.ROOMS_CATEGORY + " = '" + category + "' and " + Constants.ROOMS_AVAILABILITY + " = " + "1";
+        result = DBUtil.executeQuery(query);
+        
         if (result != null) {
 
-            System.out.println("roomNumber" + " |" + "hotelId" + " |" + "category" + " |" + "maxOccupancy" + " |" + "availability");
+            System.out.println("roomNumber" + "\t |" + "hotelId" + "\t |" + "category" + "\t |" + "maxOccupancy" + "\t |" + "availability");
             System.out.println("---------------------------------------------------------------");
 
             while (result.next()) {
@@ -341,7 +344,7 @@ public class Info_Processing {
 	}
     
     //List all room categories
-	public void printRoomCategories() throws SQLException{
+	public static void printRoomCategories() throws SQLException{
     	
     	String query = "Select distinct " + Constants.ROOMS_CATEGORY + " from " + Constants.ROOMS_TABLE;
     	

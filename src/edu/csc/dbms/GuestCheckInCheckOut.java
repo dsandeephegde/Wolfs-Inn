@@ -41,6 +41,7 @@ public class GuestCheckInCheckOut {
 		Connection conn = DBUtil.getConnection();
 		try {
 			
+			Info_Processing.printRoomCategories();
 			System.out.println("Enter the category of Room to check availability: ");
 	        String category = scan.nextLine();
 
@@ -70,10 +71,10 @@ public class GuestCheckInCheckOut {
 			
 		}catch (SQLException se) {
 			conn.rollback();
-            System.out.println(se.getMessage());
+            System.out.println("Transaction rollback " + se.getMessage());
         } catch (Exception e) {
         	conn.rollback();
-            System.out.println("Exception " + e.getLocalizedMessage());
+            System.out.println("Transaction rollback " + e.getLocalizedMessage());
         }
 	}
 	
@@ -164,8 +165,6 @@ public class GuestCheckInCheckOut {
         String endDate = scan.nextLine();
         System.out.println("Enter checkinTime (HH:MM): ");
         String checkinTime = scan.nextLine();
-        System.out.println("Enter checkoutTime : ");
-        String checkoutTime = scan.nextLine();
         System.out.println("Enter numberOfGuests : ");
         String numberOfGuests = scan.nextLine();
         System.out.println("Enter customerId : ");
@@ -175,10 +174,10 @@ public class GuestCheckInCheckOut {
 
 		String query = "Insert into " + Constants.CHECK_INS_TABLE + "(" + Constants.CHECK_INS_STARTDATE + ","
 				+ Constants.CHECK_INS_ENDDATE + "," + Constants.CHECK_INS_CHECKINTIME + ","
-				+ Constants.CHECK_INS_CHECKOUTTIME + "," + Constants.CHECK_INS_NUMBEROFGUESTS + ","
+			    + Constants.CHECK_INS_NUMBEROFGUESTS + ","
 				+ Constants.CHECK_INS_CUSTOMERID + "," + Constants.CHECK_INS_HOTELID + ","
 				+ Constants.CHECK_INS_ROOMNUMBER + "," + Constants.CHECK_INS_PAYMENTID + ") values('" + startDate
-				+ "','" + endDate + "','" + checkinTime + "','" + checkoutTime + "','" + numberOfGuests + "','"
+				+ "','" + endDate + "','" + checkinTime + "','" + numberOfGuests + "','"
 				+ customerId + "','" + hotelId + "','" + roomNumber + "','" + paymentId + "')";
         
         Statement stm = conn.createStatement();
@@ -193,6 +192,26 @@ public class GuestCheckInCheckOut {
 	private void enterPaymentInfo(Connection conn) throws SQLException{
 		
 		System.out.println("Enter Payment Informations : ");
+		
+		System.out.println("Enter a valid payment ID :");
+		String paymentId = scan.nextLine();
+		
+		String query1 = "SELECT * FROM " + Constants.PAYMENT_INFOS_TABLE + " WHERE " + Constants.PAYMENT_INFOS_ID + " = " + paymentId;
+		ResultSet result1 = DBUtil.executeQuery(query1);
+		DBTablePrinter.printResultSet(result1);
+		
+		query1 = "SELECT * FROM " + Constants.PAYMENT_INFOS_TABLE + " WHERE " + Constants.PAYMENT_INFOS_ID + " = " + paymentId;
+		result1 = DBUtil.executeQuery(query1);
+		int temp = 0;
+		if(result1.next()) {
+			temp = result1.getInt(Constants.PAYMENT_INFOS_ID);
+		}
+		
+		if(temp != 0) {
+			return;
+		}else {
+			System.out.println("Invaild payment ID, add new payment information.");
+		}
 		
 		System.out.println("Enter payer SSN : ");
         String ssn = scan.nextLine();

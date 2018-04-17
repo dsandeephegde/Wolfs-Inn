@@ -15,6 +15,10 @@ public class Maintaining_Service_Records {
         System.out.println("1. Add/Update a service availed by the customer.");
         System.out.println("2. Delete a service not availed by customer");
 
+        System.out.println();
+        System.out.print("Select an option :");
+        System.out.println();
+        
         int option = Util.getOption();
 
         switch (option) {
