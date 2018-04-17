@@ -187,6 +187,7 @@ public class Reports {
             }
         }
 
+        Info_Processing.printRoomCategories();
         System.out.println("Enter Category : ");
         String category = scan.nextLine();
 
