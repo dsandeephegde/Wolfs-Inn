@@ -3,8 +3,5 @@ bin/*
 .idea/*
 .classpath
 *.iml
-<<<<<<< Updated upstream
 out
-=======
 /bin/
->>>>>>> Stashed changes
