@@ -163,7 +163,7 @@ public class Reports {
     //Report occupancies
     private void getOccupancies() throws SQLException {
         String query;
-        query = "SELECT (COUNT(CASE WHEN availability = false THEN 1 ELSE null END)/COUNT(*))*100 OccupancyPercentage, " +
+        query = "SELECT COALESCE((COUNT(CASE WHEN availability = false THEN 1 ELSE null END)/COUNT(*))*100, 0) as OccupancyPercentage, " +
                 "COUNT(CASE WHEN availability = false THEN 1 ELSE null END) AS TotalOccupancy FROM Rooms NATURAL JOIN Hotels";
         String whereClause = "";
         String message = "Occupancy for ";
@@ -176,13 +176,15 @@ public class Reports {
             message += Constants.HOTELS_ID + " " + hotelId + " ";
         }
 
-        System.out.println("Enter City : ");
-        String city = scan.nextLine();
+        if(hotelId.isEmpty()){
+            System.out.println("Enter City : ");
+            String city = scan.nextLine();
 
-        if (!city.isEmpty()) {
-            whereClause += (!whereClause.isEmpty()) ? " AND " : " WHERE ";
-            whereClause += Constants.HOTELS_CITY + " = '" + city + "'";
-            message += Constants.HOTELS_CITY + " " + city + " ";
+            if (!city.isEmpty()) {
+                whereClause += (!whereClause.isEmpty()) ? " AND " : " WHERE ";
+                whereClause += Constants.HOTELS_CITY + " = '" + city + "'";
+                message += Constants.HOTELS_CITY + " " + city + " ";
+            }
         }
 
         System.out.println("Enter Category : ");

@@ -28,11 +28,9 @@ public class DBUtil {
             result = stmt.executeQuery(query);
 
         } catch (SQLException se) {
-            System.out.println("SQL Exception " + se.getMessage());
-            se.printStackTrace();
+            System.out.println("SQL Exception " + se.getLocalizedMessage());
         } catch (Exception e) {
             System.out.println("Exception " + e.getLocalizedMessage());
-            e.printStackTrace();
         }
 
         return result;

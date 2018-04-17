@@ -73,10 +73,8 @@ public class Main {
             }
         } catch (SQLException se) {
             System.out.println("SQL Exception " + se.getMessage());
-            se.printStackTrace();
         } catch (Exception e) {
             System.out.println("Exception " + e.getLocalizedMessage());
-            e.printStackTrace();
         }
 
 
